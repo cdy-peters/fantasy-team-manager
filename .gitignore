@@ -1,3 +1,5 @@
+.env
+
 # Maven build directories
 target/
 !.mvn/wrapper/mvnw

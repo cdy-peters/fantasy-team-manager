@@ -8,6 +8,12 @@
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.3</version>
+  </parent>
+
   <properties>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
@@ -36,7 +42,23 @@
       <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
-    <!-- Add more JavaFX modules if needed -->
+
+    <!-- Sprint boot dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- Dotenv -->
+    <dependency>
+      <groupId>io.github.cdimascio</groupId>
+      <artifactId>dotenv-java</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
 
 
@@ -63,10 +85,14 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>com.example.App</mainClass>
+          <mainClass>com.example.client.Client</mainClass>
           <modulePath>${project.build.directory}/lib</modulePath>
           <addModules>javafx.controls,javafx.fxml</addModules> <!-- Specify required JavaFX modules -->
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

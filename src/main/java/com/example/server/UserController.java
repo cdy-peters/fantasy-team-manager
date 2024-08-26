@@ -6,27 +6,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
+    private UserDAO userDAO = new UserDAO();
 
     @PostMapping("/login")
     public void login(@RequestBody User user) {
         String username = user.getUsername();
-        String password = user.getPassword();
 
-        System.out.println(username);
-        System.out.println(password);
+        User existingUser = userDAO.findByUsername(username);
+        System.out.println(existingUser.getEmail());
     }
 
     @PostMapping("/register")
     public void register(@RequestBody User user) {
-        String name = user.getName();
-        String email = user.getEmail();
-        String username = user.getUsername();
-        String password = user.getPassword();
-
-        System.out.println(name);
-        System.out.println(email);
-        System.out.println(username);
-        System.out.println(password);
+        userDAO.create(user);
     }
 
 }

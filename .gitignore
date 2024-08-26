@@ -1,0 +1,41 @@
+# Maven build directories
+target/
+!.mvn/wrapper/mvnw
+!.mvn/wrapper/mvnw.cmd
+.mvn/
+# IDE-specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+*.class
+*.log
+# Eclipse
+.project
+.classpath
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+.nb-gradle/
+# IntelliJ IDEA
+*.iml
+*.idea/
+*.idea/*
+*.out
+# MacOS
+.DS_Store
+# Windows
+Thumbs.db
+Desktop.ini
+# Logs
+*.log
+# Maven Wrapper
+.mvn/wrapper/
+# Java
+*.jar
+*.war
+*.ear
+# OS-specific files
+*~
+

@@ -111,4 +111,17 @@ public class UserController {
         return createSession(request, username);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return ResponseEntity.status(401).body("Not logged in");
+        }
+
+        sessionDAO.delete(session.getId());
+        session.invalidate();
+
+        return ResponseEntity.status(200).body("Logged out");
+    }
+
 }

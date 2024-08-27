@@ -58,13 +58,13 @@ public class LoginController {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200) {
+            if (response.statusCode() != 201) {
                 handleError(response);
                 return;
             }
 
-            System.out.println("Login successful");
-            System.out.println(response.body());
+            String cookie = response.headers().firstValue("Set-Cookie").get();
+            System.out.println("Logged in " + cookie);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

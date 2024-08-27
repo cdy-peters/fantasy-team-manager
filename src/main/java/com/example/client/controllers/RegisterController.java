@@ -73,7 +73,8 @@ public class RegisterController {
                 return;
             }
 
-            System.out.println("Registration successful");
+            String cookie = response.headers().firstValue("Set-Cookie").get();
+            System.out.println("User created " + cookie);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

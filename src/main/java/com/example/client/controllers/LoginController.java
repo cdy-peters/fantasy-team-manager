@@ -24,6 +24,16 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
+    private void handleError(HttpResponse<String> response) {
+        if (response.statusCode() == 401) {
+            System.out.println(response.body());
+        } else if (response.statusCode() == 400) {
+            System.out.println(response.body());
+        } else {
+            System.out.println("An error occurred");
+        }
+    }
+
     @FXML
     protected void onCreateAccountLinkClick() throws IOException {
         Stage stage = (Stage) createAccountLink.getScene().getWindow();
@@ -47,8 +57,15 @@ public class LoginController {
                 .build();
 
         try {
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                handleError(response);
+                return;
+            }
+
+            System.out.println("Login successful");
+            System.out.println(response.body());
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

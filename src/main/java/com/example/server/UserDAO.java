@@ -3,6 +3,7 @@ package com.example.server;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 public class UserDAO {
 
@@ -26,7 +27,7 @@ public class UserDAO {
         }
     }
 
-    public void create(User user) {
+    public void create(User user) throws SQLIntegrityConstraintViolationException {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();
@@ -38,6 +39,8 @@ public class UserDAO {
         try {
             Statement stmt = Server.conn.createStatement();
             stmt.executeUpdate(query);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw e;
         } catch (SQLException e) {
             e.printStackTrace();
         }

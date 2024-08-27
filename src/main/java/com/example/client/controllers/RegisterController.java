@@ -28,6 +28,18 @@ public class RegisterController {
     @FXML
     private PasswordField passwordField;
 
+    private void handleError(HttpResponse<String> response) {
+        if (response.statusCode() == 400) {
+            System.out.println(response.body());
+        } else if (response.statusCode() == 422) {
+            System.out.println(response.body());
+        } else if (response.statusCode() == 409) {
+            System.out.println(response.body());
+        } else {
+            System.out.println("An error occurred");
+        }
+    }
+
     @FXML
     protected void onSignInLinkClick() throws IOException {
         Stage stage = (Stage) signInLink.getScene().getWindow();
@@ -55,8 +67,14 @@ public class RegisterController {
                 .build();
 
         try {
-            client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 201) {
+                handleError(response);
+                return;
+            }
+
+            System.out.println("Registration successful");
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

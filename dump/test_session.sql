@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.36, for macos14 (arm64)
+-- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: test
 -- ------------------------------------------------------
--- Server version	8.0.37
+-- Server version	9.0.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,12 +24,13 @@ DROP TABLE IF EXISTS `session`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `session_id` int NOT NULL,
+  `session_id` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `max_interval` int NOT NULL,
   `username` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `session_id_UNIQUE` (`session_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-28 13:11:30
+-- Dump completed on 2024-08-28 15:09:26

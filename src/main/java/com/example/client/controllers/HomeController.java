@@ -22,7 +22,7 @@ public class HomeController {
     @FXML
     protected void onSignOutButtonClick() throws IOException {
         String sessionCookie = PrefsHelper.getPref("sessionCookie");
-        
+
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(Client.SERVER_URL + "logout"))
@@ -32,8 +32,10 @@ public class HomeController {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 200) {
-                System.out.println("An error occurred");
+
+            int statusCode = response.statusCode();
+            if (statusCode != 200 && statusCode != 205) {
+                System.out.println("An error occurred: " + response.body());
                 return;
             }
 

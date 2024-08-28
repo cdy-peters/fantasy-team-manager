@@ -115,13 +115,17 @@ public class UserController {
     public ResponseEntity<?> logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) {
-            return ResponseEntity.status(401).body("Not logged in");
+            return ResponseEntity.status(205).body("Session not found");
         }
 
-        sessionDAO.delete(session.getId());
-        session.invalidate();
+        try {
+            sessionDAO.delete(session.getId());
+            session.invalidate();
 
-        return ResponseEntity.status(200).body("Logged out");
+            return ResponseEntity.status(200).body("Logged out");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to logout");
+        }
     }
 
 }

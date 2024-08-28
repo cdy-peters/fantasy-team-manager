@@ -19,6 +19,8 @@ First, clone the repository to your local machine:
 git clone https://github.com/Marcus441/Fantasy-Team-Manager
 cd Fantasy-Team-Manager
 ```
+### Set environment variables
+Create a .env file in the root folder and set the variables specified in .env.example
 ### Build the Project
 Use Maven to clean and build the project:
 ```
@@ -28,6 +30,11 @@ mvn clean package
 To run the JavaFX application, use the following Maven command:
 ```
 mvn javafx:run
+```
+
+To run the Spring Boot application, use the following Maven command:
+```
+mvn spring-boot:run
 ```
 ## Structure
 - src/main/java: Contains the source code for the application.

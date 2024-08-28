@@ -1,8 +1,10 @@
-package com.example.server;
+package com.example.server.models;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import com.example.server.Server;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.server.controllers;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -7,6 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.server.models.IUser;
+import com.example.server.models.SessionDAO;
+import com.example.server.models.UserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(HttpServletRequest request, @RequestBody User user) {
+    public ResponseEntity<?> login(HttpServletRequest request, @RequestBody IUser user) {
         String username = user.getUsername();
         String password = user.getPassword();
 
@@ -45,7 +49,7 @@ public class UserController {
         }
 
         // Check if user exists
-        User existingUser = userDAO.findByUsername(username);
+        IUser existingUser = userDAO.findByUsername(username);
         if (existingUser == null) {
             return ResponseEntity.status(401).body("Incorrect credentials");
         }
@@ -60,7 +64,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(HttpServletRequest request, @RequestBody User user) {
+    public ResponseEntity<?> register(HttpServletRequest request, @RequestBody IUser user) {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();
@@ -70,28 +74,28 @@ public class UserController {
         if (name.isEmpty()) {
             return ResponseEntity.status(400).body("Missing name");
         }
-        if (!User.isNameValid(name)) {
+        if (!IUser.isNameValid(name)) {
             return ResponseEntity.status(422).body("Invalid name");
         }
 
         if (email.isEmpty()) {
             return ResponseEntity.status(400).body("Missing email");
         }
-        if (!User.isEmailValid(email)) {
+        if (!IUser.isEmailValid(email)) {
             return ResponseEntity.status(422).body("Invalid email");
         }
 
         if (username.isEmpty()) {
             return ResponseEntity.status(400).body("Missing username");
         }
-        if (!User.isUsernameValid(username)) {
+        if (!IUser.isUsernameValid(username)) {
             return ResponseEntity.status(422).body("Invalid username");
         }
 
         if (password.isEmpty()) {
             return ResponseEntity.status(400).body("Missing password");
         }
-        if (!User.isPasswordValid(password)) {
+        if (!IUser.isPasswordValid(password)) {
             return ResponseEntity.status(422).body("Invalid password");
         }
 

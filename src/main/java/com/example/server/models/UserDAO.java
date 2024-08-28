@@ -1,13 +1,16 @@
-package com.example.server;
+package com.example.server.models;
 
 import java.sql.Statement;
+
+import com.example.server.Server;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public class UserDAO {
 
-    public User findByUsername(String username) {
+    public IUser findByUsername(String username) {
         String query = String.format("SELECT * FROM user WHERE username = '%s' LIMIT 1", username);
         try {
             Statement stmt = Server.conn.createStatement();
@@ -16,18 +19,18 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                return new User(name, email, username, password);
+                return new IUser(name, email, username, password);
             } else {
                 System.out.println("No user found");
-                return new User();
+                return new IUser();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return new User();
+            return new IUser();
         }
     }
 
-    public void create(User user) throws SQLIntegrityConstraintViolationException {
+    public void create(IUser user) throws SQLIntegrityConstraintViolationException {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();

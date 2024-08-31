@@ -15,7 +15,7 @@ connection = mysql.connector.connect(
     port = parsed_url.port,
     user= os.getenv('MYSQL_USER'),
     password= os.getenv('MYSQL_PASSWORD'),
-    database='test'
+    database='fantasy_team'
 )
 cursor = connection.cursor()
 

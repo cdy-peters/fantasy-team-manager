@@ -21,14 +21,14 @@ public class Navbar extends HBox {
     private Button signOutButton;
 
     public Navbar() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("navbar.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/navbar.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            throw new RuntimeException("Failed to load Navbar FXML", exception);
         }
 
     }

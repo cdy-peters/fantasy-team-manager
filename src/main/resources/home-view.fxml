@@ -15,11 +15,9 @@
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
          VBox.vgrow="ALWAYS">
          <children>
-            <Navbar fx:id="navbar" />
-            <Group fx:id="navbarGroup" layoutX="14.0" layoutY="7.1015625">
-               <!--add
+            <Navbar />
+            <!--add
                navbar here -->
-            </Group>
          </children>
       </AnchorPane>
    </children>

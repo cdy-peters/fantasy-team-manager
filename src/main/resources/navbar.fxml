@@ -10,7 +10,11 @@
     xmlns:fx="http://javafx.com/fxml/1"
     fx:id="navbar" spacing="10"
     alignment="CENTER_LEFT">
-    <Text text="Fantasy Team" font="System Bold 24" />
+    <Text text="Fantasy Team">
+        <font>
+            <Font name="System Bold" size="24" />
+        </font>
+    </Text>
     <Button
         fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
 </fx:root>

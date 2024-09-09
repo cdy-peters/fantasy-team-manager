@@ -17,9 +17,21 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Navbar extends HBox {
-
     @FXML
     private Button signOutButton;
+
+    public Navbar() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("navbar.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+
+    }
 
     @FXML
     protected void onSignOutButtonClick() throws IOException {

@@ -8,7 +8,7 @@
 <fx:root type="javafx.scene.layout.HBox" prefHeight="400.0" prefWidth="640.0"
     xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:id="navbar" fx:controller="com.example.client.components.NavbarController" spacing="10"
+    fx:id="navbar" spacing="10"
     alignment="CENTER_LEFT">
     <Text text="Fantasy Team" font="System Bold 24" />
     <Button

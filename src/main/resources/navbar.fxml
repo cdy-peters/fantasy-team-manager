@@ -4,8 +4,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Region?>
 
-<fx:root type="javafx.scene.layout.HBox" prefHeight="400.0" prefWidth="640.0"
+<fx:root type="javafx.scene.layout.HBox" prefHeight="10" prefWidth="640.0"
     xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
     fx:id="navbar" spacing="10"
@@ -15,6 +16,7 @@
             <Font name="System Bold" size="24" />
         </font>
     </Text>
+    <Region HBox.hgrow="ALWAYS" />
     <Button
         fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
 </fx:root>

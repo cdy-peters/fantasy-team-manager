@@ -1,4 +1,4 @@
-package com.example.client.controllers;
+package com.example.client.components;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,9 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-class NavbarController {
+public class Navbar extends HBox {
 
     @FXML
     private Button signOutButton;

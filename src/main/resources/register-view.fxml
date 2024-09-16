@@ -50,7 +50,7 @@
                      <children>
                         <Label text="Username">
                            <tooltip>
-                              <Tooltip showDelay="20ms" hideDelay="100ms" showDuration="1000s" text=" - Must be at least 3 characters&#10; - Must only contain letters and numbers" />
+                              <Tooltip hideDelay="100ms" showDelay="20ms" showDuration="1000s" text=" - Must be at least 3 characters&#10; - Must only contain letters and numbers" />
                            </tooltip></Label>
                         <TextField fx:id="usernameField" layoutY="17.0" promptText="Enter username" />
                      </children>
@@ -59,7 +59,7 @@
                      <children>
                         <Label text="Password">
                            <tooltip>
-                              <Tooltip showDelay="20ms" hideDelay="100ms" showDuration="1000s" text=" - Must be at least 8 characters&#10; - Must contain at least 1 lowercase letter&#10; - Must contain at least 1 uppercase letter&#10; - Must contain at least 1 number" />
+                              <Tooltip hideDelay="100ms" showDelay="20ms" showDuration="1000s" text=" - Must be at least 8 characters&#10; - Must contain at least 1 lowercase letter&#10; - Must contain at least 1 uppercase letter&#10; - Must contain at least 1 number" />
                            </tooltip></Label>
                         <PasswordField fx:id="passwordField" layoutX="1.0" layoutY="16.0" promptText="Enter password" />
                      </children>
@@ -67,7 +67,7 @@
                </children>
             </VBox>
             <Text fx:id="submitError" fill="RED" layoutX="250.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-            <Button fx:id="submitButton" layoutX="272.0" layoutY="338.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Create account" />
+            <Button fx:id="submitButton" defaultButton="true" layoutX="272.0" layoutY="338.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Create account" />
          </children>
       </AnchorPane>
    </children>

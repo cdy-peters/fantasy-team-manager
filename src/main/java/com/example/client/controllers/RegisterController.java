@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class RegisterController {
@@ -32,17 +33,20 @@ public class RegisterController {
     @FXML
     private PasswordField passwordField;
     @FXML
+    private Text submitError;
+    @FXML
     private Button submitButton;
 
     private void handleError(HttpResponse<String> response) {
         if (response.statusCode() == 400) {
-            System.out.println(response.body());
+            submitError.setText("Please fill in all fields");
         } else if (response.statusCode() == 422) {
-            System.out.println(response.body());
+            submitError.setText("Invalid credentials");
         } else if (response.statusCode() == 409) {
-            System.out.println(response.body());
+            submitError.setText("Account already exists");
         } else {
-            System.out.println("An error occurred");
+            submitError.setText("An error occurred");
+            System.out.println(response.body());
         }
     }
 

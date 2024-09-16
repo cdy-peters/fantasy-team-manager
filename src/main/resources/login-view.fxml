@@ -48,7 +48,8 @@
                   </Group>
                </children>
             </VBox>
-            <Button fx:id="submitButton" layoutX="287.0" layoutY="284.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Sign In" />
+            <Text fx:id="submitError" fill="RED" layoutX="239.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+            <Button fx:id="submitButton" defaultButton="true" layoutX="287.0" layoutY="299.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Sign In" />
          </children>
       </AnchorPane>
    </children>

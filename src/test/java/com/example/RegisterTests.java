@@ -33,11 +33,20 @@ import org.mockito.MockitoAnnotations;
 
 import com.example.client.controllers.RegisterController;
 import com.example.client.helpers.PrefsHelper;
+import com.example.server.models.IUser;
+import com.example.server.models.SessionDAO;
+import com.example.server.models.UserDAO;
 import com.example.utils.ReflectionUtils;
 import com.example.utils.JavaFXInitializer;
 import com.example.client.Client;
 
 public class RegisterTests {
+    @Mock
+    private UserDAO mockUserDAO;
+
+    @Mock
+    private SessionDAO mockSessionDAO;
+
     @Mock
     private HttpClient mockHttpClient;
 
@@ -92,10 +101,11 @@ public class RegisterTests {
     }
 
     @Test
-    public void testSuccessfulRegistration() throws Exception {
+    public void testSuccessfulRequest() throws Exception {
         HttpHeaders headers = HttpHeaders.of(
                 Map.of("Set-Cookie", List.of("sessionCookieValue")),
                 (name, value) -> true);
+
         // Setup mock response
         HttpResponse<String> mockResponse = mock(HttpResponse.class);
         when(mockResponse.statusCode()).thenReturn(201);
@@ -105,7 +115,7 @@ public class RegisterTests {
                 .thenReturn(mockResponse);
 
         // Set up the controller fields and create the HTTP body
-        String body = setUpMockFields("John Doe", "john@example.com", "john_doe", "securePass");
+        String body = setUpMockFields("John Doe", "john@example.com", "john_doe", "");
 
         // Call the createHttpRequest method using reflection
         HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
@@ -119,5 +129,62 @@ public class RegisterTests {
         // Verify HttpClient interaction
         verify(mockHttpClient).send(ArgumentMatchers.any(HttpRequest.class),
                 ArgumentMatchers.any(HttpResponse.BodyHandler.class));
+    }
+
+    @Test
+    public void testIsNameValid() {
+        assertTrue(IUser.isNameValid("John Doe"), "Valid name should pass");
+        assertFalse(IUser.isNameValid("Jo"), "Name too short should fail");
+        assertFalse(IUser.isNameValid(""), "Empty name should fail");
+        assertFalse(IUser.isNameValid("John123"), "Name with numbers should fail");
+    }
+
+    @Test
+    public void testIsEmailValid() {
+        assertTrue(IUser.isEmailValid("john@example.com"), "Valid email should pass");
+        assertFalse(IUser.isEmailValid("john.example.com"), "Email without @ should fail");
+        assertFalse(IUser.isEmailValid("john@com"), "Email without domain should fail");
+        assertFalse(IUser.isEmailValid("john@.com"), "Email without domain name should fail");
+    }
+
+    @Test
+    public void testIsUsernameValid() {
+        assertTrue(IUser.isUsernameValid("john_doe"), "Valid username should pass");
+        assertFalse(IUser.isUsernameValid("jo"), "Username too short should fail");
+        assertFalse(IUser.isUsernameValid("john doe"), "Username with spaces should fail");
+        assertFalse(IUser.isUsernameValid("john@doe"), "Username with special characters should fail");
+    }
+
+    @Test
+    public void testIsPasswordValid() {
+        assertTrue(IUser.isPasswordValid("Secure123"), "Valid password should pass");
+        assertFalse(IUser.isPasswordValid("secure123"), "Password without uppercase should fail");
+        assertFalse(IUser.isPasswordValid("SECURE123"), "Password without lowercase should fail");
+        assertFalse(IUser.isPasswordValid("Secure"), "Password too short should fail");
+    }
+
+    @Test
+    public void testSuccessfulRegistration() throws Exception {
+
+    }
+
+    @Test
+    public void testRegistrationWithMissingFields() throws Exception {
+
+    }
+
+    @Test
+    public void testRegistrationWithInvalidCredentials() throws Exception {
+
+    }
+
+    @Test
+    public void testRegistrationWithExistingEmail() throws Exception {
+
+    }
+
+    @Test
+    public void testRegistrationServerError() throws Exception {
+
     }
 }

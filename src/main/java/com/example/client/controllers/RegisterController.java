@@ -81,11 +81,6 @@ public class RegisterController {
         PrefsHelper.setPref("sessionCookie", sessionCookie);
         Client.sessionCookie = sessionCookie;
 
-        Stage stage = (Stage) submitButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-        stage.setScene(scene);
-
     }
 
     @FXML
@@ -112,6 +107,10 @@ public class RegisterController {
         try {
             HttpResponse<String> response = sendRequest(request);
             handleResponse(response);
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+            stage.setScene(scene);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

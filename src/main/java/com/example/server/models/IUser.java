@@ -66,7 +66,7 @@ public class IUser {
     }
 
     public static Boolean isUsernameValid(String username) {
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{3,255}$");
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9._-]{3,20}$");
         Matcher matcher = pattern.matcher(username);
         return matcher.find();
     }

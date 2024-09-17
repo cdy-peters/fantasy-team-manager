@@ -70,6 +70,7 @@ public class LoginController {
             }
 
             Map<String, List<String>> headers = response.headers().map();
+            System.err.println(headers);
             List<String> cookies = headers.get("Set-Cookie");
 
             String sessionCookie = cookies.get(0);

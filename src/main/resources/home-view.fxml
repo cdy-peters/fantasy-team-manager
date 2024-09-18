@@ -85,7 +85,7 @@
                   </Group>
                </children>
             </VBox>
-            <Button layoutX="279.0" layoutY="351.0" mnemonicParsing="false" text="Create Team" />
+            <Button fx:id="submitButton" layoutX="279.0" layoutY="351.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Create Team" />
          </children>
       </AnchorPane>
    </children>

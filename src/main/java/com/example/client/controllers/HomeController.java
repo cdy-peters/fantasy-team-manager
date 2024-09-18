@@ -1,6 +1,7 @@
 package com.example.client.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 public class HomeController {
@@ -26,6 +27,8 @@ public class HomeController {
     private ComboBox<String> RWB;
     @FXML
     private ComboBox<String> GK;
+    @FXML
+    private Button submitButton;
 
     public void initialize() {
         String[] strikers = {"Lionel Messi", "Cristiano Ronaldo", "Robert Lewandowski", "Kylian Mbappe", "Erling Haaland"};
@@ -47,5 +50,22 @@ public class HomeController {
         RWB.getItems().addAll(defenders);
 
         GK.getItems().addAll(goalkeepers);
+    }
+
+    @FXML
+    protected void onSubmitButtonClick() {
+        String LSPlayer = LS.getValue();
+        String RSPlayer = RS.getValue();
+        String LWPlayer = LW.getValue();
+        String LMPlayer = LM.getValue();
+        String RMPlayer = RM.getValue();
+        String RWPlayer = RW.getValue();
+        String LWBPlayer = LWB.getValue();
+        String LBPlayer = LB.getValue();
+        String RBPlayer = RB.getValue();
+        String RWBPlayer = RWB.getValue();
+        String GKPlayer = GK.getValue();
+
+        // TODO: Create team query
     }
 }

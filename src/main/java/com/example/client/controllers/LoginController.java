@@ -95,8 +95,10 @@ public class LoginController {
         HttpRequest request = createHttpRequest(body);
 
         try {
+
             HttpResponse<String> response = sendRequest(request);
             handleResponse(response);
+            
             Stage stage = (Stage) submitButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);

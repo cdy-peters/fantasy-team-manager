@@ -1,61 +1,51 @@
 package com.example.client.controllers;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-import com.example.client.Client;
-import com.example.client.components.Navbar;
-import com.example.client.helpers.PrefsHelper;
-
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
 
 public class HomeController {
-
-    // @FXML
-    // private Button signOutButton;
-    //
     @FXML
-    private Navbar navbar;
-    //
-    // @FXML
-    // protected void onSignOutButtonClick() throws IOException {
-    // String sessionCookie = PrefsHelper.getPref("sessionCookie");
-    //
-    // HttpClient client = HttpClient.newHttpClient();
-    // HttpRequest request = HttpRequest.newBuilder()
-    // .uri(URI.create(Client.SERVER_URL + "logout"))
-    // .header("Cookie", sessionCookie)
-    // .POST(HttpRequest.BodyPublishers.noBody())
-    // .build();
-    //
-    // try {
-    // HttpResponse<String> response = client.send(request,
-    // HttpResponse.BodyHandlers.ofString());
-    //
-    // int statusCode = response.statusCode();
-    // if (statusCode != 200 && statusCode != 205) {
-    // System.out.println("An error occurred: " + response.body());
-    // return;
-    // }
-    //
-    // PrefsHelper.removePref("sessionCookie");
-    //
-    // Stage stage = (Stage) signOutButton.getScene().getWindow();
-    // FXMLLoader fxmlLoader = new
-    // FXMLLoader(getClass().getResource("/login-view.fxml"));
-    // Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-    // stage.setScene(scene);
-    // } catch (Exception e) {
-    // System.out.println(e.getMessage());
-    // return;
-    // }
-    //
-    // }
+    private ComboBox<String> LS;
+    @FXML
+    private ComboBox<String> RS;
+    @FXML
+    private ComboBox<String> LW;
+    @FXML
+    private ComboBox<String> LM;
+    @FXML
+    private ComboBox<String> RM;
+    @FXML
+    private ComboBox<String> RW;
+    @FXML
+    private ComboBox<String> LWB;
+    @FXML
+    private ComboBox<String> LB;
+    @FXML
+    private ComboBox<String> RB;
+    @FXML
+    private ComboBox<String> RWB;
+    @FXML
+    private ComboBox<String> GK;
+
+    public void initialize() {
+        String[] strikers = {"Lionel Messi", "Cristiano Ronaldo", "Robert Lewandowski", "Kylian Mbappe", "Erling Haaland"};
+        String[] midfielders = {"Kevin De Bruyne", "Luka Modric", "N'Golo Kante", "Bruno Fernandes", "Joshua Kimmich"};
+        String[] defenders = {"Virgil van Dijk", "Sergio Ramos", "Trent Alexander-Arnold", "Andrew Robertson", "Kalidou Koulibaly"};
+        String[] goalkeepers = {"Jan Oblak", "Alisson Becker", "Ederson", "Thibaut Courtois", "Marc-Andre ter Stegen"};
+
+        LS.getItems().addAll(strikers);
+        RS.getItems().addAll(strikers);
+
+        LW.getItems().addAll(strikers);
+        LM.getItems().addAll(midfielders);
+        RM.getItems().addAll(midfielders);
+        RW.getItems().addAll(strikers);
+
+        LWB.getItems().addAll(defenders);
+        LB.getItems().addAll(defenders);
+        RB.getItems().addAll(defenders);
+        RWB.getItems().addAll(defenders);
+
+        GK.getItems().addAll(goalkeepers);
+    }
 }

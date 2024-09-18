@@ -35,8 +35,8 @@
                         <HBox alignment="CENTER" layoutX="-2.0" layoutY="72.0" prefHeight="25.0"
                            prefWidth="640.0" spacing="20.0">
                            <children>
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="LS" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="RS" prefHeight="25.0" prefWidth="127.0" />
                            </children>
                         </HBox>
                      </children>
@@ -48,10 +48,10 @@
                         <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
                            spacing="20.0">
                            <children>
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="LW" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="LM" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="RM" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="RW" prefHeight="25.0" prefWidth="127.0" />
                            </children>
                         </HBox>
                      </children>
@@ -63,10 +63,10 @@
                         <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
                            spacing="20.0">
                            <children>
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="LWB" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="LB" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="RB" prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="RWB" prefHeight="25.0" prefWidth="127.0" />
                            </children>
                         </HBox>
                      </children>
@@ -78,7 +78,7 @@
                         <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
                            spacing="20.0">
                            <children>
-                              <ComboBox prefHeight="25.0" prefWidth="127.0" />
+                              <ComboBox fx:id="GK" prefHeight="25.0" prefWidth="127.0" />
                            </children>
                         </HBox>
                      </children>

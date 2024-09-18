@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `fantasy_team` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `fantasy_team`;
 -- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: test
+-- Host: 127.0.0.1    Database: fantasy_team
 -- ------------------------------------------------------
 -- Server version	9.0.1
 
@@ -24,10 +26,10 @@ DROP TABLE IF EXISTS `session`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `session_id` varchar(255) NOT NULL,
+  `session_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `max_interval` int NOT NULL,
-  `username` varchar(45) NOT NULL,
+  `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-28 15:09:26
+-- Dump completed on 2024-08-31 17:27:48

@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginController {
@@ -28,15 +29,51 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
     @FXML
+    private Text submitError;
+    @FXML
     private Button submitButton;
+
+    private HttpClient httpClient = HttpClient.newHttpClient();
+
+    public void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    private HttpRequest createHttpRequest(String body) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create(Client.SERVER_URL + "login"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+    }
+
+    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
+        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    private void handleResponse(HttpResponse<String> response) throws IOException {
+        if (response.statusCode() != 201) {
+            handleError(response);
+            return;
+        }
+
+        Map<String, List<String>> headers = response.headers().map();
+        List<String> cookies = headers.get("Set-Cookie");
+
+        String sessionCookie = cookies.get(0);
+        PrefsHelper.setPref("sessionCookie", sessionCookie);
+        Client.sessionCookie = sessionCookie;
+
+    }
 
     private void handleError(HttpResponse<String> response) {
         if (response.statusCode() == 401) {
-            System.out.println(response.body());
+            submitError.setText("Incorrect credentials");
         } else if (response.statusCode() == 400) {
-            System.out.println(response.body());
+            submitError.setText("Please fill in all fields");
         } else {
-            System.out.println("An error occurred");
+            submitError.setText("An error occurred");
+            System.out.println(response.body());
         }
     }
 
@@ -55,28 +92,13 @@ public class LoginController {
 
         String body = String.format("{\"username\": \"%s\", \"password\": \"%s\"}", username, password);
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "login"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
+        HttpRequest request = createHttpRequest(body);
 
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            if (response.statusCode() != 201) {
-                handleError(response);
-                return;
-            }
 
-            Map<String, List<String>> headers = response.headers().map();
-            System.err.println(headers);
-            List<String> cookies = headers.get("Set-Cookie");
-
-            String sessionCookie = cookies.get(0);
-            PrefsHelper.setPref("sessionCookie", sessionCookie);
-            Client.sessionCookie = sessionCookie;
-
+            HttpResponse<String> response = sendRequest(request);
+            handleResponse(response);
+            
             Stage stage = (Stage) submitButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);

@@ -6,23 +6,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22"
-   xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.example.client.controllers.RegisterController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controllers.RegisterController">
    <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
-         VBox.vgrow="ALWAYS">
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Group layoutX="224.0" layoutY="75.0">
                <children>
-                  <Text layoutX="53.0" layoutY="-3.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                     text="Register">
+                  <Text layoutX="53.0" layoutY="-3.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Register">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -35,8 +32,7 @@
                   </TextFlow>
                </children>
             </Group>
-            <VBox layoutX="247.0" layoutY="116.0" prefHeight="191.0" prefWidth="149.0"
-               spacing="10.0">
+            <VBox layoutX="247.0" layoutY="116.0" prefHeight="191.0" prefWidth="149.0" spacing="10.0">
                <children>
                   <Group>
                      <children>
@@ -52,21 +48,26 @@
                   </Group>
                   <Group>
                      <children>
-                        <Label text="Username" />
+                        <Label text="Username">
+                           <tooltip>
+                              <Tooltip hideDelay="100ms" showDelay="20ms" showDuration="1000s" text=" - Must be at least 3 characters&#10; - Must only contain letters and numbers" />
+                           </tooltip></Label>
                         <TextField fx:id="usernameField" layoutY="17.0" promptText="Enter username" />
                      </children>
                   </Group>
                   <Group>
                      <children>
-                        <Label text="Password" />
-                        <PasswordField fx:id="passwordField" layoutX="1.0" layoutY="16.0"
-                           promptText="Enter password" />
+                        <Label text="Password">
+                           <tooltip>
+                              <Tooltip hideDelay="100ms" showDelay="20ms" showDuration="1000s" text=" - Must be at least 8 characters&#10; - Must contain at least 1 lowercase letter&#10; - Must contain at least 1 uppercase letter&#10; - Must contain at least 1 number" />
+                           </tooltip></Label>
+                        <PasswordField fx:id="passwordField" layoutX="1.0" layoutY="16.0" promptText="Enter password" />
                      </children>
                   </Group>
                </children>
             </VBox>
-            <Button fx:id="submitButton" layoutX="274.0" layoutY="329.0" mnemonicParsing="false"
-               text="Create account" onAction="#onSubmitButtonClick" />
+            <Text fx:id="submitError" fill="RED" layoutX="250.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+            <Button fx:id="submitButton" defaultButton="true" layoutX="272.0" layoutY="338.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Create account" />
          </children>
       </AnchorPane>
    </children>

@@ -51,10 +51,10 @@ public class LoginController {
         return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private void handleResponse(HttpResponse<String> response) throws IOException {
+    private boolean handleResponse(HttpResponse<String> response) throws IOException {
         if (response.statusCode() != 201) {
             handleError(response);
-            return;
+            return false;
         }
 
         Map<String, List<String>> headers = response.headers().map();
@@ -64,16 +64,23 @@ public class LoginController {
         PrefsHelper.setPref("sessionCookie", sessionCookie);
         Client.sessionCookie = sessionCookie;
 
+        return true;
+
     }
 
     private void handleError(HttpResponse<String> response) {
-        if (response.statusCode() == 401) {
-            submitError.setText("Incorrect credentials");
-        } else if (response.statusCode() == 400) {
-            submitError.setText("Please fill in all fields");
-        } else {
-            submitError.setText("An error occurred");
-            System.out.println(response.body());
+        Integer code = response.statusCode();
+        switch (code) {
+            case 400:
+                submitError.setText("Please fill in all fields");
+                break;
+            case 401:
+                submitError.setText("Incorrect credentials");
+                break;
+            default:
+                submitError.setText("An error occurred");
+                System.out.println(response.body());
+                break;
         }
     }
 
@@ -97,8 +104,12 @@ public class LoginController {
         try {
 
             HttpResponse<String> response = sendRequest(request);
-            handleResponse(response);
-            
+            boolean isSuccessful = handleResponse(response);
+
+            if (!isSuccessful) {
+                return;
+            }
+
             Stage stage = (Stage) submitButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);

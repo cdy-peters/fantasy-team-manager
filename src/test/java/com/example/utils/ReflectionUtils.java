@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 
 public class ReflectionUtils {
 
-    public static void callHandleResponse(Object instance, HttpResponse<String> response) throws Exception {
+    public static boolean callHandleResponse(Object instance, HttpResponse<String> response) throws Exception {
         Class<?> clazz = instance.getClass();
 
         // Get the handleResponse method
@@ -15,7 +15,7 @@ public class ReflectionUtils {
 
         method.setAccessible(true);
 
-        method.invoke(instance, response);
+        return (boolean) method.invoke(instance, response);
     }
 
     public static HttpRequest callCreateHttpRequest(Object instance, String body) throws Exception {
@@ -29,6 +29,19 @@ public class ReflectionUtils {
         // Invoke the method and return the result
         return (HttpRequest) method.invoke(instance, body);
     }
+
+    public static HttpResponse<String> callSendRequest(Object instance, HttpRequest request) throws Exception {
+        Class<?> clazz = instance.getClass();
+
+        // Get the sendRequest method
+        Method method = clazz.getDeclaredMethod("sendRequest", HttpRequest.class);
+
+        method.setAccessible(true);
+
+        // Invoke the method and return the result
+        return (HttpResponse<String>) method.invoke(instance, request);
+    }
+
 
     public static Object invokePrivateMethod(Object obj, String methodName, Class<?>[] paramTypes, Object... params)
             throws Exception {

@@ -35,13 +35,27 @@ public class UserDAO {
         String email = user.getEmail();
         String username = user.getUsername();
         String password = user.getPassword();
-
-        String query = String.format(
+    
+        String userQuery = String.format(
                 "INSERT INTO user (name, email, username, password) VALUES ('%s', '%s', '%s', '%s')",
                 name, email, username, password);
+    
         try {
             Statement stmt = Server.conn.createStatement();
-            stmt.executeUpdate(query);
+            stmt.executeUpdate(userQuery, Statement.RETURN_GENERATED_KEYS);
+    
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                long userId = rs.getLong(1);
+
+                String rosterQuery = String.format("INSERT INTO user_roster (user_id) VALUES ('%d')", userId);
+                stmt.executeUpdate(rosterQuery);
+    
+                System.out.println("User and roster created successfully. User ID: " + userId);
+            } else {
+                System.out.println("Error generating user ID");
+            }
+    
         } catch (SQLIntegrityConstraintViolationException e) {
             throw e;
         } catch (SQLException e) {

@@ -25,6 +25,7 @@ public class Client extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         String view = sessionCookie.isEmpty() ? "/login-view.fxml" : "/home-view.fxml";
+        System.out.println(sessionCookie);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
         stage.setTitle(TITLE);

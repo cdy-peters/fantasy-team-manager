@@ -1,70 +1,119 @@
 package com.example.client.controllers;
 
+import com.example.server.models.IPlayer;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 
 public class HomeController {
     @FXML
-    private ComboBox<String> LS;
+    private ComboBox<IPlayer> LS;
     @FXML
-    private ComboBox<String> RS;
+    private ComboBox<IPlayer> RS;
     @FXML
-    private ComboBox<String> LW;
+    private ComboBox<IPlayer> LW;
     @FXML
-    private ComboBox<String> LM;
+    private ComboBox<IPlayer> LM;
     @FXML
-    private ComboBox<String> RM;
+    private ComboBox<IPlayer> RM;
     @FXML
-    private ComboBox<String> RW;
+    private ComboBox<IPlayer> RW;
     @FXML
-    private ComboBox<String> LWB;
+    private ComboBox<IPlayer> LWB;
     @FXML
-    private ComboBox<String> LB;
+    private ComboBox<IPlayer> LB;
     @FXML
-    private ComboBox<String> RB;
+    private ComboBox<IPlayer> RB;
     @FXML
-    private ComboBox<String> RWB;
+    private ComboBox<IPlayer> RWB;
     @FXML
-    private ComboBox<String> GK;
+    private ComboBox<IPlayer> GK;
     @FXML
     private Button submitButton;
 
+    private class PlayerListCell extends ListCell<IPlayer> {
+        @Override
+        protected void updateItem(IPlayer player, boolean empty) {
+            super.updateItem(player, empty);
+
+            if (player == null || empty) {
+                setText(null);
+            } else {
+                setText(player.getName());
+            }
+        }
+    }
+
+    private void initComboBox(ComboBox<IPlayer> comboBox, ObservableList<IPlayer> players) {
+        comboBox.getItems().addAll(players);
+        comboBox.setCellFactory(param -> new PlayerListCell());
+        comboBox.setButtonCell(new PlayerListCell());
+    }
+
     public void initialize() {
-        String[] strikers = {"Lionel Messi", "Cristiano Ronaldo", "Robert Lewandowski", "Kylian Mbappe", "Erling Haaland"};
-        String[] midfielders = {"Kevin De Bruyne", "Luka Modric", "N'Golo Kante", "Bruno Fernandes", "Joshua Kimmich"};
-        String[] defenders = {"Virgil van Dijk", "Sergio Ramos", "Trent Alexander-Arnold", "Andrew Robertson", "Kalidou Koulibaly"};
-        String[] goalkeepers = {"Jan Oblak", "Alisson Becker", "Ederson", "Thibaut Courtois", "Marc-Andre ter Stegen"};
+        ObservableList<IPlayer> forwards = FXCollections.observableArrayList();
+        ObservableList<IPlayer> midfielders = FXCollections.observableArrayList();
+        ObservableList<IPlayer> defenders = FXCollections.observableArrayList();
+        ObservableList<IPlayer> goalkeepers = FXCollections.observableArrayList();
 
-        LS.getItems().addAll(strikers);
-        RS.getItems().addAll(strikers);
+        forwards.addAll(
+                new IPlayer(1, "Cristiano Ronaldo"),
+                new IPlayer(2, "Lionel Messi"),
+                new IPlayer(3, "Robert Lewandowski"),
+                new IPlayer(4, "Harry Kane"),
+                new IPlayer(5, "Erling Haaland"));
+        midfielders.addAll(
+                new IPlayer(6, "Kevin De Bruyne"),
+                new IPlayer(7, "N'Golo Kanté"),
+                new IPlayer(8, "Bruno Fernandes"),
+                new IPlayer(9, "Joshua Kimmich"),
+                new IPlayer(10, "Luka Modrić"));
+        defenders.addAll(
+                new IPlayer(11, "Virgil van Dijk"),
+                new IPlayer(12, "Ruben Dias"),
+                new IPlayer(13, "Andrew Robertson"),
+                new IPlayer(14, "João Cancelo"),
+                new IPlayer(15, "Trent Alexander-Arnold"));
+        goalkeepers.addAll(
+                new IPlayer(16, "Jan Oblak"),
+                new IPlayer(17, "Alisson Becker"),
+                new IPlayer(18, "Ederson"),
+                new IPlayer(19, "Thibaut Courtois"),
+                new IPlayer(20, "Marc-André ter Stegen"));
 
-        LW.getItems().addAll(strikers);
-        LM.getItems().addAll(midfielders);
-        RM.getItems().addAll(midfielders);
-        RW.getItems().addAll(strikers);
+        initComboBox(LS, forwards);
+        initComboBox(RS, forwards);
 
-        LWB.getItems().addAll(defenders);
-        LB.getItems().addAll(defenders);
-        RB.getItems().addAll(defenders);
-        RWB.getItems().addAll(defenders);
+        initComboBox(LW, midfielders);
+        initComboBox(LM, midfielders);
+        initComboBox(RM, midfielders);
+        initComboBox(RW, midfielders);
 
-        GK.getItems().addAll(goalkeepers);
+        initComboBox(LWB, defenders);
+        initComboBox(LB, defenders);
+        initComboBox(RB, defenders);
+        initComboBox(RWB, defenders);
+
+        initComboBox(GK, goalkeepers);
     }
 
     @FXML
     protected void onSubmitButtonClick() {
-        String LSPlayer = LS.getValue();
-        String RSPlayer = RS.getValue();
-        String LWPlayer = LW.getValue();
-        String LMPlayer = LM.getValue();
-        String RMPlayer = RM.getValue();
-        String RWPlayer = RW.getValue();
-        String LWBPlayer = LWB.getValue();
-        String LBPlayer = LB.getValue();
-        String RBPlayer = RB.getValue();
-        String RWBPlayer = RWB.getValue();
-        String GKPlayer = GK.getValue();
+        IPlayer LSPlayer = LS.getValue();
+        IPlayer RSPlayer = RS.getValue();
+        IPlayer LWPlayer = LW.getValue();
+        IPlayer LMPlayer = LM.getValue();
+        IPlayer RMPlayer = RM.getValue();
+        IPlayer RWPlayer = RW.getValue();
+        IPlayer LWBPlayer = LWB.getValue();
+        IPlayer LBPlayer = LB.getValue();
+        IPlayer RBPlayer = RB.getValue();
+        IPlayer RWBPlayer = RWB.getValue();
+        IPlayer GKPlayer = GK.getValue();
 
         // TODO: Create team query
     }

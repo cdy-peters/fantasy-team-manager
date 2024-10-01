@@ -3,6 +3,7 @@ package com.example.server.models;
 import java.util.regex.*;
 
 public class IUser {
+    private Long id;
     private String name;
     private String email;
     private String username;
@@ -18,7 +19,19 @@ public class IUser {
         this.password = password;
     }
 
+    public IUser(Long id, String name, String email, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     // Getters
+    public Long getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }

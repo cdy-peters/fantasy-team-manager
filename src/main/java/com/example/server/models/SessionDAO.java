@@ -11,13 +11,13 @@ import jakarta.servlet.http.HttpSession;
 public class SessionDAO {
 
     public void create(HttpSession session) {
-        String query = "INSERT INTO session (session_id, created_at, max_interval, username) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO session (session_id, created_at, max_interval, user_id) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement stmt = Server.conn.prepareStatement(query);
             stmt.setString(1, session.getId());
             stmt.setTimestamp(2, new Timestamp(session.getCreationTime()));
             stmt.setInt(3, session.getMaxInactiveInterval());
-            stmt.setString(4, (String) session.getAttribute("username"));
+            stmt.setLong(4, (Long) session.getAttribute("userId"));
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

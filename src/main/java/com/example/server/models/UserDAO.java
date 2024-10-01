@@ -16,10 +16,11 @@ public class UserDAO {
             Statement stmt = Server.conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
+                Long id = rs.getLong("id");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                return new IUser(name, email, username, password);
+                return new IUser(id, name, email, username, password);
             } else {
                 System.out.println("No user found");
                 return new IUser();
@@ -30,37 +31,41 @@ public class UserDAO {
         }
     }
 
-    public void create(IUser user) throws SQLIntegrityConstraintViolationException {
+    public Long create(IUser user) throws SQLIntegrityConstraintViolationException, Exception {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();
         String password = user.getPassword();
-    
+
         String userQuery = String.format(
                 "INSERT INTO user (name, email, username, password) VALUES ('%s', '%s', '%s', '%s')",
                 name, email, username, password);
-    
+
         try {
             Statement stmt = Server.conn.createStatement();
             stmt.executeUpdate(userQuery, Statement.RETURN_GENERATED_KEYS);
-    
+
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
                 long userId = rs.getLong(1);
 
                 String rosterQuery = String.format("INSERT INTO user_roster (user_id) VALUES ('%d')", userId);
                 stmt.executeUpdate(rosterQuery);
-    
+
                 System.out.println("User and roster created successfully. User ID: " + userId);
+
+                return userId;
             } else {
                 System.out.println("Error generating user ID");
             }
-    
+
         } catch (SQLIntegrityConstraintViolationException e) {
             throw e;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        throw new Exception("Error creating user");
     }
 
 }

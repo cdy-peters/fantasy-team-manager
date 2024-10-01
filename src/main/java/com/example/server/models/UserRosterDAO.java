@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class UserRosterDAO {
 
-    public void createRoster(Long userId, Map<String, Long> playerpositions) {
+    public void createRoster(Long userId, Map<String, Long> playerPositions) {
         StringBuilder query = new StringBuilder("INSERT INTO user_roster (user_id, ");
         StringBuilder values = new StringBuilder("VALUES (" + userId + ", ");
 
-        for (Map.Entry<String, Long> entry : playerpositions.entrySet()) {
+        for (Map.Entry<String, Long> entry : playerPositions.entrySet()) {
             String position = entry.getKey();
             Long playerId = entry.getValue();
 

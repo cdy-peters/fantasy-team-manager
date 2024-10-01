@@ -52,26 +52,33 @@ public class RegisterController {
     }
 
     private void handleError(HttpResponse<String> response) {
-        if (response.statusCode() == 400) {
-            submitError.setText("Please fill in all fields");
-        } else if (response.statusCode() == 422) {
-            submitError.setText("Invalid credentials");
-        } else if (response.statusCode() == 409) {
-            submitError.setText("Account already exists");
-        } else {
-            submitError.setText("An error occurred");
-            System.out.println(response.body());
+        int code = response.statusCode();
+
+        switch (code) {
+            case 400:
+                submitError.setText("Please fill in all fields");
+                break;
+            case 422:
+                submitError.setText("Invalid credentials");
+                break;
+            case 409:
+                submitError.setText("Account already exists");
+                break;
+            default:
+                submitError.setText("An error occurred");
+                break;
         }
+
     }
 
     private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
         return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private void handleResponse(HttpResponse<String> response) throws IOException {
+    private boolean handleResponse(HttpResponse<String> response) throws IOException {
         if (response.statusCode() != 201) {
             handleError(response);
-            return;
+            return false;
         }
 
         Map<String, List<String>> headers = response.headers().map();
@@ -80,7 +87,7 @@ public class RegisterController {
         String sessionCookie = cookies.get(0);
         PrefsHelper.setPref("sessionCookie", sessionCookie);
         Client.sessionCookie = sessionCookie;
-
+        return true;
     }
 
     @FXML
@@ -106,7 +113,12 @@ public class RegisterController {
 
         try {
             HttpResponse<String> response = sendRequest(request);
-            handleResponse(response);
+            boolean isSuccessful = handleResponse(response);
+
+            if (!isSuccessful) {
+                return;
+            }
+
             Stage stage = (Stage) submitButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);

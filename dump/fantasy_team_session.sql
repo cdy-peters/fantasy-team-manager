@@ -29,7 +29,7 @@ CREATE TABLE `session` (
   `session_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `max_interval` int NOT NULL,
-  `username` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

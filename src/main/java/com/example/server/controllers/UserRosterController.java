@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.models.IUserRoster;
+import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
 
 @RestController
@@ -32,10 +33,12 @@ public class UserRosterController {
 
     }
 
-    @PutMapping("/roster/{userId}")
+    @PutMapping("/roster/{sessionId}")
     public ResponseEntity<?> updateRosterWithPlayers(
-            @PathVariable Long userId,
+            @PathVariable String sessionId,
             @RequestBody Map<String, Long> playerPositions) {
+
+        Long userId = SessionDAO.getUserId(sessionId);
 
         UserRosterDAO userRosterDAO = new UserRosterDAO();
         boolean success = userRosterDAO.updateRosterWithPlayers(userId, playerPositions);
@@ -47,8 +50,10 @@ public class UserRosterController {
         }
     }
 
-    @GetMapping("/roster/{userId}")
-    public ResponseEntity<?> getRoster(@PathVariable Long userId) {
+    @GetMapping("/roster/{sessionId}")
+    public ResponseEntity<?> getRoster(@PathVariable String sessionId) {
+        Long userId = SessionDAO.getUserId(sessionId);
+
         List<IUserRoster> rosterList;
         rosterList = UserRosterDAO.findTeamByUser(userId);
 

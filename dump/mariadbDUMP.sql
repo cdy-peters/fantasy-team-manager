@@ -665,7 +665,7 @@ CREATE TABLE `session` (
   `session_id` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `max_interval` int(11) NOT NULL,
-  `username` varchar(45) NOT NULL,
+  `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

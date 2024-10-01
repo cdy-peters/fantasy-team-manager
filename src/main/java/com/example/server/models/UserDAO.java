@@ -16,10 +16,11 @@ public class UserDAO {
             Statement stmt = Server.conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
+                Long id = rs.getLong("id");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
-                return new IUser(name, email, username, password);
+                return new IUser(id, name, email, username, password);
             } else {
                 System.out.println("No user found");
                 return new IUser();
@@ -30,7 +31,7 @@ public class UserDAO {
         }
     }
 
-    public void create(IUser user) throws SQLIntegrityConstraintViolationException {
+    public Long create(IUser user) throws SQLIntegrityConstraintViolationException, Exception {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();
@@ -47,6 +48,8 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        throw new Exception("Error creating user");
     }
 
 }

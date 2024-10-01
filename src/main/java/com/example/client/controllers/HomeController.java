@@ -5,6 +5,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.example.client.Client;
 import com.example.server.models.IPlayer;
@@ -132,6 +134,30 @@ public class HomeController {
         IPlayer RWBPlayer = RWB.getValue();
         IPlayer GKPlayer = GK.getValue();
 
-        // TODO: Create team query
+        Map<String, Long> playerPositions = new HashMap<>();
+        playerPositions.put("position1_player_id", LSPlayer.getId());
+        playerPositions.put("position2_player_id", RSPlayer.getId());
+        playerPositions.put("position3_player_id", LWPlayer.getId());
+        playerPositions.put("position4_player_id", LMPlayer.getId());
+        playerPositions.put("position5_player_id", RMPlayer.getId());
+        playerPositions.put("position6_player_id", RWPlayer.getId());
+        playerPositions.put("position7_player_id", LWBPlayer.getId());
+        playerPositions.put("position8_player_id", LBPlayer.getId());
+        playerPositions.put("position9_player_id", RBPlayer.getId());
+        playerPositions.put("position10_player_id", RWBPlayer.getId());
+        playerPositions.put("position11_player_id", GKPlayer.getId());
+
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(Client.SERVER_URL + "roster/1")) // TODO: Get user ID from login
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(playerPositions)))
+                    .build();
+
+            HttpResponse<String> response = sendRequest(request);
+            System.out.println(response.body());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

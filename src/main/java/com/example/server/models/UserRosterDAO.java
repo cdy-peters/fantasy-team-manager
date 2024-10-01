@@ -11,6 +11,33 @@ import java.util.Map;
 
 public class UserRosterDAO {
 
+    public void createRoster(Long userId, Map<String, Long> playerpositions) {
+        StringBuilder query = new StringBuilder("INSERT INTO user_roster (user_id, ");
+        StringBuilder values = new StringBuilder("VALUES (" + userId + ", ");
+
+        for (Map.Entry<String, Long> entry : playerpositions.entrySet()) {
+            String position = entry.getKey();
+            Long playerId = entry.getValue();
+
+            if (isValidPosition(position)) {
+                query.append(position).append(", ");
+                values.append(playerId).append(", ");
+            }
+        }
+
+        query.setLength(query.length() - 2);
+        values.setLength(values.length() - 2);
+        query.append(") ").append(values).append(")");
+
+        try {
+            Statement stmt = Server.conn.createStatement();
+            stmt.executeUpdate(query.toString());
+            System.out.println("Roster created successfully for user ID: " + userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean updateRosterWithPlayers(Long userId, Map<String, Long> playerPositions) {
         if (playerPositions == null || playerPositions.isEmpty()) {
             System.out.println("No players provided to update");

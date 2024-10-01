@@ -1,20 +1,38 @@
 package com.example.server.models;
 
 public class IPlayer {
-    private int id;
+    private Long id;
     private String name;
+    private String nation;
+    private String position;
+    private String team;
 
-    public IPlayer(int id, String name) {
+    public IPlayer(Long id, String name, String nation, String position, String team) {
         this.id = id;
         this.name = name;
+        this.nation = nation;
+        this.position = position;
+        this.team = team;
     }
 
     // Getters
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getTeam() {
+        return team;
     }
 }

@@ -1,6 +1,14 @@
 package com.example.client.controllers;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import com.example.client.Client;
 import com.example.server.models.IPlayer;
+import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,6 +43,25 @@ public class HomeController {
     @FXML
     private Button submitButton;
 
+    Gson g = new Gson();
+
+    private HttpClient httpClient = HttpClient.newHttpClient();
+
+    public void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    private HttpRequest createHttpRequest(String position) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create(Client.SERVER_URL + "players?position=" + position))
+                .header("Content-Type", "application/json")
+                .build();
+    }
+
+    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
+        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
     private class PlayerListCell extends ListCell<IPlayer> {
         @Override
         protected void updateItem(IPlayer player, boolean empty) {
@@ -54,36 +81,24 @@ public class HomeController {
         comboBox.setButtonCell(new PlayerListCell());
     }
 
-    public void initialize() {
-        ObservableList<IPlayer> forwards = FXCollections.observableArrayList();
-        ObservableList<IPlayer> midfielders = FXCollections.observableArrayList();
-        ObservableList<IPlayer> defenders = FXCollections.observableArrayList();
-        ObservableList<IPlayer> goalkeepers = FXCollections.observableArrayList();
+    private ObservableList<IPlayer> fetchPlayers(String position) {
+        try {
+            HttpRequest request = createHttpRequest(position);
+            HttpResponse<String> response = sendRequest(request);
 
-        forwards.addAll(
-                new IPlayer(1, "Cristiano Ronaldo"),
-                new IPlayer(2, "Lionel Messi"),
-                new IPlayer(3, "Robert Lewandowski"),
-                new IPlayer(4, "Harry Kane"),
-                new IPlayer(5, "Erling Haaland"));
-        midfielders.addAll(
-                new IPlayer(6, "Kevin De Bruyne"),
-                new IPlayer(7, "N'Golo Kanté"),
-                new IPlayer(8, "Bruno Fernandes"),
-                new IPlayer(9, "Joshua Kimmich"),
-                new IPlayer(10, "Luka Modrić"));
-        defenders.addAll(
-                new IPlayer(11, "Virgil van Dijk"),
-                new IPlayer(12, "Ruben Dias"),
-                new IPlayer(13, "Andrew Robertson"),
-                new IPlayer(14, "João Cancelo"),
-                new IPlayer(15, "Trent Alexander-Arnold"));
-        goalkeepers.addAll(
-                new IPlayer(16, "Jan Oblak"),
-                new IPlayer(17, "Alisson Becker"),
-                new IPlayer(18, "Ederson"),
-                new IPlayer(19, "Thibaut Courtois"),
-                new IPlayer(20, "Marc-André ter Stegen"));
+            IPlayer[] players = g.fromJson(response.body(), IPlayer[].class);
+            return FXCollections.observableArrayList(players);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+    }
+
+    public void initialize() {
+        ObservableList<IPlayer> forwards = fetchPlayers("FW");
+        ObservableList<IPlayer> midfielders = fetchPlayers("MF");
+        ObservableList<IPlayer> defenders = fetchPlayers("DF");
+        ObservableList<IPlayer> goalkeepers = fetchPlayers("GK");
 
         initComboBox(LS, forwards);
         initComboBox(RS, forwards);
@@ -101,6 +116,8 @@ public class HomeController {
         initComboBox(GK, goalkeepers);
     }
 
+    // TODO: Handle duplicate selected players
+    // TODO: Handle no player selected
     @FXML
     protected void onSubmitButtonClick() {
         IPlayer LSPlayer = LS.getValue();

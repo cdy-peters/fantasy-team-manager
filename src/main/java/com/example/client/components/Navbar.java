@@ -63,6 +63,13 @@ public class Navbar extends HBox {
             System.out.println(e.getMessage());
             return;
         }
+    }
 
+    @FXML
+    protected void onStatisticsButtonClick() throws IOException {
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/statistics-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+        stage.setScene(scene);
     }
 }

@@ -15,13 +15,22 @@ import com.example.server.models.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class UserRosterController {
 
-    @PostMapping("/roster/{userId}")
+    @PostMapping("/roster")
     public ResponseEntity<?> createRoster(
-            @PathVariable Long userId,
+            HttpServletRequest request,
             @RequestBody Map<String, Long> playerPositions) {
+
+        HttpSession session = request.getSession(false);
+        Long userId = SessionDAO.getUserId(session.getId());
+        if (userId == null) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
 
         try {
             UserRosterDAO userRosterDAO = new UserRosterDAO();
@@ -33,12 +42,16 @@ public class UserRosterController {
 
     }
 
-    @PutMapping("/roster/{sessionId}")
+    @PutMapping("/roster")
     public ResponseEntity<?> updateRosterWithPlayers(
-            @PathVariable String sessionId,
+            HttpServletRequest request,
             @RequestBody Map<String, Long> playerPositions) {
 
-        Long userId = SessionDAO.getUserId(sessionId);
+        HttpSession session = request.getSession(false);
+        Long userId = SessionDAO.getUserId(session.getId());
+        if (userId == null) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
 
         UserRosterDAO userRosterDAO = new UserRosterDAO();
         boolean success = userRosterDAO.updateRosterWithPlayers(userId, playerPositions);
@@ -50,9 +63,13 @@ public class UserRosterController {
         }
     }
 
-    @GetMapping("/roster/{sessionId}")
-    public ResponseEntity<?> getRoster(@PathVariable String sessionId) {
-        Long userId = SessionDAO.getUserId(sessionId);
+    @GetMapping("/roster")
+    public ResponseEntity<?> getRoster(HttpServletRequest request, @PathVariable String sessionId) {
+        HttpSession session = request.getSession(false);
+        Long userId = SessionDAO.getUserId(session.getId());
+        if (userId == null) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
 
         List<IUserRoster> rosterList;
         rosterList = UserRosterDAO.findTeamByUser(userId);

@@ -149,7 +149,8 @@ public class HomeController {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(Client.SERVER_URL + "roster/1")) // TODO: Get user ID from login
+                    .uri(URI.create(Client.SERVER_URL + "roster"))
+                    .header("Cookie", Client.sessionCookie)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(g.toJson(playerPositions)))
                     .build();

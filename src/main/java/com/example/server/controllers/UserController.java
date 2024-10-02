@@ -21,9 +21,9 @@ public class UserController {
     private SessionDAO sessionDAO = new SessionDAO();
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private ResponseEntity<?> createSession(HttpServletRequest request, String username) {
+    private ResponseEntity<?> createSession(HttpServletRequest request, Long userId) {
         HttpSession session = request.getSession(true);
-        session.setAttribute("username", username);
+        session.setAttribute("userId", userId);
 
         try {
             sessionDAO.create(session);
@@ -60,7 +60,7 @@ public class UserController {
             return ResponseEntity.status(401).body("Incorrect credentials");
         }
 
-        return createSession(request, username);
+        return createSession(request, existingUser.getId());
     }
 
     @PostMapping("/register")
@@ -105,14 +105,14 @@ public class UserController {
 
         // Create user
         try {
-            userDAO.create(user);
+            Long userId = userDAO.create(user);
+            return createSession(request, userId);
         } catch (SQLIntegrityConstraintViolationException e) {
             return ResponseEntity.status(409).body("Username or email already exists");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to create user");
         }
 
-        return createSession(request, username);
     }
 
     @PostMapping("/logout")

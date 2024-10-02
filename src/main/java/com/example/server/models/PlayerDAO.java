@@ -35,7 +35,7 @@ public class PlayerDAO {
     }
 
     public static List<IPlayer> findPlayersByPosition(String position) {
-        String query = String.format("SELECT * FROM player_statistics WHERE position LIKE '%%%s%%'", position);
+        String query = String.format("SELECT * FROM player_statistics WHERE position = '%s'", position);
         List<IPlayer> playersList = new ArrayList<>();
 
         try {

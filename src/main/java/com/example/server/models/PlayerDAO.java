@@ -23,8 +23,9 @@ public class PlayerDAO {
                 String nation = rs.getString("nation");
                 String position = rs.getString("position");
                 String team = rs.getString("team");
+                int score = rs.getInt("player_score");
 
-                IPlayer player = new IPlayer(id, player_name, nation, position, team);
+                IPlayer player = new IPlayer(id, player_name, nation, position, team, score);
                 playersList.add(player);
             }
         } catch (SQLException e) {
@@ -48,8 +49,9 @@ public class PlayerDAO {
                 String nation = rs.getString("nation");
                 String player_position = rs.getString("position");
                 String team = rs.getString("team");
+                int score = rs.getInt("player_score");
 
-                IPlayer player = new IPlayer(id, player_name, nation, player_position, team);
+                IPlayer player = new IPlayer(id, player_name, nation, player_position, team, score);
                 playersList.add(player);
             }
         } catch (SQLException e) {

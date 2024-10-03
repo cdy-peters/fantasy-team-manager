@@ -720,6 +720,7 @@ DROP TABLE IF EXISTS `user_roster`;
 CREATE TABLE `user_roster` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
+  `roster_score` int(11) DEFAULT NULL,
   `position1_player_id` int(11) DEFAULT NULL,
   `position2_player_id` int(11) DEFAULT NULL,
   `position3_player_id` int(11) DEFAULT NULL,

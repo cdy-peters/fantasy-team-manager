@@ -134,18 +134,18 @@ public class HomeController {
         IPlayer RWBPlayer = RWB.getValue();
         IPlayer GKPlayer = GK.getValue();
 
-        Map<String, Long> playerPositions = new HashMap<>();
-        playerPositions.put("position1_player_id", LSPlayer.getId());
-        playerPositions.put("position2_player_id", RSPlayer.getId());
-        playerPositions.put("position3_player_id", LWPlayer.getId());
-        playerPositions.put("position4_player_id", LMPlayer.getId());
-        playerPositions.put("position5_player_id", RMPlayer.getId());
-        playerPositions.put("position6_player_id", RWPlayer.getId());
-        playerPositions.put("position7_player_id", LWBPlayer.getId());
-        playerPositions.put("position8_player_id", LBPlayer.getId());
-        playerPositions.put("position9_player_id", RBPlayer.getId());
-        playerPositions.put("position10_player_id", RWBPlayer.getId());
-        playerPositions.put("position11_player_id", GKPlayer.getId());
+        Map<String, Map<String, Integer>> playerPositions = new HashMap<>();
+        playerPositions.put("position1_player_id", LSPlayer.getRosterValue());
+        playerPositions.put("position2_player_id", RSPlayer.getRosterValue());
+        playerPositions.put("position3_player_id", LWPlayer.getRosterValue());
+        playerPositions.put("position4_player_id", LMPlayer.getRosterValue());
+        playerPositions.put("position5_player_id", RMPlayer.getRosterValue());
+        playerPositions.put("position6_player_id", RWPlayer.getRosterValue());
+        playerPositions.put("position7_player_id", LWBPlayer.getRosterValue());
+        playerPositions.put("position8_player_id", LBPlayer.getRosterValue());
+        playerPositions.put("position9_player_id", RBPlayer.getRosterValue());
+        playerPositions.put("position10_player_id", RWBPlayer.getRosterValue());
+        playerPositions.put("position11_player_id", GKPlayer.getRosterValue());
 
         try {
             HttpRequest request = HttpRequest.newBuilder()

@@ -24,7 +24,7 @@ public class UserRosterController {
     @PostMapping("/roster")
     public ResponseEntity<?> createRoster(
             HttpServletRequest request,
-            @RequestBody Map<String, Long> playerPositions) {
+            @RequestBody Map<String, Map<String, Integer>> playerPositions) {
 
         HttpSession session = request.getSession(false);
         Long userId = SessionDAO.getUserId(session.getId());
@@ -40,27 +40,6 @@ public class UserRosterController {
             return ResponseEntity.status(404).body("Failed to create roster for user ID: " + userId);
         }
 
-    }
-
-    @PutMapping("/roster")
-    public ResponseEntity<?> updateRosterWithPlayers(
-            HttpServletRequest request,
-            @RequestBody Map<String, Long> playerPositions) {
-
-        HttpSession session = request.getSession(false);
-        Long userId = SessionDAO.getUserId(session.getId());
-        if (userId == null) {
-            return ResponseEntity.status(401).body("Unauthorized");
-        }
-
-        UserRosterDAO userRosterDAO = new UserRosterDAO();
-        boolean success = userRosterDAO.updateRosterWithPlayers(userId, playerPositions);
-
-        if (success) {
-            return ResponseEntity.ok("Roster updated successfully");
-        } else {
-            return ResponseEntity.status(404).body("Failed to update roster for user ID: " + userId);
-        }
     }
 
     @GetMapping("/roster")

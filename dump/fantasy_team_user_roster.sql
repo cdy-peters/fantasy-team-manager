@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `user_roster`;
 CREATE TABLE `user_roster` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
+  `roster_score` int DEFAULT NULL,
   `position1_player_id` int DEFAULT NULL,
   `position2_player_id` int DEFAULT NULL,
   `position3_player_id` int DEFAULT NULL,

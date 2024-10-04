@@ -11,44 +11,33 @@ import java.util.Map;
 
 public class UserRosterDAO {
 
-    public boolean updateRosterWithPlayers(Long userId, Map<String, Long> playerPositions) {
-        if (playerPositions == null || playerPositions.isEmpty()) {
-            System.out.println("No players provided to update");
-            return false;
-        }
+    public void createRoster(Long userId, Map<String, Map<String, Integer>> playerPositions) {
+        StringBuilder query = new StringBuilder("INSERT INTO user_roster (user_id, ");
+        StringBuilder values = new StringBuilder("VALUES (" + userId + ", ");
 
-        // Start building the SQL query
-        StringBuilder query = new StringBuilder("UPDATE user_roster SET ");
+        Integer scoreSum = 0;
 
-        // Loop through each position and append the update statement
-        for (Map.Entry<String, Long> entry : playerPositions.entrySet()) {
+        for (Map.Entry<String, Map<String, Integer>> entry : playerPositions.entrySet()) {
             String position = entry.getKey();
-            Long playerId = entry.getValue();
+            Map<String, Integer> player = entry.getValue();
 
             if (isValidPosition(position)) {
-                query.append(position).append(" = ").append(playerId).append(", ");
+                query.append(position).append(", ");
+                values.append(player.get("id")).append(", ");
+                scoreSum += player.get("score");
             }
         }
 
-        // Remove the trailing comma and space
         query.setLength(query.length() - 2);
-        query.append(" WHERE user_id = ").append(userId);
+        values.setLength(values.length() - 2);
+        query.append(", roster_score) ").append(values).append(", " + scoreSum).append(")");
 
         try {
             Statement stmt = Server.conn.createStatement();
-            int rowsUpdated = stmt.executeUpdate(query.toString());
-
-            if (rowsUpdated > 0) {
-                System.out.println("Roster updated successfully for user ID: " + userId);
-                return true;
-            } else {
-                System.out.println("Roster not found for user ID: " + userId);
-                return false;
-            }
-
+            stmt.executeUpdate(query.toString());
+            System.out.println("Roster created successfully for user ID: " + userId);
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -84,7 +73,8 @@ public class UserRosterDAO {
                 Long sub3 = rs.getLong("sub3_player_id");
                 Long sub4 = rs.getLong("sub4_player_id");
 
-                IUserRoster roster = new IUserRoster(id, position1, position2, position3, position4, position5, position6, position7, position8, position9, position10, position11, sub1, sub2, sub3, sub4);
+                IUserRoster roster = new IUserRoster(id, position1, position2, position3, position4, position5,
+                        position6, position7, position8, position9, position10, position11, sub1, sub2, sub3, sub4);
                 rosterList.add(roster);
             }
 

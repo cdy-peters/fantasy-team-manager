@@ -2,35 +2,35 @@ package com.example.server.models;
 
 public class IUserRoster {
     private Long id;
-    private Long postion1;
-    private Long postion2;
-    private Long postion3;
-    private Long postion4;
-    private Long postion5;
-    private Long postion6;
-    private Long postion7;
-    private Long postion8;
-    private Long postion9;
-    private Long postion10;
-    private Long postion11;
+    private Long position1;
+    private Long position2;
+    private Long position3;
+    private Long position4;
+    private Long position5;
+    private Long position6;
+    private Long position7;
+    private Long position8;
+    private Long position9;
+    private Long position10;
+    private Long position11;
     private Long sub1;
     private Long sub2;
     private Long sub3;
     private Long sub4;
 
-    public IUserRoster(Long id, Long postion1, Long postion2, Long postion3, Long postion4, Long postion5, Long postion6, Long postion7, Long postion8, Long postion9, Long postion10, Long postion11, Long sub1, Long sub2, Long sub3, Long sub4) {
+    public IUserRoster(Long id, Long position1, Long position2, Long position3, Long position4, Long position5, Long position6, Long position7, Long position8, Long position9, Long position10, Long position11, Long sub1, Long sub2, Long sub3, Long sub4) {
         this.id = id;
-        this.postion1 = postion1;
-        this.postion2 = postion2;
-        this.postion3 = postion3;
-        this.postion4 = postion4;
-        this.postion5 = postion5;
-        this.postion6 = postion6;
-        this.postion7 = postion7;
-        this.postion8 = postion8;
-        this.postion9 = postion9;
-        this.postion10 = postion10;
-        this.postion11 = postion11;
+        this.position1 = position1;
+        this.position2 = position2;
+        this.position3 = position3;
+        this.position4 = position4;
+        this.position5 = position5;
+        this.position6 = position6;
+        this.position7 = position7;
+        this.position8 = position8;
+        this.position9 = position9;
+        this.position10 = position10;
+        this.position11 = position11;
         this.sub1 = sub1;
         this.sub2 = sub2;
         this.sub3 = sub3;
@@ -46,92 +46,92 @@ public class IUserRoster {
         this.id = id;
     }
 
-    public Long getPostion1() {
-        return postion1;
+    public Long getPosition1() {
+        return position1;
     }
 
-    public void setPostion1(Long postion1) {
-        this.postion1 = postion1;
+    public void setPosition1(Long position1) {
+        this.position1 = position1;
     }
 
-    public Long getPostion2() {
-        return postion2;
+    public Long getPosition2() {
+        return position2;
     }
 
-    public void setPostion2(Long postion2) {
-        this.postion2 = postion2;
+    public void setPosition2(Long position2) {
+        this.position2 = position2;
     }
 
-    public Long getPostion3() {
-        return postion3;
+    public Long getPosition3() {
+        return position3;
     }
 
-    public void setPostion3(Long postion3) {
-        this.postion3 = postion3;
+    public void setPosition3(Long position3) {
+        this.position3 = position3;
     }
 
-    public Long getPostion4() {
-        return postion4;
+    public Long getPosition4() {
+        return position4;
     }
 
-    public void setPostion4(Long postion4) {
-        this.postion4 = postion4;
+    public void setPosition4(Long position4) {
+        this.position4 = position4;
     }
 
-    public Long getPostion5() {
-        return postion5;
+    public Long getPosition5() {
+        return position5;
     }
 
-    public void setPostion5(Long postion5) {
-        this.postion5 = postion5;
+    public void setPosition5(Long position5) {
+        this.position5 = position5;
     }
 
-    public Long getPostion6() {
-        return postion6;
+    public Long getPosition6() {
+        return position6;
     }
 
-    public void setPostion6(Long postion6) {
-        this.postion6 = postion6;
+    public void setPosition6(Long position6) {
+        this.position6 = position6;
     }
 
-    public Long getPostion7() {
-        return postion7;
+    public Long getPosition7() {
+        return position7;
     }
 
-    public void setPostion7(Long postion7) {
-        this.postion7 = postion7;
+    public void setPosition7(Long position7) {
+        this.position7 = position7;
     }
 
-    public Long getPostion8() {
-        return postion8;
+    public Long getPosition8() {
+        return position8;
     }
 
-    public void setPostion8(Long postion8) {
-        this.postion8 = postion8;
+    public void setPosition8(Long position8) {
+        this.position8 = position8;
     }
 
-    public Long getPostion9() {
-        return postion9;
+    public Long getPosition9() {
+        return position9;
     }
 
-    public void setPostion9(Long postion9) {
-        this.postion9 = postion9;
+    public void setPosition9(Long position9) {
+        this.position9 = position9;
     }
 
-    public Long getPostion10() {
-        return postion10;
+    public Long getPosition10() {
+        return position10;
     }
 
-    public void setPostion10(Long postion10) {
-        this.postion10 = postion10;
+    public void setPosition10(Long position10) {
+        this.position10 = position10;
     }
 
-    public Long getPostion11() {
-        return postion11;
+    public Long getPosition11() {
+        return position11;
     }
 
-    public void setPostion11(Long postion11) {
-        this.postion11 = postion11;
+    public void setPosition11(Long position11) {
+        this.position11 = position11;
     }
 
     public Long getSub1() {

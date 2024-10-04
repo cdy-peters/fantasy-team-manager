@@ -20,6 +20,9 @@ public class Navbar extends HBox {
     @FXML
     private Button signOutButton;
 
+    @FXML
+    private Button leaderBoardButton;
+
     public Navbar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/navbar.fxml"));
         fxmlLoader.setRoot(this);
@@ -64,5 +67,13 @@ public class Navbar extends HBox {
             return;
         }
 
+    }
+
+    @FXML
+    protected void onLeaderBoardButtonClick() throws IOException {
+        Stage stage = (Stage) leaderBoardButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/leaderboard-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+        stage.setScene(scene);
     }
 }

@@ -38,6 +38,7 @@ public class Statistics {
     private double npxGPer90;
     private double npxGPlusXAPer90;
     private String team;
+    private int score;
 
     public Statistics() {}
 
@@ -76,7 +77,8 @@ public class Statistics {
         @JsonProperty("xGPlusXAPer90") double xGPlusXAPer90,
         @JsonProperty("npxGPer90") double npxGPer90,
         @JsonProperty("npxGPlusXAPer90") double npxGPlusXAPer90,
-        @JsonProperty("team") String team)
+        @JsonProperty("team") String team,
+        @JsonProperty("score") int score)
         {
         this.id = id;
         this.playerName = playerName;
@@ -113,6 +115,7 @@ public class Statistics {
         this.npxGPer90 = npxGPer90;
         this.npxGPlusXAPer90 = npxGPlusXAPer90;
         this.team = team;
+        this.score = score;
     }
 
     // Add getter methods for all the fields
@@ -254,5 +257,9 @@ public class Statistics {
 
     public String getTeam() {
         return team;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

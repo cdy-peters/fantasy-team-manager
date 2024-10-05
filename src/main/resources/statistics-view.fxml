@@ -31,10 +31,16 @@
         </TableView>
         <TableView fx:id="metersView" layoutX="300.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
             <columns>
-                <TableColumn fx:id="metersNameColumn" text="Team" />
+                <TableColumn fx:id="metersNameColumn" text="Player" />
                 <TableColumn fx:id="carriesColumn" text="Progressive Carries" />
                 <TableColumn fx:id="passesColumn" text="Progressive Passes" />
                 <TableColumn fx:id="runsColumn" text="Progressive Runs" />
+            </columns>
+        </TableView>
+        <TableView fx:id="pointsView" layoutX="14.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="pointsNameColumn" text="Player" />
+                <TableColumn fx:id="pointsColumn" text="Points" />
             </columns>
         </TableView>
     </AnchorPane>

@@ -35,6 +35,9 @@ public class StatisticsController implements Initializable {
     private TableView<Statistics> cardView;
 
     @FXML
+    private TableView<Statistics> pointsView;
+
+    @FXML
     private TableColumn<Statistics, String> nameColumn;
 
     @FXML
@@ -74,6 +77,12 @@ public class StatisticsController implements Initializable {
     private TableColumn<Statistics, String> metersNameColumn;
 
     @FXML
+    private TableColumn<Statistics, Integer> pointsColumn;
+
+    @FXML
+    private TableColumn<Statistics, String> pointsNameColumn;
+
+    @FXML
     public void initialize(URL location, ResourceBundle resources) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("goals"));
@@ -102,6 +111,10 @@ public class StatisticsController implements Initializable {
         passesColumn.setCellValueFactory(new PropertyValueFactory<>("progressivePasses"));
         runsColumn.setCellValueFactory(new PropertyValueFactory<>("progressiveRuns"));
 
+        pointsNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        pointsColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        pointsColumn.setSortType(TableColumn.SortType.DESCENDING);
+
         // Call to listUsers to populate the table with data
         listUsers();
     }
@@ -111,6 +124,7 @@ public class StatisticsController implements Initializable {
         scoreView.getItems().clear();
         cardView.getItems().clear();
         metersView.getItems().clear();
+        pointsView.getItems().clear();
 
         tableView.getItems().addAll(statisticsList);
 
@@ -123,6 +137,12 @@ public class StatisticsController implements Initializable {
         cardView.getItems().addAll(statisticsList);
         cardView.getSortOrder().add(totalCardsColumn);  // Add column to sort order
         cardView.sort();  // Apply the sort after data is populated
+
+        pointsView.getItems().addAll(statisticsList);
+        pointsView.getSortOrder().add(pointsColumn);  // Add column to sort order
+        pointsView.sort();  // Apply the sort after data is populated
+
+
     }
 
     @FXML

@@ -11,14 +11,14 @@ public class ILeaderboardElement {
         this.score = score;
     }
 
-    public Long getID() {
+    public Long getId() {
         return id;
     }
 
-    public Long getUserID() {
+    public Long getUserId() {
         return userId;
     }
-    
+
     public int getScore() {
         return score;
     }

@@ -21,7 +21,7 @@
          <VBox layoutX="1.0" layoutY="40">
             <TableView fx:id="leaderboardTable" prefHeight="360" prefWidth="640.0">
                <columns>
-                  <TableColumn fx:id="positionColumn" prefWidth="75.0" text="Rank #" />
+                  <TableColumn fx:id="rankColumn" prefWidth="75.0" text="Rank #" />
                   <TableColumn fx:id="playerColumn" prefWidth="75.0" text="Player" />
                   <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score" />
                </columns>

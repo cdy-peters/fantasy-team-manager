@@ -23,7 +23,7 @@ public class LeaderBoardController {
     private TableView<ILeaderboardElement> leaderboardTable;
 
     @FXML
-    private TableColumn<ILeaderboardElement, Long> playerColumn;
+    private TableColumn<ILeaderboardElement, String> playerColumn;
 
     @FXML
     private TableColumn<ILeaderboardElement, Integer> scoreColumn;
@@ -41,7 +41,7 @@ public class LeaderBoardController {
     public void initialize() {
         data = FXCollections.observableArrayList();
 
-        playerColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        playerColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 
         data.addAll(fetchPlayers());
@@ -53,10 +53,10 @@ public class LeaderBoardController {
             HttpRequest request = createHttpRequest();
             HttpResponse<String> response = sendRequest(request);
 
-            System.out.println("Response: " + response.body());
             ILeaderboardElement[] players = gson.fromJson(response.body(), ILeaderboardElement[].class);
 
             // debug
+            System.out.println("Response: " + response.body());
             for (ILeaderboardElement player : players) {
                 System.out.println("Player ID: " + player.getUserId() + ", Score: " + player.getScore());
             }

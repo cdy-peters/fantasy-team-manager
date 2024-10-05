@@ -90,7 +90,7 @@ public class UserRosterDAO {
     }
 
     public static List<ILeaderboardElement> getRosters() {
-        String query = String.format("SELECT * FROM user_roster ");
+        String query = String.format("SELECT ur.*, u.username FROM user_roster ur JOIN user u ON ur.user_id = u.id");
         List<ILeaderboardElement> rosterList = new ArrayList<>();
 
         try {
@@ -100,8 +100,9 @@ public class UserRosterDAO {
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 Long userId = rs.getLong("user_id");
+                String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");
-                ILeaderboardElement roster = new ILeaderboardElement(id, userId, rosterScore);
+                ILeaderboardElement roster = new ILeaderboardElement(id, userId, username, rosterScore);
                 rosterList.add(roster);
             }
 

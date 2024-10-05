@@ -2,7 +2,40 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.client.controllers.StatisticsController">
-    <Button text="Refresh" onAction="#listUsers"/>
+    <AnchorPane>
+        <TableView fx:id="tableView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Player" />
+                <TableColumn fx:id="valueColumn" text="Goals" />
+                <TableColumn fx:id="assistsColumn" text="Assists" />
+            </columns>
+        </TableView>
+        <TableView fx:id="scoreView" layoutX="300.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="scoreNameColumn" text="Player" />
+                <TableColumn fx:id="totalColumn" text="Score Involvements" />
+            </columns>
+        </TableView>
+        <TableView fx:id="cardView" layoutX="600.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="cardsNameColumn" text="Player" />
+                <TableColumn fx:id="totalCardsColumn" text="Total Cards" />
+                <TableColumn fx:id="redCardsColumn" text="Red Cards" />
+                <TableColumn fx:id="yellowCardsColumn" text="Yellow Cards" />
+            </columns>
+        </TableView>
+        <TableView fx:id="metersView" layoutX="300.0" layoutY="250.0" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="metersNameColumn" text="Team" />
+                <TableColumn fx:id="carriesColumn" text="Progressive Carries" />
+                <TableColumn fx:id="passesColumn" text="Progressive Passes" />
+                <TableColumn fx:id="runsColumn" text="Progressive Runs" />
+            </columns>
+        </TableView>
+    </AnchorPane>
 </VBox>

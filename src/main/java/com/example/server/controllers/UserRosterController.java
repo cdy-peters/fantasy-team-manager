@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.server.models.ILeaderboardElement;
 import com.example.server.models.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
@@ -60,4 +61,12 @@ public class UserRosterController {
         return ResponseEntity.ok(rosterList);
     }
 
+    @GetMapping("/rosters")
+    public ResponseEntity<?> getRosters(HttpServletRequest request) {
+
+        List<ILeaderboardElement> rosterList;
+        rosterList = UserRosterDAO.getRosters();
+
+        return ResponseEntity.ok(rosterList);
+    }
 }

@@ -88,4 +88,31 @@ public class UserRosterDAO {
 
         return rosterList;
     }
+
+    public static List<ILeaderboardElement> getRosters() {
+        String query = String.format("SELECT * FROM user_roster ");
+        List<ILeaderboardElement> rosterList = new ArrayList<>();
+
+        try {
+            Statement stmt = Server.conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                Long userId = rs.getLong("user_id");
+                int rosterScore = rs.getInt("roster_score");
+                ILeaderboardElement roster = new ILeaderboardElement(id, userId, rosterScore);
+                rosterList.add(roster);
+            }
+
+            if (rosterList.isEmpty()) {
+                System.out.println("No teams found");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rosterList;
+    }
 }

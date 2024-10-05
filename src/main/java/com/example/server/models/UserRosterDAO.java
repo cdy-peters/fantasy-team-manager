@@ -90,7 +90,8 @@ public class UserRosterDAO {
     }
 
     public static List<ILeaderboardElement> getRosters() {
-        String query = String.format("SELECT ur.*, u.username FROM user_roster ur JOIN user u ON ur.user_id = u.id");
+        String query = String.format(
+                "SELECT ur.id, ur.user_id, u.username, ur.roster_score FROM user_roster ur JOIN user u ON ur.user_id = u.id");
         List<ILeaderboardElement> rosterList = new ArrayList<>();
 
         try {

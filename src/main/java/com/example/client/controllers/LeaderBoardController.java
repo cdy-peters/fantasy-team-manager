@@ -23,6 +23,9 @@ public class LeaderBoardController {
     private TableView<ILeaderboardElement> leaderboardTable;
 
     @FXML
+    private TableColumn<ILeaderboardElement, Integer> rankColumn;
+
+    @FXML
     private TableColumn<ILeaderboardElement, String> playerColumn;
 
     @FXML
@@ -41,6 +44,7 @@ public class LeaderBoardController {
     public void initialize() {
         data = FXCollections.observableArrayList();
 
+        rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
         playerColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
 

@@ -5,11 +5,10 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.example.client.Client;
 import com.example.server.models.IPlayer;
+import com.example.server.models.IUserRoster;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
@@ -134,25 +133,32 @@ public class CreateRosterController {
         IPlayer RWBPlayer = RWB.getValue();
         IPlayer GKPlayer = GK.getValue();
 
-        Map<String, Map<String, Integer>> playerPositions = new HashMap<>();
-        playerPositions.put("position1_player_id", LSPlayer.getRosterValue());
-        playerPositions.put("position2_player_id", RSPlayer.getRosterValue());
-        playerPositions.put("position3_player_id", LWPlayer.getRosterValue());
-        playerPositions.put("position4_player_id", LMPlayer.getRosterValue());
-        playerPositions.put("position5_player_id", RMPlayer.getRosterValue());
-        playerPositions.put("position6_player_id", RWPlayer.getRosterValue());
-        playerPositions.put("position7_player_id", LWBPlayer.getRosterValue());
-        playerPositions.put("position8_player_id", LBPlayer.getRosterValue());
-        playerPositions.put("position9_player_id", RBPlayer.getRosterValue());
-        playerPositions.put("position10_player_id", RWBPlayer.getRosterValue());
-        playerPositions.put("position11_player_id", GKPlayer.getRosterValue());
+        IUserRoster userRoster = new IUserRoster(LSPlayer.getId(), RSPlayer.getId(), LWPlayer.getId(),
+                LMPlayer.getId(),
+                RMPlayer.getId(), RWPlayer.getId(), LWBPlayer.getId(), LBPlayer.getId(), RBPlayer.getId(),
+                RWBPlayer.getId(), GKPlayer.getId(), null, null, null, null);
+
+        double scoreSum = 0;
+        scoreSum += LSPlayer.getScore();
+        scoreSum += RSPlayer.getScore();
+        scoreSum += LWPlayer.getScore();
+        scoreSum += LMPlayer.getScore();
+        scoreSum += RMPlayer.getScore();
+        scoreSum += RWPlayer.getScore();
+        scoreSum += LWBPlayer.getScore();
+        scoreSum += LBPlayer.getScore();
+        scoreSum += RBPlayer.getScore();
+        scoreSum += RWBPlayer.getScore();
+        scoreSum += GKPlayer.getScore();
+
+        userRoster.setScore(scoreSum);
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(Client.SERVER_URL + "roster"))
                     .header("Cookie", Client.sessionCookie)
                     .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(playerPositions)))
+                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(userRoster)))
                     .build();
 
             HttpResponse<String> response = sendRequest(request);

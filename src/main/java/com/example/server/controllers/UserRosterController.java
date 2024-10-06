@@ -1,7 +1,6 @@
 package com.example.server.controllers;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ public class UserRosterController {
     @PostMapping("/roster")
     public ResponseEntity<?> createRoster(
             HttpServletRequest request,
-            @RequestBody Map<String, Map<String, Integer>> playerPositions) {
+            @RequestBody IUserRoster roster) {
 
         HttpSession session = request.getSession(false);
         Long userId = SessionDAO.getUserId(session.getId());
@@ -32,7 +31,7 @@ public class UserRosterController {
         }
 
         try {
-            UserRosterDAO.createRoster(userId, playerPositions);
+            UserRosterDAO.createRoster(userId, roster);
             return ResponseEntity.ok("Roster created successfully for user ID: " + userId);
         } catch (Exception e) {
             return ResponseEntity.status(404).body("Failed to create roster for user ID: " + userId);

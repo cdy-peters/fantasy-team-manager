@@ -65,7 +65,7 @@ public class RegisterController {
                 submitError.setText("Account already exists");
                 break;
             default:
-                submitError.setText("An error occurred");
+                submitError.setText("An error occurred: " + response.body());
                 break;
         }
 

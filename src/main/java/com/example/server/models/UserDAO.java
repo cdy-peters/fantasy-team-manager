@@ -42,7 +42,11 @@ public class UserDAO {
                 name, email, username, password);
         try {
             Statement stmt = Server.conn.createStatement();
-            stmt.executeUpdate(query);
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getLong(1);
+            }
         } catch (SQLIntegrityConstraintViolationException e) {
             throw e;
         } catch (SQLException e) {

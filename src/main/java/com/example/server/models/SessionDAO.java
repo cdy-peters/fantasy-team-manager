@@ -8,8 +8,6 @@ import java.sql.Statement;
 
 import com.example.server.Server;
 
-import jakarta.servlet.http.HttpSession;
-
 public class SessionDAO {
 
     public static Long getUserId(String sessionId) {
@@ -28,18 +26,42 @@ public class SessionDAO {
         }
     }
 
-    public void create(HttpSession session) {
-        String query = "INSERT INTO session (session_id, created_at, max_interval, user_id) VALUES (?, ?, ?, ?)";
+    public ISession find(String sessionId) {
+        String query = String.format("SELECT * FROM session WHERE session_id = '%s'", sessionId);
+        try {
+            Statement stmt = Server.conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                Long id = rs.getLong("id");
+                Long userId = rs.getLong("user_id");
+                Long expiresAt = rs.getTimestamp("expires_at").getTime();
+                return new ISession(id, sessionId, userId, expiresAt);
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ISession create(Long userId) throws Exception {
+        ISession session = new ISession(userId);
+
+        String query = "INSERT INTO session (session_id, user_id, expires_at) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = Server.conn.prepareStatement(query);
-            stmt.setString(1, session.getId());
-            stmt.setTimestamp(2, new Timestamp(session.getCreationTime()));
-            stmt.setInt(3, session.getMaxInactiveInterval());
-            stmt.setLong(4, (Long) session.getAttribute("userId"));
+            stmt.setString(1, session.getSessionId());
+            stmt.setLong(2, session.getUserId());
+            stmt.setTimestamp(3, new Timestamp(session.getExpiresAt()));
             stmt.executeUpdate();
+
+            return session;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        throw new Exception("Error creating session");
     }
 
     public void delete(String sessionId) {

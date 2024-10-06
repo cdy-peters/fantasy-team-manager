@@ -42,12 +42,12 @@ public class Navbar extends HBox {
 
     @FXML
     protected void onSignOutButtonClick() throws IOException {
-        String sessionCookie = PrefsHelper.getPref("sessionCookie");
+        String sessionToken = PrefsHelper.getPref("sessionToken");
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(Client.SERVER_URL + "logout"))
-                .header("Cookie", sessionCookie)
+                .header("Authorization", sessionToken)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
@@ -60,7 +60,7 @@ public class Navbar extends HBox {
                 return;
             }
 
-            PrefsHelper.removePref("sessionCookie");
+            PrefsHelper.removePref("sessionToken");
             Client.userRoster = null;
 
             Stage stage = (Stage) signOutButton.getScene().getWindow();

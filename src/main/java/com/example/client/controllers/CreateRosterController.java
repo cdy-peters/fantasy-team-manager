@@ -159,7 +159,7 @@ public class CreateRosterController {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(Client.SERVER_URL + "roster"))
-                    .header("Cookie", Client.sessionCookie)
+                    .header("Authorization", Client.sessionToken)
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(g.toJson(userRoster)))
                     .build();

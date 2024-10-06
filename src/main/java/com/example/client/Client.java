@@ -22,7 +22,7 @@ public class Client extends Application {
     public static final int HEIGHT = 400;
 
     // TODO: Handle expired session cookie
-    public static String sessionCookie = PrefsHelper.getPref("sessionCookie");
+    public static String sessionToken = PrefsHelper.getPref("sessionToken");
 
     public static IUserRoster userRoster = null;
 

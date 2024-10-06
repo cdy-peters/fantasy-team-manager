@@ -2,7 +2,9 @@ package com.example.client;
 
 import java.io.IOException;
 
+import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
+import com.example.server.models.IUserRoster;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +24,12 @@ public class Client extends Application {
     // TODO: Handle expired session cookie
     public static String sessionCookie = PrefsHelper.getPref("sessionCookie");
 
+    public static IUserRoster userRoster = null;
+
     @Override
     public void start(Stage stage) throws IOException {
-        String view = sessionCookie.isEmpty() ? "/login-view.fxml" : "/home-view.fxml";
-        System.out.println(sessionCookie);
+        String view = new LandingGuard().getView();
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
         stage.setTitle(TITLE);

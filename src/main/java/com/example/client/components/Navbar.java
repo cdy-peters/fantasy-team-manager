@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import com.example.client.Client;
+import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
@@ -19,6 +20,9 @@ import javafx.stage.Stage;
 public class Navbar extends HBox {
     @FXML
     private Button signOutButton;
+
+    @FXML
+    private Button rosterButton;
 
     @FXML
     private Button leaderBoardButton;
@@ -57,6 +61,7 @@ public class Navbar extends HBox {
             }
 
             PrefsHelper.removePref("sessionCookie");
+            Client.userRoster = null;
 
             Stage stage = (Stage) signOutButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
@@ -67,6 +72,19 @@ public class Navbar extends HBox {
             return;
         }
 
+    }
+
+    @FXML
+    protected void onRosterButtonClick() throws IOException {
+        String view = new LandingGuard().getView();
+        if (view.equals("/login-view.fxml") || view.equals("/register-view.fxml")) {
+            throw new IOException("Error fetching view");
+        }
+
+        Stage stage = (Stage) rosterButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
+        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+        stage.setScene(scene);
     }
 
     @FXML

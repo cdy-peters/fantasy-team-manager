@@ -14,9 +14,12 @@ import com.google.gson.Gson;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
+import javafx.stage.Stage;
 
 public class CreateRosterController {
     @FXML
@@ -163,6 +166,13 @@ public class CreateRosterController {
 
             HttpResponse<String> response = sendRequest(request);
             System.out.println(response.body());
+
+            Client.userRoster = userRoster;
+
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+            stage.setScene(scene);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

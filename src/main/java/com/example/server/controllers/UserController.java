@@ -6,14 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.server.models.ISession;
 import com.example.server.models.IUser;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class UserController {
@@ -21,21 +20,18 @@ public class UserController {
     private SessionDAO sessionDAO = new SessionDAO();
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private ResponseEntity<?> createSession(HttpServletRequest request, Long userId) {
-        HttpSession session = request.getSession(true);
-        session.setAttribute("userId", userId);
-
+    private ResponseEntity<?> createSession(Long userId) {
         try {
-            sessionDAO.create(session);
-            String cookie = "SESSION=" + session.getId();
-            return ResponseEntity.status(201).header("Set-Cookie", cookie).body("Session created");
+            ISession session = sessionDAO.create(userId);
+            String token = session.getSessionId();
+            return ResponseEntity.status(201).header("Authorization", token).body("Session created");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to create session");
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(HttpServletRequest request, @RequestBody IUser user) {
+    public ResponseEntity<?> login(@RequestBody IUser user) {
         String username = user.getUsername();
         String password = user.getPassword();
 
@@ -60,11 +56,11 @@ public class UserController {
             return ResponseEntity.status(401).body("Incorrect credentials");
         }
 
-        return createSession(request, existingUser.getId());
+        return createSession(existingUser.getId());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(HttpServletRequest request, @RequestBody IUser user) {
+    public ResponseEntity<?> register(@RequestBody IUser user) {
         String name = user.getName();
         String email = user.getEmail();
         String username = user.getUsername();
@@ -106,7 +102,7 @@ public class UserController {
         // Create user
         try {
             Long userId = userDAO.create(user);
-            return createSession(request, userId);
+            return createSession(userId);
         } catch (SQLIntegrityConstraintViolationException e) {
             return ResponseEntity.status(409).body("Username or email already exists");
         } catch (Exception e) {
@@ -116,16 +112,14 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+    public ResponseEntity<?> logout(@RequestHeader(name = "Authorization", required = true) String token) {
+        ISession session = sessionDAO.find(token);
         if (session == null) {
             return ResponseEntity.status(205).body("Session not found");
         }
 
         try {
-            sessionDAO.delete(session.getId());
-            session.invalidate();
-
+            sessionDAO.delete(session.getSessionId());
             return ResponseEntity.status(200).body("Logged out");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Failed to logout");

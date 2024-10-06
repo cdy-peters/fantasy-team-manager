@@ -59,11 +59,11 @@ public class LoginController {
         }
 
         Map<String, List<String>> headers = response.headers().map();
-        List<String> cookies = headers.get("Set-Cookie");
+        List<String> authHeader = headers.get("Authorization");
 
-        String sessionCookie = cookies.get(0);
-        PrefsHelper.setPref("sessionCookie", sessionCookie);
-        Client.sessionCookie = sessionCookie;
+        String sessionToken = authHeader.get(0);
+        PrefsHelper.setPref("sessionToken", sessionToken);
+        Client.sessionToken = sessionToken;
 
         return true;
 

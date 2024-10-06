@@ -26,7 +26,7 @@ public class LandingGuard {
         return HttpRequest.newBuilder()
                 .uri(URI.create(Client.SERVER_URL + "roster"))
                 .header("Content-Type", "application/json")
-                .header("Cookie", Client.sessionCookie)
+                .header("Authorization", Client.sessionToken)
                 .build();
     }
 
@@ -54,7 +54,7 @@ public class LandingGuard {
     }
 
     public String getView() {
-        if (Client.sessionCookie.isEmpty()) {
+        if (Client.sessionToken.isEmpty()) {
             return "/login-view.fxml";
         }
 

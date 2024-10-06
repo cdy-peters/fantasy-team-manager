@@ -663,9 +663,8 @@ DROP TABLE IF EXISTS `session`;
 CREATE TABLE `session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `session_id` varchar(255) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `max_interval` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `expires_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

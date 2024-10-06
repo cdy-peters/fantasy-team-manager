@@ -35,6 +35,10 @@ public class LandingGuard {
     }
 
     private Optional<IUserRoster> fetchRoster() {
+        if (Client.userRoster != null) {
+            return Optional.of(Client.userRoster);
+        }
+
         try {
             HttpRequest request = createHttpRequest();
             HttpResponse<String> response = sendRequest(request);

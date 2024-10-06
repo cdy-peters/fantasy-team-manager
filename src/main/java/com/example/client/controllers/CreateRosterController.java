@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 
-public class HomeController {
+public class CreateRosterController {
     @FXML
     private ComboBox<IPlayer> LS;
     @FXML

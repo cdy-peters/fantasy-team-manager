@@ -57,6 +57,7 @@ public class Navbar extends HBox {
             }
 
             PrefsHelper.removePref("sessionCookie");
+            Client.userRoster = null;
 
             Stage stage = (Stage) signOutButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login-view.fxml"));

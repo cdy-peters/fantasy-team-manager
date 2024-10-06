@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +32,7 @@ public class UserRosterController {
         }
 
         try {
-            UserRosterDAO userRosterDAO = new UserRosterDAO();
-            userRosterDAO.createRoster(userId, playerPositions);
+            UserRosterDAO.createRoster(userId, playerPositions);
             return ResponseEntity.ok("Roster created successfully for user ID: " + userId);
         } catch (Exception e) {
             return ResponseEntity.status(404).body("Failed to create roster for user ID: " + userId);
@@ -44,21 +41,20 @@ public class UserRosterController {
     }
 
     @GetMapping("/roster")
-    public ResponseEntity<?> getRoster(HttpServletRequest request, @PathVariable String sessionId) {
+    public ResponseEntity<?> getRoster(HttpServletRequest request) {
+        
         HttpSession session = request.getSession(false);
         Long userId = SessionDAO.getUserId(session.getId());
         if (userId == null) {
             return ResponseEntity.status(401).body("Unauthorized");
         }
 
-        List<IUserRoster> rosterList;
-        rosterList = UserRosterDAO.findTeamByUser(userId);
-
-        if (rosterList == null || rosterList.isEmpty()) {
-            return ResponseEntity.status(404).body("No roster found for user ID: " + userId);
+        IUserRoster roster = UserRosterDAO.findRosterByUser(userId);
+        if (roster == null) {
+            return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
         }
 
-        return ResponseEntity.ok(rosterList);
+        return ResponseEntity.ok(roster);
     }
 
     @GetMapping("/rosters")

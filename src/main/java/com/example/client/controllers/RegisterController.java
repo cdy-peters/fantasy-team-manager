@@ -120,7 +120,7 @@ public class RegisterController {
             }
 
             Stage stage = (Stage) submitButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/create-roster-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
             stage.setScene(scene);
         } catch (IOException | InterruptedException e) {

@@ -30,7 +30,7 @@ public class StatisticsController implements Initializable {
 
     @FXML
     private TableColumn<Statistics, String> nameColumn;
-    
+
     @FXML
     private TableColumn<Statistics, Integer> valueColumn;
 
@@ -44,7 +44,7 @@ public class StatisticsController implements Initializable {
     private TableColumn<Statistics, Integer> yellowCardsColumn;
 
     @FXML
-    private TableColumn<Statistics, Integer> pointsColumn;
+    private TableColumn<Statistics, Double> pointsColumn;
 
     @FXML
     private TableColumn<Statistics, String> pointsNameColumn;
@@ -56,7 +56,7 @@ public class StatisticsController implements Initializable {
     private TableColumn<Statistics, String> teamColumn;
 
     @FXML
-    private TableColumn<Statistics, Integer> pentalyGoalsColumn;
+    private TableColumn<Statistics, Integer> penaltyGoalsColumn;
 
     @FXML
     private TableColumn<Statistics, Integer> penaltyKicksColumn;
@@ -76,7 +76,7 @@ public class StatisticsController implements Initializable {
         redCardsColumn.setCellValueFactory(new PropertyValueFactory<>("redCards"));
         yellowCardsColumn.setCellValueFactory(new PropertyValueFactory<>("yellowCards"));
         minutesColumn.setCellValueFactory(new PropertyValueFactory<>("minutes"));
-        pentalyGoalsColumn.setCellValueFactory(new PropertyValueFactory<>("goalsPenaltyKicks"));
+        penaltyGoalsColumn.setCellValueFactory(new PropertyValueFactory<>("goalsPenaltyKicks"));
         penaltyKicksColumn.setCellValueFactory(new PropertyValueFactory<>("penaltyKicks"));
         goalsPer90Column.setCellValueFactory(new PropertyValueFactory<>("goalsPer90"));
         assistsPer90Column.setCellValueFactory(new PropertyValueFactory<>("assistsPer90"));
@@ -96,10 +96,8 @@ public class StatisticsController implements Initializable {
         tableView.getItems().addAll(statisticsList);
 
         pointsView.getItems().addAll(statisticsList);
-        pointsView.getSortOrder().add(pointsColumn);  // Add column to sort order
-        pointsView.sort();  // Apply the sort after data is populated
-
-
+        pointsView.getSortOrder().add(pointsColumn); // Add column to sort order
+        pointsView.sort(); // Apply the sort after data is populated
     }
 
     @FXML
@@ -116,7 +114,7 @@ public class StatisticsController implements Initializable {
             System.out.println("HTTP status: " + statusCode);
 
             List<Statistics> statistics = Utils.toList(response.body());
-            System.out.println("Statistics fetched: " + statistics);
+            // System.out.println("Statistics fetched: " + statistics);
 
             // Populate the table with the statistics list
             Platform.runLater(() -> populateTables(statistics));

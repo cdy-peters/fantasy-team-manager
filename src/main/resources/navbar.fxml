@@ -30,7 +30,7 @@
         fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
 </fx:root>
 
-    fx:controller="com.example.client.controllers.NavbarController">
+    <fx:controller="com.example.client.controllers.NavbarController">
     <left>
         <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>

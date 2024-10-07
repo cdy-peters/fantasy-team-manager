@@ -17,41 +17,23 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.HBox;
 
 public class CreateRosterController {
     @FXML
-    private Button playerCard1;
+    private HBox forwardsHBox;
     @FXML
-    private Button playerCard2;
+    private HBox midfieldersHBox;
     @FXML
-    private Button playerCard3;
+    private HBox defendersHBox;
     @FXML
-    private Button playerCard4;
-    @FXML
-    private Button playerCard5;
-    @FXML
-    private Button playerCard6;
-    @FXML
-    private Button playerCard7;
-    @FXML
-    private Button playerCard8;
-    @FXML
-    private Button playerCard9;
-    @FXML
-    private Button playerCard10;
-    @FXML
-    private Button playerCard11;
+    private HBox goalkeeperHBox;
     @FXML
     private TextField searchPlayersField;
     @FXML
@@ -72,6 +54,7 @@ public class CreateRosterController {
 
     Gson g = new Gson();
     private HttpClient httpClient = HttpClient.newHttpClient();
+    private PlayerCardController playerCardController = new PlayerCardController();
 
     private class PlayerListCell extends ListCell<IPlayer> {
         @Override
@@ -92,14 +75,6 @@ public class CreateRosterController {
                 setGraphic(imageView);
             }
         }
-    }
-
-    // SO: https://stackoverflow.com/a/61121454/18405522
-    private void clipChildren(Region region) {
-        Rectangle clip = new Rectangle();
-        clip.widthProperty().bind(region.widthProperty());
-        clip.heightProperty().bind(region.heightProperty());
-        region.setClip(clip);
     }
 
     private HttpRequest createHttpRequest(String position) {
@@ -132,20 +107,19 @@ public class CreateRosterController {
         defenders = fetchPlayers("DF");
         goalkeepers = fetchPlayers("GK");
 
-        playerCard1.setOnAction(this::handlePlayerCard);
-        playerCard2.setOnAction(this::handlePlayerCard);
-        playerCard3.setOnAction(this::handlePlayerCard);
-        playerCard4.setOnAction(this::handlePlayerCard);
-        playerCard5.setOnAction(this::handlePlayerCard);
-        playerCard6.setOnAction(this::handlePlayerCard);
-        playerCard7.setOnAction(this::handlePlayerCard);
-        playerCard8.setOnAction(this::handlePlayerCard);
-        playerCard9.setOnAction(this::handlePlayerCard);
-        playerCard10.setOnAction(this::handlePlayerCard);
-        playerCard11.setOnAction(this::handlePlayerCard);
+        playerCardController.create(forwardsHBox, "FW", 1, this::handlePlayerCard);
+        playerCardController.create(forwardsHBox, "FW", 2, this::handlePlayerCard);
+        playerCardController.create(midfieldersHBox, "MF", 3, this::handlePlayerCard);
+        playerCardController.create(midfieldersHBox, "MF", 4, this::handlePlayerCard);
+        playerCardController.create(midfieldersHBox, "MF", 5, this::handlePlayerCard);
+        playerCardController.create(midfieldersHBox, "MF", 6, this::handlePlayerCard);
+        playerCardController.create(defendersHBox, "DF", 7, this::handlePlayerCard);
+        playerCardController.create(defendersHBox, "DF", 8, this::handlePlayerCard);
+        playerCardController.create(defendersHBox, "DF", 9, this::handlePlayerCard);
+        playerCardController.create(defendersHBox, "DF", 10, this::handlePlayerCard);
+        playerCardController.create(goalkeeperHBox, "GK", 11, this::handlePlayerCard);
 
         playersList.setOnMouseClicked(this::handlePlayerSelection);
-
         createTeamButton.setOnAction(this::handleCreateTeam);
     }
 
@@ -160,32 +134,18 @@ public class CreateRosterController {
 
         switch (button.getId()) {
             case "playerCard1":
-                updatePlayerList(forwards);
-                break;
             case "playerCard2":
                 updatePlayerList(forwards);
                 break;
             case "playerCard3":
-                updatePlayerList(midfielders);
-                break;
             case "playerCard4":
-                updatePlayerList(midfielders);
-                break;
             case "playerCard5":
-                updatePlayerList(midfielders);
-                break;
             case "playerCard6":
                 updatePlayerList(midfielders);
                 break;
             case "playerCard7":
-                updatePlayerList(defenders);
-                break;
             case "playerCard8":
-                updatePlayerList(defenders);
-                break;
             case "playerCard9":
-                updatePlayerList(defenders);
-                break;
             case "playerCard10":
                 updatePlayerList(defenders);
                 break;
@@ -215,34 +175,7 @@ public class CreateRosterController {
     private void handlePlayerSelection(MouseEvent event) {
         IPlayer selectedPlayer = playersList.getSelectionModel().getSelectedItem();
         if (selectedPlayer != null) {
-            VBox vBox = new VBox();
-            vBox.setAlignment(javafx.geometry.Pos.CENTER);
-
-            // Image
-            Pane pane = new Pane();
-            pane.setMaxWidth(Region.USE_PREF_SIZE);
-
-            String filePath = "/images/shirts/" + selectedPlayer.getTeam() + ".png";
-            Image image = new Image(getClass().getResourceAsStream(filePath));
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(100);
-            imageView.setPreserveRatio(true);
-            pane.getChildren().add(imageView);
-
-            clipChildren(pane);
-            vBox.getChildren().add(pane);
-
-            // Info
-            VBox info = new VBox();
-            info.setAlignment(javafx.geometry.Pos.CENTER);
-
-            Label name = new Label(selectedPlayer.getName());
-            name.setMaxWidth(Region.USE_PREF_SIZE);
-            info.getChildren().add(name);
-
-            vBox.getChildren().add(info);
-
-            selectedPlayerCard.setGraphic(vBox);
+            playerCardController.update(selectedPlayerCard, selectedPlayer);
 
             switch (selectedPlayerCard.getId()) {
                 case "playerCard1":

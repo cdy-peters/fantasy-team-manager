@@ -38,48 +38,48 @@ public class Statistics {
     private double npxGPer90;
     private double npxGPlusXAPer90;
     private String team;
-    private int score;
+    private double score;
 
-    public Statistics() {}
+    public Statistics() {
+    }
 
     public Statistics(
-        @JsonProperty("id") Long id,
-        @JsonProperty("playerName") String playerName,
-        @JsonProperty("gamesPlayed") int gamesPlayed,
-        @JsonProperty("starts") int starts,
-        @JsonProperty("nation") String nation,
-        @JsonProperty("position") String position,
-        @JsonProperty("age") int age,
-        @JsonProperty("minutes") int minutes,
-        @JsonProperty("ninetyMinutes") int ninetyMinutes,
-        @JsonProperty("goals") int goals,
-        @JsonProperty("assists") int assists,
-        @JsonProperty("goalsAssists") int goalsAssists,
-        @JsonProperty("goalsPenaltyKicks") int goalsPenaltyKicks,
-        @JsonProperty("penaltyKicks") int penaltyKicks,
-        @JsonProperty("penaltyKickAttempts") int penaltyKickAttempts,
-        @JsonProperty("yellowCards") int yellowCards,
-        @JsonProperty("redCards") int redCards,
-        @JsonProperty("expectedGoals") double expectedGoals,
-        @JsonProperty("nonPenaltyExpectedGoals") double nonPenaltyExpectedGoals,
-        @JsonProperty("expectedAssists") double expectedAssists,
-        @JsonProperty("npXgPlusXA") double npXgPlusXA,
-        @JsonProperty("progressiveCarries") int progressiveCarries,
-        @JsonProperty("progressivePasses") int progressivePasses,
-        @JsonProperty("progressiveRuns") int progressiveRuns,
-        @JsonProperty("goalsPer90") double goalsPer90,
-        @JsonProperty("assistsPer90") double assistsPer90,
-        @JsonProperty("goalsAssistsPer90") double goalsAssistsPer90,
-        @JsonProperty("goalsPenaltyKicksPer90") double goalsPenaltyKicksPer90,
-        @JsonProperty("goalsAssistsPenaltyKicksPer90") double goalsAssistsPenaltyKicksPer90,
-        @JsonProperty("xGPer90") double xGPer90,
-        @JsonProperty("xAPer90") double xAPer90,
-        @JsonProperty("xGPlusXAPer90") double xGPlusXAPer90,
-        @JsonProperty("npxGPer90") double npxGPer90,
-        @JsonProperty("npxGPlusXAPer90") double npxGPlusXAPer90,
-        @JsonProperty("team") String team,
-        @JsonProperty("score") int score)
-        {
+            @JsonProperty("id") Long id,
+            @JsonProperty("playerName") String playerName,
+            @JsonProperty("gamesPlayed") int gamesPlayed,
+            @JsonProperty("starts") int starts,
+            @JsonProperty("nation") String nation,
+            @JsonProperty("position") String position,
+            @JsonProperty("age") int age,
+            @JsonProperty("minutes") int minutes,
+            @JsonProperty("ninetyMinutes") int ninetyMinutes,
+            @JsonProperty("goals") int goals,
+            @JsonProperty("assists") int assists,
+            @JsonProperty("goalsAssists") int goalsAssists,
+            @JsonProperty("goalsPenaltyKicks") int goalsPenaltyKicks,
+            @JsonProperty("penaltyKicks") int penaltyKicks,
+            @JsonProperty("penaltyKickAttempts") int penaltyKickAttempts,
+            @JsonProperty("yellowCards") int yellowCards,
+            @JsonProperty("redCards") int redCards,
+            @JsonProperty("expectedGoals") double expectedGoals,
+            @JsonProperty("nonPenaltyExpectedGoals") double nonPenaltyExpectedGoals,
+            @JsonProperty("expectedAssists") double expectedAssists,
+            @JsonProperty("npXgPlusXA") double npXgPlusXA,
+            @JsonProperty("progressiveCarries") int progressiveCarries,
+            @JsonProperty("progressivePasses") int progressivePasses,
+            @JsonProperty("progressiveRuns") int progressiveRuns,
+            @JsonProperty("goalsPer90") double goalsPer90,
+            @JsonProperty("assistsPer90") double assistsPer90,
+            @JsonProperty("goalsAssistsPer90") double goalsAssistsPer90,
+            @JsonProperty("goalsPenaltyKicksPer90") double goalsPenaltyKicksPer90,
+            @JsonProperty("goalsAssistsPenaltyKicksPer90") double goalsAssistsPenaltyKicksPer90,
+            @JsonProperty("xGPer90") double xGPer90,
+            @JsonProperty("xAPer90") double xAPer90,
+            @JsonProperty("xGPlusXAPer90") double xGPlusXAPer90,
+            @JsonProperty("npxGPer90") double npxGPer90,
+            @JsonProperty("npxGPlusXAPer90") double npxGPlusXAPer90,
+            @JsonProperty("team") String team,
+            @JsonProperty("playerScore") double score) {
         this.id = id;
         this.playerName = playerName;
         this.gamesPlayed = gamesPlayed;
@@ -260,6 +260,6 @@ public class Statistics {
     }
 
     public int getScore() {
-        return score;
+        return (int) score;
     }
 }

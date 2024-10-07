@@ -19,8 +19,6 @@ public class NavbarController {
     private Button signOutButton;
     @FXML
     private Button rosterButton;
-    @FXML
-    private Button leaderBoardButton;
 
     @FXML
     protected void onSignOutButtonClick() {
@@ -65,5 +63,10 @@ public class NavbarController {
     @FXML
     protected void onLeaderBoardButtonClick() {
         Client.updateRoot("/leaderboard-view.fxml");
+    }
+
+    @FXML
+    protected void onStatisticsButtonClick() {
+        Client.updateRoot("/statistics-view.fxml");
     }
 }

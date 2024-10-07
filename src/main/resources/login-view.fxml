@@ -6,51 +6,52 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controllers.LoginController">
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.example.client.controllers.LoginController">
    <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER">
          <children>
-            <Group layoutX="224.0" layoutY="113.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <TextFlow prefHeight="25.0" textAlignment="CENTER">
                <children>
-                  <Text layoutX="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <TextFlow layoutY="9.0" prefHeight="25.0" textAlignment="CENTER">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" />
-                        <Hyperlink fx:id="createAccountLink" onAction="#onCreateAccountLinkClick" text="Create one" />
-                     </children>
-                  </TextFlow>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?" />
+                  <Hyperlink fx:id="createAccountLink" onAction="#onCreateAccountLinkClick"
+                     text="Create one" />
+               </children>
+            </TextFlow>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Group>
+               <children>
+                  <Label text="Username" />
+                  <TextField fx:id="usernameField" layoutY="17.0" promptText="Enter username" />
                </children>
             </Group>
-            <VBox layoutX="239.0" layoutY="156.0" spacing="10.0">
+            <Group>
                <children>
-                  <Group>
-                     <children>
-                        <Label text="Username" />
-                        <TextField fx:id="usernameField" layoutY="17.0" promptText="Enter username" />
-                     </children>
-                  </Group>
-                  <Group>
-                     <children>
-                        <Label text="Password" />
-                        <PasswordField fx:id="passwordField" layoutX="-1.0" layoutY="18.0" promptText="Enter password" />
-                        <Hyperlink layoutX="1.0" layoutY="43.0" prefHeight="17.0" prefWidth="97.0" style="-fx-padding: 0;" text="Forgot password" />
-                     </children>
-                  </Group>
+                  <Label text="Password" />
+                  <PasswordField fx:id="passwordField" layoutX="-1.0" layoutY="18.0"
+                     promptText="Enter password" />
+                  <Hyperlink layoutX="1.0" layoutY="43.0" prefHeight="17.0" prefWidth="97.0"
+                     style="-fx-padding: 0;" text="Forgot password" />
                </children>
-            </VBox>
-            <Text fx:id="submitError" fill="RED" layoutX="239.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-            <Button fx:id="submitButton" defaultButton="true" layoutX="287.0" layoutY="299.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" text="Sign In" />
+            </Group>
          </children>
-      </AnchorPane>
+      </VBox>
+      <Text fx:id="submitError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Button fx:id="submitButton" defaultButton="true" mnemonicParsing="false"
+         onAction="#onSubmitButtonClick" text="Sign In" />
    </children>
 </VBox>

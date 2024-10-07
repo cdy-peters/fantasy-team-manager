@@ -9,6 +9,7 @@ import com.example.server.models.IUserRoster;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -18,20 +19,43 @@ public class Client extends Application {
     public static final String SERVER_URL = dotenv.get("SERVER_URL");
 
     public static final String TITLE = "Fantasy Team Manager";
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 400;
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 650;
 
     // TODO: Handle expired session cookie
     public static String sessionToken = PrefsHelper.getPref("sessionToken");
 
     public static IUserRoster userRoster = null;
 
+    public static BorderPane root = new BorderPane();
+
+    public static void updateRoot(String view) {
+        if (view.equals("/login-view.fxml") || view.equals("/register-view.fxml")) {
+            root.setTop(null);
+        } else if (root.getTop() == null) {
+            FXMLLoader navbarLoader = new FXMLLoader(Client.class.getResource("/navbar.fxml"));
+            try {
+                root.setTop(navbarLoader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        FXMLLoader contentLoader = new FXMLLoader(Client.class.getResource(view));
+        try {
+            root.setCenter(contentLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         String view = new LandingGuard().getView();
+        updateRoot(view);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
-        Scene scene = new Scene(fxmlLoader.load(), WIDTH, HEIGHT);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();

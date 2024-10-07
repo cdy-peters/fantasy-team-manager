@@ -1,70 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.client.components.Navbar?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" spacing="10" xmlns="http://javafx.com/javafx/22"
+
+<VBox alignment="CENTER" prefWidth="640.0" spacing="20.0" xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="com.example.client.controllers.HomeController">
     <children>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
-            VBox.vgrow="ALWAYS">
-            <Navbar>
-                <padding>
-                    <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-                </padding>
-            </Navbar>
+        <VBox alignment="CENTER">
             <children>
-                <VBox layoutX="1.0" layoutY="72.0" prefWidth="640.0" spacing="20.0">
-                    <children>
-                        <Group>
-                            <children>
-                                <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE"
-                                    strokeWidth="0.0" text="Forward" />
-                                <HBox fx:id="forwards" alignment="CENTER" layoutX="-2.0"
-                                    layoutY="72.0"
-                                    prefHeight="25.0" prefWidth="640.0" spacing="20.0">
-                                </HBox>
-                            </children>
-                        </Group>
-                        <Group>
-                            <children>
-                                <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE"
-                                    strokeWidth="0.0" text="Midfield" />
-                                <HBox fx:id="midfielders" alignment="CENTER" layoutY="72.0"
-                                    prefHeight="25.0"
-                                    prefWidth="640.0" spacing="20.0">
-                                </HBox>
-                            </children>
-                        </Group>
-                        <Group>
-                            <children>
-                                <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE"
-                                    strokeWidth="0.0" text="Defense" />
-                                <HBox fx:id="defenders" alignment="CENTER" layoutY="72.0"
-                                    prefHeight="25.0"
-                                    prefWidth="640.0" spacing="20.0">
-                                </HBox>
-                            </children>
-                        </Group>
-                        <Group>
-                            <children>
-                                <Text layoutX="290.0" layoutY="64.0" strokeType="OUTSIDE"
-                                    strokeWidth="0.0" text="Goalkeeper" />
-                                <HBox fx:id="goalkeeper" alignment="CENTER" layoutY="72.0"
-                                    prefHeight="25.0"
-                                    prefWidth="640.0" spacing="20.0">
-                                </HBox>
-                            </children>
-                        </Group>
-                    </children>
-                </VBox>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forward" />
+                <HBox fx:id="forwards" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
+                    spacing="20.0">
+                </HBox>
             </children>
-        </AnchorPane>
+        </VBox>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Midfield" />
+                <HBox fx:id="midfielders" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
+                    spacing="20.0">
+                </HBox>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Defense" />
+                <HBox fx:id="defenders" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
+                    spacing="20.0">
+                </HBox>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goalkeeper" />
+                <HBox fx:id="goalkeeper" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
+                    spacing="20.0">
+                </HBox>
+            </children>
+        </VBox>
     </children>
 </VBox>

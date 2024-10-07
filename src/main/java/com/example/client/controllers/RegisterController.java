@@ -12,14 +12,11 @@ import com.example.client.Client;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class RegisterController {
     @FXML
@@ -93,10 +90,7 @@ public class RegisterController {
 
     @FXML
     protected void onSignInLinkClick() throws IOException {
-        Stage stage = (Stage) signInLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-        stage.setScene(scene);
+        Client.updateRoot("/login-view.fxml");
     }
 
     @FXML
@@ -120,10 +114,7 @@ public class RegisterController {
                 return;
             }
 
-            Stage stage = (Stage) submitButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/create-roster-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-            stage.setScene(scene);
+            Client.updateRoot("/create-roster-view.fxml");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

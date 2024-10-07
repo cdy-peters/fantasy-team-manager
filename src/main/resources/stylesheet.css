@@ -1,0 +1,15 @@
+.player-card {
+  -fx-background-color: transparent;
+  -fx-border-color: gray;
+  -fx-border-radius: 5;
+}
+
+.player-card:hover {
+  -fx-background-color: lightgray;
+  -fx-cursor: hand;
+}
+
+.player-card-selected {
+  -fx-border-color: black;
+  -fx-border-width: 1;
+}

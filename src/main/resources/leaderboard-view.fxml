@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.client.components.Navbar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -13,11 +12,6 @@
    <children>
       <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
          VBox.vgrow="ALWAYS">
-         <Navbar>
-            <padding>
-               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-         </Navbar>
          <VBox layoutX="196.0" layoutY="68.0" AnchorPane.rightAnchor="196.0" alignment="CENTER">
             <children>
                <TableView fx:id="leaderboardTable">
@@ -32,4 +26,3 @@
       </AnchorPane>
    </children>
 </VBox>
-

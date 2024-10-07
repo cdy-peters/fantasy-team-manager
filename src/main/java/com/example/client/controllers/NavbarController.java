@@ -1,6 +1,7 @@
-package com.example.client.components;
+package com.example.client.controllers;
 
 import java.io.IOException;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -11,37 +12,18 @@ import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
-public class Navbar extends HBox {
+public class NavbarController {
     @FXML
     private Button signOutButton;
-
     @FXML
     private Button rosterButton;
-
     @FXML
     private Button leaderBoardButton;
 
-    public Navbar() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/navbar.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException("Failed to load Navbar FXML", exception);
-        }
-
-    }
-
     @FXML
-    protected void onSignOutButtonClick() throws IOException {
+    protected void onSignOutButtonClick() {
         String sessionToken = PrefsHelper.getPref("sessionToken");
 
         HttpClient client = HttpClient.newHttpClient();
@@ -63,15 +45,11 @@ public class Navbar extends HBox {
             PrefsHelper.removePref("sessionToken");
             Client.userRoster = null;
 
-            Stage stage = (Stage) signOutButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-            stage.setScene(scene);
+            Client.updateRoot("/login-view.fxml");
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return;
         }
-
     }
 
     @FXML
@@ -81,17 +59,11 @@ public class Navbar extends HBox {
             throw new IOException("Error fetching view");
         }
 
-        Stage stage = (Stage) rosterButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
-        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-        stage.setScene(scene);
+        Client.updateRoot(view);
     }
 
     @FXML
-    protected void onLeaderBoardButtonClick() throws IOException {
-        Stage stage = (Stage) leaderBoardButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/leaderboard-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-        stage.setScene(scene);
+    protected void onLeaderBoardButtonClick() {
+        Client.updateRoot("/leaderboard-view.fxml");
     }
 }

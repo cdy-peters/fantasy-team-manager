@@ -13,14 +13,11 @@ import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class LoginController {
     @FXML
@@ -87,10 +84,7 @@ public class LoginController {
 
     @FXML
     protected void onCreateAccountLinkClick() throws IOException {
-        Stage stage = (Stage) createAccountLink.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/register-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-        stage.setScene(scene);
+        Client.updateRoot("/register-view.fxml");
     }
 
     @FXML
@@ -116,10 +110,7 @@ public class LoginController {
                 throw new IOException("Failed to fetch view");
             }
 
-            Stage stage = (Stage) submitButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
-            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-            stage.setScene(scene);
+            Client.updateRoot(view);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

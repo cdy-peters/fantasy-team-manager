@@ -16,8 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -25,7 +23,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class CreateRosterController {
     @FXML
@@ -260,10 +257,7 @@ public class CreateRosterController {
 
             Client.userRoster = roster;
 
-            Stage stage = (Stage) createTeamButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
-            stage.setScene(scene);
+            Client.updateRoot("/home-view.fxml");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

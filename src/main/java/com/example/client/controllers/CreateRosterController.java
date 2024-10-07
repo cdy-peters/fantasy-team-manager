@@ -17,12 +17,17 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.shape.Rectangle;
 
 public class CreateRosterController {
     @FXML
@@ -79,6 +84,14 @@ public class CreateRosterController {
                 setText(player.getName());
             }
         }
+    }
+
+    // SO: https://stackoverflow.com/a/61121454/18405522
+    private void clipChildren(Region region) {
+        Rectangle clip = new Rectangle();
+        clip.widthProperty().bind(region.widthProperty());
+        clip.heightProperty().bind(region.heightProperty());
+        region.setClip(clip);
     }
 
     private HttpRequest createHttpRequest(String position) {
@@ -197,8 +210,29 @@ public class CreateRosterController {
             VBox vBox = new VBox();
             vBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-            Text text = new Text(selectedPlayer.getName());
-            vBox.getChildren().add(text);
+            // Image
+            Pane pane = new Pane();
+            pane.setMaxWidth(Region.USE_PREF_SIZE);
+
+            String filePath = "/images/shirts/" + selectedPlayer.getTeam() + ".png";
+            Image image = new Image(getClass().getResourceAsStream(filePath));
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(100);
+            imageView.setPreserveRatio(true);
+            pane.getChildren().add(imageView);
+
+            clipChildren(pane);
+            vBox.getChildren().add(pane);
+
+            // Info
+            VBox info = new VBox();
+            info.setAlignment(javafx.geometry.Pos.CENTER);
+
+            Label name = new Label(selectedPlayer.getName());
+            name.setMaxWidth(Region.USE_PREF_SIZE);
+            info.getChildren().add(name);
+
+            vBox.getChildren().add(info);
 
             selectedPlayerCard.setGraphic(vBox);
 

@@ -4,22 +4,23 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import com.example.client.components.Navbar?>
+<!-- <?import com.example.client.controllers.NavbarController?> -->
 <?import javafx.geometry.Insets?>  <!-- Import added -->
 
 <VBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="com.example.client.controllers.StatisticsController">
     <AnchorPane layoutX="640.0" layoutY="400.0" prefHeight="400.0" prefWidth="640.0">
-        <Navbar>
-            <padding>
-               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-        </Navbar>
         <TableView fx:id="tableView" layoutX="29.0" layoutY="46.0" prefHeight="332.0" prefWidth="381.0">
             <columns>
                 <TableColumn fx:id="nameColumn" text="Player" />
+                <TableColumn fx:id="teamColumn" text="Team" />
                 <TableColumn fx:id="valueColumn" text="Goals" />
                 <TableColumn fx:id="assistsColumn" text="Assists" />
-                <TableColumn fx:id="redCardsColumn" text="Games" />
+                <TableColumn fx:id="minutesColumn" text="Games" />
+                <TableColumn fx:id="penaltyKicksColumn" text="Penalty Kicks" />
+                <TableColumn fx:id="penaltyGoalsColumn" text="Penalty Goals" />
+                <TableColumn fx:id="goalsPer90Column" text="Goals per 90" />
+                <TableColumn fx:id="assistsPer90Column" text="Assists per 90" />
+                <TableColumn fx:id="redCardsColumn" text="Red Cards" />
                 <TableColumn fx:id="yellowCardsColumn" text="Yellow cards" />
             </columns>
         </TableView>

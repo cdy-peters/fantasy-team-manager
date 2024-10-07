@@ -50,13 +50,36 @@ public class StatisticsController implements Initializable {
     private TableColumn<Statistics, String> pointsNameColumn;
 
     @FXML
+    private TableColumn<Statistics, Integer> minutesColumn;
+
+    @FXML
+    private TableColumn<Statistics, String> teamColumn;
+
+    @FXML
+    private TableColumn<Statistics, Integer> pentalyGoalsColumn;
+
+    @FXML
+    private TableColumn<Statistics, Integer> penaltyKicksColumn;
+
+    @FXML
+    private TableColumn<Statistics, Double> goalsPer90Column;
+
+    @FXML
+    private TableColumn<Statistics, Double> assistsPer90Column;
+
+    @FXML
     public void initialize(URL location, ResourceBundle resources) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
+        teamColumn.setCellValueFactory(new PropertyValueFactory<>("team"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("goals"));
         assistsColumn.setCellValueFactory(new PropertyValueFactory<>("assists"));
-
         redCardsColumn.setCellValueFactory(new PropertyValueFactory<>("redCards"));
         yellowCardsColumn.setCellValueFactory(new PropertyValueFactory<>("yellowCards"));
+        minutesColumn.setCellValueFactory(new PropertyValueFactory<>("minutes"));
+        pentalyGoalsColumn.setCellValueFactory(new PropertyValueFactory<>("goalsPenaltyKicks"));
+        penaltyKicksColumn.setCellValueFactory(new PropertyValueFactory<>("penaltyKicks"));
+        goalsPer90Column.setCellValueFactory(new PropertyValueFactory<>("goalsPer90"));
+        assistsPer90Column.setCellValueFactory(new PropertyValueFactory<>("assistsPer90"));
 
         pointsNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("score"));

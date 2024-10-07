@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<!-- <?import com.example.client.controllers.NavbarController?> -->
+<?import javafx.geometry.Insets?>  <!-- Import added -->
+
+<VBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="com.example.client.controllers.StatisticsController">
+    <AnchorPane layoutX="640.0" layoutY="400.0" prefHeight="400.0" prefWidth="640.0">
+        <TableView fx:id="tableView" layoutX="29.0" layoutY="46.0" prefHeight="332.0" prefWidth="381.0">
+            <columns>
+                <TableColumn fx:id="nameColumn" text="Player" />
+                <TableColumn fx:id="teamColumn" text="Team" />
+                <TableColumn fx:id="valueColumn" text="Goals" />
+                <TableColumn fx:id="assistsColumn" text="Assists" />
+                <TableColumn fx:id="minutesColumn" text="Games" />
+                <TableColumn fx:id="penaltyKicksColumn" text="Penalty Kicks" />
+                <TableColumn fx:id="penaltyGoalsColumn" text="Penalty Goals" />
+                <TableColumn fx:id="goalsPer90Column" text="Goals per 90" />
+                <TableColumn fx:id="assistsPer90Column" text="Assists per 90" />
+                <TableColumn fx:id="redCardsColumn" text="Red Cards" />
+                <TableColumn fx:id="yellowCardsColumn" text="Yellow cards" />
+            </columns>
+        </TableView>
+        <TableView fx:id="pointsView" layoutX="447.0" layoutY="46.0" prefHeight="332.0" prefWidth="162.0">
+            <columns>
+                <TableColumn fx:id="pointsNameColumn" text="Player" />
+                <TableColumn fx:id="pointsColumn" text="Points" />
+            </columns>
+        </TableView>
+    </AnchorPane>
+</VBox>

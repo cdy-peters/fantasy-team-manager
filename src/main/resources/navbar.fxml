@@ -10,7 +10,27 @@
 
 <BorderPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.example.client.controllers.NavbarController">
+    fx:id="navbar" spacing="10"
+    alignment="CENTER_LEFT">
+    <Text text="Fantasy Team">
+        <font>
+            <Font name="System Bold" size="24" />
+        </font>
+    </Text>
+    <Region HBox.hgrow="ALWAYS" />
+    <Button
+        fx:id="signOutButton" text="Home" onAction="#onHomeButtonClick" />
+    <Button
+        fx:id="rosterButton" text="Roster" onAction="#onRosterButtonClick" />
+    <Button
+        fx:id="leaderBoardButton" text="Leader Board" onAction="#onLeaderBoardButtonClick" />
+    <Button
+        fx:id="signOutButton" text="Statistics" onAction="#onStatisticsButtonClick" />
+    <Button
+        fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
+</fx:root>
+
+    <fx:controller="com.example.client.controllers.NavbarController">
     <left>
         <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>

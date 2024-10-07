@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.geometry.Insets?>  <!-- Import added -->
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="com.example.client.controllers.StatisticsController">
-    <AnchorPane layoutX="640.0" layoutY="400.0" prefHeight="400.0" prefWidth="640.0">
-        <TableView fx:id="tableView" layoutX="29.0" layoutY="46.0" prefHeight="332.0" prefWidth="381.0">
+<GridPane hgap="40.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.example.client.controllers.StatisticsController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <TableView fx:id="tableView" prefHeight="332.0" prefWidth="381.0" GridPane.hgrow="ALWAYS">
             <columns>
                 <TableColumn fx:id="nameColumn" text="Player" />
                 <TableColumn fx:id="teamColumn" text="Team" />
@@ -23,11 +32,14 @@
                 <TableColumn fx:id="yellowCardsColumn" text="Yellow cards" />
             </columns>
         </TableView>
-        <TableView fx:id="pointsView" layoutX="447.0" layoutY="46.0" prefHeight="332.0" prefWidth="162.0">
+        <TableView fx:id="pointsView" prefHeight="332.0" prefWidth="162.0" GridPane.columnIndex="1">
             <columns>
                 <TableColumn fx:id="pointsNameColumn" text="Player" />
                 <TableColumn fx:id="pointsColumn" text="Points" />
             </columns>
         </TableView>
-    </AnchorPane>
-</VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</GridPane>

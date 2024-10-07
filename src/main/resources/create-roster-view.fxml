@@ -1,94 +1,324 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.example.client.components.Navbar?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.ScrollBar?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" spacing="10" xmlns="http://javafx.com/javafx/22"
-   xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane prefHeight="726.0" prefWidth="1080.0" stylesheets="./stylesheet.css"
+   xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="com.example.client.controllers.CreateRosterController">
-   <children>
-      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0"
-         VBox.vgrow="ALWAYS">
-         <Navbar>
-            <padding>
-               <Insets bottom="10.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-         </Navbar>
-         <children>
-            <VBox layoutX="1.0" layoutY="69.0" spacing="20.0">
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="686.0" spacing="40.0"
+               BorderPane.alignment="CENTER">
                <children>
-                  <Group>
+                  <VBox spacing="20.0">
                      <children>
-                        <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                           text="Forward" />
-                        <HBox alignment="CENTER" layoutX="-2.0" layoutY="72.0" prefHeight="25.0"
-                           prefWidth="640.0" spacing="20.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                            <children>
-                              <ComboBox fx:id="LS" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="RS" prefHeight="25.0" prefWidth="127.0" />
+                              <Button fx:id="playerCard1" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Forward">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard2" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Forward">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <Button fx:id="playerCard3" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Midfielder">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard4" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Midfielder">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard5" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Midfielder">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard6" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Midfielder">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <Button fx:id="playerCard7" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Defender">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard8" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Defender">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard9" mnemonicParsing="false" prefHeight="100.0"
+                                 prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Defender">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="playerCard10" mnemonicParsing="false"
+                                 prefHeight="100.0" prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Defender">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                           <children>
+                              <Button fx:id="playerCard11" mnemonicParsing="false"
+                                 prefHeight="100.0" prefWidth="100.0" styleClass="player-card">
+                                 <graphic>
+                                    <VBox alignment="CENTER" prefHeight="102.0" prefWidth="100.0"
+                                       spacing="10.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="+">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0"
+                                             text="Goalkeeper">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </graphic>
+                              </Button>
                            </children>
                         </HBox>
                      </children>
-                  </Group>
-                  <Group>
-                     <children>
-                        <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                           text="Midfield" />
-                        <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
-                           spacing="20.0">
-                           <children>
-                              <ComboBox fx:id="LW" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="LM" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="RM" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="RW" prefHeight="25.0" prefWidth="127.0" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </Group>
-                  <Group>
-                     <children>
-                        <Text layoutX="296.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                           text="Defense" />
-                        <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
-                           spacing="20.0">
-                           <children>
-                              <ComboBox fx:id="LWB" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="LB" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="RB" prefHeight="25.0" prefWidth="127.0" />
-                              <ComboBox fx:id="RWB" prefHeight="25.0" prefWidth="127.0" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </Group>
-                  <Group>
-                     <children>
-                        <Text layoutX="290.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                           text="Goalkeeper" />
-                        <HBox alignment="CENTER" layoutY="72.0" prefHeight="25.0" prefWidth="640.0"
-                           spacing="20.0">
-                           <children>
-                              <ComboBox fx:id="GK" prefHeight="25.0" prefWidth="127.0" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </Group>
+                  </VBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+         <bottom>
+            <Button fx:id="createTeamButton" mnemonicParsing="false" text="Create Team"
+               BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </BorderPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </bottom>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </BorderPane>
+   </center>
+   <right>
+      <VBox alignment="TOP_CENTER" prefHeight="669.0" prefWidth="236.0" spacing="15.0"
+         style="-fx-background-color: rgb(225,225,225); -fx-background-radius: 5;"
+         BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Player">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Text>
+            <VBox prefHeight="587.0" prefWidth="226.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="searchPlayersField" promptText="Search players" />
+                  <ListView fx:id="playersList" prefHeight="621.0" prefWidth="211.0" />
                </children>
             </VBox>
-            <Button fx:id="submitButton" layoutX="279.0" layoutY="351.0" mnemonicParsing="false"
-               onAction="#onSubmitButtonClick" text="Create Team" />
          </children>
-      </AnchorPane>
-   </children>
-</VBox>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </right>
+</BorderPane>

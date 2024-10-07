@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.Region?>
 
-<fx:root type="javafx.scene.layout.HBox" prefHeight="10" prefWidth="640.0"
-    xmlns="http://javafx.com/javafx/22"
+
+<BorderPane prefHeight="50.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:id="navbar" spacing="10"
-    alignment="CENTER_LEFT">
-    <Text text="Fantasy Team">
-        <font>
-            <Font name="System Bold" size="24" />
-        </font>
-    </Text>
-    <Region HBox.hgrow="ALWAYS" />
-    <Button
-        fx:id="rosterButton" text="Roster" onAction="#onRosterButtonClick" />
-    <Button
-        fx:id="leaderBoardButton" text="Leader Board" onAction="#onLeaderBoardButtonClick" />
-    <Button
-        fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
-</fx:root>
+    fx:controller="com.example.client.controllers.NavbarController">
+    <left>
+        <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fantasy Team">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </Text>
+                <Button fx:id="rosterButton" mnemonicParsing="false" text="Roster"
+                    onAction="#onRosterButtonClick" />
+                <Button fx:id="leaderBoardButton" mnemonicParsing="false" text="Leader Board"
+                    onAction="#onLeaderBoardButtonClick" />
+            </children>
+        </HBox>
+    </left>
+    <right>
+        <HBox alignment="CENTER_RIGHT" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="signOutButton" mnemonicParsing="false" text="Sign out"
+                    onAction="#onSignOutButtonClick" />
+            </children>
+        </HBox>
+    </right>
+    <padding>
+        <Insets left="10.0" right="10.0" />
+    </padding>
+</BorderPane>

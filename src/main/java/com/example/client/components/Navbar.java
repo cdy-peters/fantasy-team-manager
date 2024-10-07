@@ -72,4 +72,13 @@ public class Navbar extends HBox {
         Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
         stage.setScene(scene);
     }
+
+    @FXML
+    protected void onHomeButtonClick() throws IOException {
+        Stage stage = (Stage) signOutButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
+        stage.setScene(scene);
+    }
+
 }

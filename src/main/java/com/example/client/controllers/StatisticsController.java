@@ -26,26 +26,11 @@ public class StatisticsController implements Initializable {
     private TableView<Statistics> tableView;
 
     @FXML
-    private TableView<Statistics> metersView;
-
-    @FXML
-    private TableView<Statistics> scoreView;
-
-    @FXML
-    private TableView<Statistics> cardView;
-
-    @FXML
     private TableView<Statistics> pointsView;
 
     @FXML
     private TableColumn<Statistics, String> nameColumn;
-
-    @FXML
-    private TableColumn<Statistics, String> scoreNameColumn;
-
-    @FXML
-    private TableColumn<Statistics, String> cardsNameColumn;
-
+    
     @FXML
     private TableColumn<Statistics, Integer> valueColumn;
 
@@ -53,28 +38,10 @@ public class StatisticsController implements Initializable {
     private TableColumn<Statistics, Integer> assistsColumn;
 
     @FXML
-    private TableColumn<Statistics, Integer> totalColumn;
-
-    @FXML
     private TableColumn<Statistics, Integer> redCardsColumn;
 
     @FXML
     private TableColumn<Statistics, Integer> yellowCardsColumn;
-
-    @FXML
-    private TableColumn<Statistics, Integer> totalCardsColumn;
-
-    @FXML
-    private TableColumn<Statistics, Integer> carriesColumn;
-
-    @FXML
-    private TableColumn<Statistics, Integer> passesColumn;
-
-    @FXML
-    private TableColumn<Statistics, Integer> runsColumn;
-
-    @FXML
-    private TableColumn<Statistics, String> metersNameColumn;
 
     @FXML
     private TableColumn<Statistics, Integer> pointsColumn;
@@ -88,28 +55,8 @@ public class StatisticsController implements Initializable {
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("goals"));
         assistsColumn.setCellValueFactory(new PropertyValueFactory<>("assists"));
 
-        scoreNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        totalColumn.setCellValueFactory(cellData -> {
-            Statistics stats = cellData.getValue();
-            int total = stats.getGoals() + stats.getAssists();
-            return new javafx.beans.property.SimpleIntegerProperty(total).asObject();
-        });
-        totalColumn.setSortType(TableColumn.SortType.DESCENDING);  // Sort by totalColumn by default in descending order
-
-        cardsNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
         redCardsColumn.setCellValueFactory(new PropertyValueFactory<>("redCards"));
         yellowCardsColumn.setCellValueFactory(new PropertyValueFactory<>("yellowCards"));
-        totalCardsColumn.setCellValueFactory(cellData -> {
-            Statistics stats = cellData.getValue();
-            int total = stats.getRedCards() + stats.getYellowCards();
-            return new javafx.beans.property.SimpleIntegerProperty(total).asObject();
-        });
-        totalCardsColumn.setSortType(TableColumn.SortType.DESCENDING);  // Sort by totalCardsColumn by default in descending order
-    
-        metersNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
-        carriesColumn.setCellValueFactory(new PropertyValueFactory<>("progressiveCarries"));
-        passesColumn.setCellValueFactory(new PropertyValueFactory<>("progressivePasses"));
-        runsColumn.setCellValueFactory(new PropertyValueFactory<>("progressiveRuns"));
 
         pointsNameColumn.setCellValueFactory(new PropertyValueFactory<>("playerName"));
         pointsColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
@@ -121,22 +68,9 @@ public class StatisticsController implements Initializable {
 
     private void populateTables(List<Statistics> statisticsList) {
         tableView.getItems().clear();
-        scoreView.getItems().clear();
-        cardView.getItems().clear();
-        metersView.getItems().clear();
         pointsView.getItems().clear();
 
         tableView.getItems().addAll(statisticsList);
-
-        metersView.getItems().addAll(statisticsList);
-
-        scoreView.getItems().addAll(statisticsList);
-        scoreView.getSortOrder().add(totalColumn);  // Add column to sort order
-        scoreView.sort();  // Apply the sort after data is populated
-
-        cardView.getItems().addAll(statisticsList);
-        cardView.getSortOrder().add(totalCardsColumn);  // Add column to sort order
-        cardView.sort();  // Apply the sort after data is populated
 
         pointsView.getItems().addAll(statisticsList);
         pointsView.getSortOrder().add(pointsColumn);  // Add column to sort order

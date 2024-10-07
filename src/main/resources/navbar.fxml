@@ -18,8 +18,10 @@
     </Text>
     <Region HBox.hgrow="ALWAYS" />
     <Button
-        fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
+        fx:id="signOutButton" text="Home" onAction="#onHomeButtonClick" />
     <Button
         fx:id="signOutButton" text="Statistics" onAction="#onStatisticsButtonClick" />
+    <Button
+        fx:id="signOutButton" text="Sign Out" onAction="#onSignOutButtonClick" />
 </fx:root>
 

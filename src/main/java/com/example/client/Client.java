@@ -18,8 +18,8 @@ public class Client extends Application {
     public static final String SERVER_URL = dotenv.get("SERVER_URL");
 
     public static final String TITLE = "Fantasy Team Manager";
-    public static final int WIDTH = 640;
-    public static final int HEIGHT = 400;
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 650;
 
     // TODO: Handle expired session cookie
     public static String sessionToken = PrefsHelper.getPref("sessionToken");

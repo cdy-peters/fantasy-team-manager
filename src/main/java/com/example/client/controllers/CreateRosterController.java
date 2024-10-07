@@ -13,58 +13,63 @@ import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class CreateRosterController {
     @FXML
-    private ComboBox<IPlayer> LS;
+    private Button playerCard1;
     @FXML
-    private ComboBox<IPlayer> RS;
+    private Button playerCard2;
     @FXML
-    private ComboBox<IPlayer> LW;
+    private Button playerCard3;
     @FXML
-    private ComboBox<IPlayer> LM;
+    private Button playerCard4;
     @FXML
-    private ComboBox<IPlayer> RM;
+    private Button playerCard5;
     @FXML
-    private ComboBox<IPlayer> RW;
+    private Button playerCard6;
     @FXML
-    private ComboBox<IPlayer> LWB;
+    private Button playerCard7;
     @FXML
-    private ComboBox<IPlayer> LB;
+    private Button playerCard8;
     @FXML
-    private ComboBox<IPlayer> RB;
+    private Button playerCard9;
     @FXML
-    private ComboBox<IPlayer> RWB;
+    private Button playerCard10;
     @FXML
-    private ComboBox<IPlayer> GK;
+    private Button playerCard11;
     @FXML
-    private Button submitButton;
+    private TextField searchPlayersField;
+    @FXML
+    private ListView<IPlayer> playersList;
+    @FXML
+    private Button createTeamButton;
+
+    private Button selectedPlayerCard = null;
+
+    private IUserRoster roster = new IUserRoster();
+
+    private ObservableList<IPlayer> forwards;
+    private ObservableList<IPlayer> midfielders;
+    private ObservableList<IPlayer> defenders;
+    private ObservableList<IPlayer> goalkeepers;
+
+    private FilteredList<IPlayer> filteredPlayers;
 
     Gson g = new Gson();
-
     private HttpClient httpClient = HttpClient.newHttpClient();
-
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
-
-    private HttpRequest createHttpRequest(String position) {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "players?position=" + position))
-                .header("Content-Type", "application/json")
-                .build();
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-    }
 
     private class PlayerListCell extends ListCell<IPlayer> {
         @Override
@@ -79,10 +84,15 @@ public class CreateRosterController {
         }
     }
 
-    private void initComboBox(ComboBox<IPlayer> comboBox, ObservableList<IPlayer> players) {
-        comboBox.getItems().addAll(players);
-        comboBox.setCellFactory(param -> new PlayerListCell());
-        comboBox.setButtonCell(new PlayerListCell());
+    private HttpRequest createHttpRequest(String position) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create(Client.SERVER_URL + "players?position=" + position))
+                .header("Content-Type", "application/json")
+                .build();
+    }
+
+    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
+        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     private ObservableList<IPlayer> fetchPlayers(String position) {
@@ -99,77 +109,158 @@ public class CreateRosterController {
     }
 
     public void initialize() {
-        ObservableList<IPlayer> forwards = fetchPlayers("FW");
-        ObservableList<IPlayer> midfielders = fetchPlayers("MF");
-        ObservableList<IPlayer> defenders = fetchPlayers("DF");
-        ObservableList<IPlayer> goalkeepers = fetchPlayers("GK");
+        forwards = fetchPlayers("FW");
+        midfielders = fetchPlayers("MF");
+        defenders = fetchPlayers("DF");
+        goalkeepers = fetchPlayers("GK");
 
-        initComboBox(LS, forwards);
-        initComboBox(RS, forwards);
+        playerCard1.setOnAction(this::handlePlayerCard);
+        playerCard2.setOnAction(this::handlePlayerCard);
+        playerCard3.setOnAction(this::handlePlayerCard);
+        playerCard4.setOnAction(this::handlePlayerCard);
+        playerCard5.setOnAction(this::handlePlayerCard);
+        playerCard6.setOnAction(this::handlePlayerCard);
+        playerCard7.setOnAction(this::handlePlayerCard);
+        playerCard8.setOnAction(this::handlePlayerCard);
+        playerCard9.setOnAction(this::handlePlayerCard);
+        playerCard10.setOnAction(this::handlePlayerCard);
+        playerCard11.setOnAction(this::handlePlayerCard);
 
-        initComboBox(LW, midfielders);
-        initComboBox(LM, midfielders);
-        initComboBox(RM, midfielders);
-        initComboBox(RW, midfielders);
+        playersList.setOnMouseClicked(this::handlePlayerSelection);
 
-        initComboBox(LWB, defenders);
-        initComboBox(LB, defenders);
-        initComboBox(RB, defenders);
-        initComboBox(RWB, defenders);
-
-        initComboBox(GK, goalkeepers);
+        createTeamButton.setOnAction(this::handleCreateTeam);
     }
 
-    // TODO: Handle duplicate selected players
-    // TODO: Handle no player selected
-    @FXML
-    protected void onSubmitButtonClick() {
-        IPlayer LSPlayer = LS.getValue();
-        IPlayer RSPlayer = RS.getValue();
-        IPlayer LWPlayer = LW.getValue();
-        IPlayer LMPlayer = LM.getValue();
-        IPlayer RMPlayer = RM.getValue();
-        IPlayer RWPlayer = RW.getValue();
-        IPlayer LWBPlayer = LWB.getValue();
-        IPlayer LBPlayer = LB.getValue();
-        IPlayer RBPlayer = RB.getValue();
-        IPlayer RWBPlayer = RWB.getValue();
-        IPlayer GKPlayer = GK.getValue();
+    private void handlePlayerCard(ActionEvent event) {
+        Button button = (Button) event.getSource();
 
-        IUserRoster userRoster = new IUserRoster(LSPlayer.getId(), RSPlayer.getId(), LWPlayer.getId(),
-                LMPlayer.getId(),
-                RMPlayer.getId(), RWPlayer.getId(), LWBPlayer.getId(), LBPlayer.getId(), RBPlayer.getId(),
-                RWBPlayer.getId(), GKPlayer.getId(), null, null, null, null);
+        if (selectedPlayerCard != null) {
+            selectedPlayerCard.getStyleClass().remove("player-card-selected");
+        }
+        selectedPlayerCard = button;
+        selectedPlayerCard.getStyleClass().add("player-card-selected");
 
-        double scoreSum = 0;
-        scoreSum += LSPlayer.getScore();
-        scoreSum += RSPlayer.getScore();
-        scoreSum += LWPlayer.getScore();
-        scoreSum += LMPlayer.getScore();
-        scoreSum += RMPlayer.getScore();
-        scoreSum += RWPlayer.getScore();
-        scoreSum += LWBPlayer.getScore();
-        scoreSum += LBPlayer.getScore();
-        scoreSum += RBPlayer.getScore();
-        scoreSum += RWBPlayer.getScore();
-        scoreSum += GKPlayer.getScore();
+        switch (button.getId()) {
+            case "playerCard1":
+                updatePlayerList(forwards);
+                break;
+            case "playerCard2":
+                updatePlayerList(forwards);
+                break;
+            case "playerCard3":
+                updatePlayerList(midfielders);
+                break;
+            case "playerCard4":
+                updatePlayerList(midfielders);
+                break;
+            case "playerCard5":
+                updatePlayerList(midfielders);
+                break;
+            case "playerCard6":
+                updatePlayerList(midfielders);
+                break;
+            case "playerCard7":
+                updatePlayerList(defenders);
+                break;
+            case "playerCard8":
+                updatePlayerList(defenders);
+                break;
+            case "playerCard9":
+                updatePlayerList(defenders);
+                break;
+            case "playerCard10":
+                updatePlayerList(defenders);
+                break;
+            case "playerCard11":
+                updatePlayerList(goalkeepers);
+                break;
+            default:
+                break;
+        }
+    }
 
-        userRoster.setScore(scoreSum);
+    private void updatePlayerList(ObservableList<IPlayer> players) {
+        filteredPlayers = new FilteredList<>(players, p -> true);
+        playersList.setItems(filteredPlayers);
+        playersList.setCellFactory(param -> new PlayerListCell());
 
+        searchPlayersField.textProperty().addListener(obs -> {
+            String filter = searchPlayersField.getText();
+            if (filter == null || filter.length() == 0) {
+                filteredPlayers.setPredicate(p -> true);
+            } else {
+                filteredPlayers.setPredicate(p -> p.getName().toLowerCase().contains(filter.toLowerCase()));
+            }
+        });
+    }
+
+    private void handlePlayerSelection(MouseEvent event) {
+        IPlayer selectedPlayer = playersList.getSelectionModel().getSelectedItem();
+        if (selectedPlayer != null) {
+            VBox vBox = new VBox();
+            vBox.setAlignment(javafx.geometry.Pos.CENTER);
+
+            Text text = new Text(selectedPlayer.getName());
+            vBox.getChildren().add(text);
+
+            selectedPlayerCard.setGraphic(vBox);
+
+            switch (selectedPlayerCard.getId()) {
+                case "playerCard1":
+                    roster.setPosition1(selectedPlayer.getId());
+                    break;
+                case "playerCard2":
+                    roster.setPosition2(selectedPlayer.getId());
+                    break;
+                case "playerCard3":
+                    roster.setPosition3(selectedPlayer.getId());
+                    break;
+                case "playerCard4":
+                    roster.setPosition4(selectedPlayer.getId());
+                    break;
+                case "playerCard5":
+                    roster.setPosition5(selectedPlayer.getId());
+                    break;
+                case "playerCard6":
+                    roster.setPosition6(selectedPlayer.getId());
+                    break;
+                case "playerCard7":
+                    roster.setPosition7(selectedPlayer.getId());
+                    break;
+                case "playerCard8":
+                    roster.setPosition8(selectedPlayer.getId());
+                    break;
+                case "playerCard9":
+                    roster.setPosition9(selectedPlayer.getId());
+                    break;
+                case "playerCard10":
+                    roster.setPosition10(selectedPlayer.getId());
+                    break;
+                case "playerCard11":
+                    roster.setPosition11(selectedPlayer.getId());
+                    break;
+                default:
+                    break;
+            }
+            roster.incScore(selectedPlayer.getScore());
+        }
+    }
+
+    private void handleCreateTeam(ActionEvent event) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(Client.SERVER_URL + "roster"))
                     .header("Authorization", Client.sessionToken)
                     .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(userRoster)))
+                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(roster)))
                     .build();
 
             HttpResponse<String> response = sendRequest(request);
             System.out.println(response.body());
 
-            Client.userRoster = userRoster;
+            Client.userRoster = roster;
 
-            Stage stage = (Stage) submitButton.getScene().getWindow();
+            Stage stage = (Stage) createTeamButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
             stage.setScene(scene);

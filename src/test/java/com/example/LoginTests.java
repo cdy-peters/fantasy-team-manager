@@ -95,7 +95,7 @@ public class LoginTests {
 
         // Mock the HTTP response
         when(mockResponse.statusCode()).thenReturn(201);
-        Map<String, List<String>> headersMap = Map.of("Set-Cookie", List.of("session=1234"));
+        Map<String, List<String>> headersMap = Map.of("Authorization", List.of("session=1234"));
         when(mockResponse.headers()).thenReturn(HttpHeaders.of(headersMap, (k, v) -> true));
 
         // Mock the HttpClient to return the mockResponse
@@ -127,7 +127,7 @@ public class LoginTests {
 
         // Mock the HTTP response
         when(mockResponse.statusCode()).thenReturn(400);
-        Map<String, List<String>> headersMap = Map.of("Set-Cookie", List.of("session=1234"));
+        Map<String, List<String>> headersMap = Map.of("Authorization", List.of("session=1234"));
         when(mockResponse.headers()).thenReturn(HttpHeaders.of(headersMap, (k, v) -> true));
 
         // Mock the HttpClient to return the mockResponse
@@ -159,7 +159,7 @@ public class LoginTests {
 
         // Mock the HTTP response
         when(mockResponse.statusCode()).thenReturn(401);
-        Map<String, List<String>> headersMap = Map.of("Set-Cookie", List.of("session=1234"));
+        Map<String, List<String>> headersMap = Map.of("Authorization", List.of("session=1234"));
         when(mockResponse.headers()).thenReturn(HttpHeaders.of(headersMap, (k, v) -> true));
 
         // Mock the HttpClient to return the mockResponse

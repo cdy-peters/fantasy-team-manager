@@ -6,40 +6,21 @@
 
 
 <VBox alignment="CENTER" prefWidth="640.0" spacing="20.0" xmlns="http://javafx.com/javafx/22"
+    stylesheets="./stylesheet.css"
     xmlns:fx="http://javafx.com/fxml/1"
     fx:controller="com.example.client.controllers.HomeController">
     <children>
-        <VBox alignment="CENTER">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forward" />
-                <HBox fx:id="forwards" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
-                    spacing="20.0">
-                </HBox>
-            </children>
-        </VBox>
-        <VBox alignment="CENTER">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Midfield" />
-                <HBox fx:id="midfielders" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
-                    spacing="20.0">
-                </HBox>
-            </children>
-        </VBox>
-        <VBox alignment="CENTER">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Defense" />
-                <HBox fx:id="defenders" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
-                    spacing="20.0">
-                </HBox>
-            </children>
-        </VBox>
-        <VBox alignment="CENTER">
-            <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Goalkeeper" />
-                <HBox fx:id="goalkeeper" alignment="CENTER" prefHeight="25.0" prefWidth="640.0"
-                    spacing="20.0">
-                </HBox>
-            </children>
-        </VBox>
+        <HBox fx:id="forwards" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+            spacing="30.0">
+        </HBox>
+        <HBox fx:id="midfielders" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+            spacing="30.0">
+        </HBox>
+        <HBox fx:id="defenders" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+            spacing="30.0">
+        </HBox>
+        <HBox fx:id="goalkeeper" alignment="CENTER" prefHeight="100.0" prefWidth="200.0"
+            spacing="30.0">
+        </HBox>
     </children>
 </VBox>

@@ -55,9 +55,9 @@ public class PlayerStatisticsDAO {
                 double npxGPer90 = rs.getDouble("npxG_90");
                 double npxGPlusXAPer90 = rs.getDouble("npxG+xA_90");
                 String team = rs.getString("team");
-                int score = rs.getInt("score");
+                double playerScore = rs.getDouble("player_score");
 
-                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, score);
+                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
                 statisticsList.add(statistics);           
             }
 
@@ -117,9 +117,9 @@ public class PlayerStatisticsDAO {
                 double npxGPer90 = rs.getDouble("npxG_90");
                 double npxGPlusXAPer90 = rs.getDouble("npxG+xA_90");
                 String team = rs.getString("team");
-                int score = rs.getInt("player_score");
+                double playerScore = rs.getDouble("player_score");
 
-                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, score);
+                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
                 statisticsList.add(statistics);
             }
 

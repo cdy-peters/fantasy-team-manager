@@ -2,6 +2,7 @@ package com.example.server.models;
 
 public class IUserRoster {
     private Long id;
+    private double score;
     private Long position1;
     private Long position2;
     private Long position3;
@@ -18,8 +19,29 @@ public class IUserRoster {
     private Long sub3;
     private Long sub4;
 
+    public IUserRoster() {
+    }
+
     public IUserRoster(Long id, Long position1, Long position2, Long position3, Long position4, Long position5, Long position6, Long position7, Long position8, Long position9, Long position10, Long position11, Long sub1, Long sub2, Long sub3, Long sub4) {
         this.id = id;
+        this.position1 = position1;
+        this.position2 = position2;
+        this.position3 = position3;
+        this.position4 = position4;
+        this.position5 = position5;
+        this.position6 = position6;
+        this.position7 = position7;
+        this.position8 = position8;
+        this.position9 = position9;
+        this.position10 = position10;
+        this.position11 = position11;
+        this.sub1 = sub1;
+        this.sub2 = sub2;
+        this.sub3 = sub3;
+        this.sub4 = sub4;
+    }
+
+    public IUserRoster(Long position1, Long position2, Long position3, Long position4, Long position5, Long position6, Long position7, Long position8, Long position9, Long position10, Long position11, Long sub1, Long sub2, Long sub3, Long sub4) {
         this.position1 = position1;
         this.position2 = position2;
         this.position3 = position3;
@@ -44,6 +66,14 @@ public class IUserRoster {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 
     public Long getPosition1() {

@@ -1,164 +1,72 @@
 package com.example.client.controllers;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import com.example.client.Client;
-import com.example.server.models.IPlayer;
-import com.google.gson.Gson;
+import com.example.server.models.IStatistics;
+import com.example.server.models.IUserRoster;
+import com.example.server.models.PlayerStatisticsDAO;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.geometry.Insets;
 
 public class HomeController {
     @FXML
-    private ComboBox<IPlayer> LS;
+    private HBox forwards;
     @FXML
-    private ComboBox<IPlayer> RS;
+    private HBox midfielders;
     @FXML
-    private ComboBox<IPlayer> LW;
+    private HBox defenders;
     @FXML
-    private ComboBox<IPlayer> LM;
-    @FXML
-    private ComboBox<IPlayer> RM;
-    @FXML
-    private ComboBox<IPlayer> RW;
-    @FXML
-    private ComboBox<IPlayer> LWB;
-    @FXML
-    private ComboBox<IPlayer> LB;
-    @FXML
-    private ComboBox<IPlayer> RB;
-    @FXML
-    private ComboBox<IPlayer> RWB;
-    @FXML
-    private ComboBox<IPlayer> GK;
-    @FXML
-    private Button submitButton;
+    private HBox goalkeeper;
 
-    Gson g = new Gson();
+    private IUserRoster roster;
 
-    private HttpClient httpClient = HttpClient.newHttpClient();
+    private void createPlayerCard(HBox hBox, IStatistics player) {
+        VBox vBox = new VBox();
+        vBox.setSpacing(2.0);
+        vBox.setStyle("-fx-border-color: black; -fx-border-width: 0.7; -fx-border-radius: 2;");
+        vBox.setPadding(new Insets(2, 5, 2, 5));
 
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
+        Text name = new Text(player.getPlayerName());
+        name.setStrokeWidth(0.0);
+        vBox.getChildren().add(name);
+        
+        Text score = new Text("Score: " + (int) Math.rint(player.getPlayerScore()));
+        score.setStrokeWidth(0.0);
+        vBox.getChildren().add(score);
+
+        hBox.getChildren().add(vBox);
     }
 
-    private HttpRequest createHttpRequest(String position) {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "players?position=" + position))
-                .header("Content-Type", "application/json")
-                .build();
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    private class PlayerListCell extends ListCell<IPlayer> {
-        @Override
-        protected void updateItem(IPlayer player, boolean empty) {
-            super.updateItem(player, empty);
-
-            if (player == null || empty) {
-                setText(null);
-            } else {
-                setText(player.getName());
-            }
-        }
-    }
-
-    private void initComboBox(ComboBox<IPlayer> comboBox, ObservableList<IPlayer> players) {
-        comboBox.getItems().addAll(players);
-        comboBox.setCellFactory(param -> new PlayerListCell());
-        comboBox.setButtonCell(new PlayerListCell());
-    }
-
-    private ObservableList<IPlayer> fetchPlayers(String position) {
-        try {
-            HttpRequest request = createHttpRequest(position);
-            HttpResponse<String> response = sendRequest(request);
-
-            IPlayer[] players = g.fromJson(response.body(), IPlayer[].class);
-            return FXCollections.observableArrayList(players);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            return FXCollections.observableArrayList();
-        }
+    private IStatistics getPlayer(Long playerId) {
+        List<IStatistics> player = PlayerStatisticsDAO.findByPlayerId(String.valueOf(playerId));
+        return player.get(0);
     }
 
     public void initialize() {
-        ObservableList<IPlayer> forwards = fetchPlayers("FW");
-        ObservableList<IPlayer> midfielders = fetchPlayers("MF");
-        ObservableList<IPlayer> defenders = fetchPlayers("DF");
-        ObservableList<IPlayer> goalkeepers = fetchPlayers("GK");
+        roster = Client.userRoster;
 
-        initComboBox(LS, forwards);
-        initComboBox(RS, forwards);
+        // Forwards
+        createPlayerCard(forwards, getPlayer(roster.getPosition1()));
+        createPlayerCard(forwards, getPlayer(roster.getPosition2()));
 
-        initComboBox(LW, midfielders);
-        initComboBox(LM, midfielders);
-        initComboBox(RM, midfielders);
-        initComboBox(RW, midfielders);
+        // Midfielders
+        createPlayerCard(midfielders, getPlayer(roster.getPosition3()));
+        createPlayerCard(midfielders, getPlayer(roster.getPosition4()));
+        createPlayerCard(midfielders, getPlayer(roster.getPosition5()));
+        createPlayerCard(midfielders, getPlayer(roster.getPosition6()));
 
-        initComboBox(LWB, defenders);
-        initComboBox(LB, defenders);
-        initComboBox(RB, defenders);
-        initComboBox(RWB, defenders);
+        // Defenders
+        createPlayerCard(defenders, getPlayer(roster.getPosition7()));
+        createPlayerCard(defenders, getPlayer(roster.getPosition8()));
+        createPlayerCard(defenders, getPlayer(roster.getPosition9()));
+        createPlayerCard(defenders, getPlayer(roster.getPosition10()));
 
-        initComboBox(GK, goalkeepers);
-    }
-
-    // TODO: Handle duplicate selected players
-    // TODO: Handle no player selected
-    @FXML
-    protected void onSubmitButtonClick() {
-        IPlayer LSPlayer = LS.getValue();
-        IPlayer RSPlayer = RS.getValue();
-        IPlayer LWPlayer = LW.getValue();
-        IPlayer LMPlayer = LM.getValue();
-        IPlayer RMPlayer = RM.getValue();
-        IPlayer RWPlayer = RW.getValue();
-        IPlayer LWBPlayer = LWB.getValue();
-        IPlayer LBPlayer = LB.getValue();
-        IPlayer RBPlayer = RB.getValue();
-        IPlayer RWBPlayer = RWB.getValue();
-        IPlayer GKPlayer = GK.getValue();
-
-        Map<String, Map<String, Integer>> playerPositions = new HashMap<>();
-        playerPositions.put("position1_player_id", LSPlayer.getRosterValue());
-        playerPositions.put("position2_player_id", RSPlayer.getRosterValue());
-        playerPositions.put("position3_player_id", LWPlayer.getRosterValue());
-        playerPositions.put("position4_player_id", LMPlayer.getRosterValue());
-        playerPositions.put("position5_player_id", RMPlayer.getRosterValue());
-        playerPositions.put("position6_player_id", RWPlayer.getRosterValue());
-        playerPositions.put("position7_player_id", LWBPlayer.getRosterValue());
-        playerPositions.put("position8_player_id", LBPlayer.getRosterValue());
-        playerPositions.put("position9_player_id", RBPlayer.getRosterValue());
-        playerPositions.put("position10_player_id", RWBPlayer.getRosterValue());
-        playerPositions.put("position11_player_id", GKPlayer.getRosterValue());
-
-        try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(Client.SERVER_URL + "roster"))
-                    .header("Cookie", Client.sessionCookie)
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(playerPositions)))
-                    .build();
-
-            HttpResponse<String> response = sendRequest(request);
-            System.out.println(response.body());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Goalkeeper
+        createPlayerCard(goalkeeper, getPlayer(roster.getPosition11()));
     }
 }

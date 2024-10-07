@@ -97,7 +97,7 @@ public class RegisterTests {
         @Test
         public void testSuccessfulRequest() throws Exception {
                 HttpHeaders headers = HttpHeaders.of(
-                                Map.of("Set-Cookie", List.of("sessionCookieValue")),
+                                Map.of("Authorization", List.of("sessionTokenValue")),
                                 (name, value) -> true);
 
                 // Setup mock response
@@ -132,7 +132,7 @@ public class RegisterTests {
 
                 // Mock the HTTP response
                 HttpHeaders headers = HttpHeaders.of(
-                                Map.of("Set-Cookie", List.of("sessionCookieValue")),
+                                Map.of("Authorization", List.of("sessionTokenValue")),
                                 (name, value) -> true);
                 when(mockResponse.statusCode()).thenReturn(201);
                 when(mockResponse.headers()).thenReturn(headers);

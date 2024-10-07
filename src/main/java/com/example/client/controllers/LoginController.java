@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.client.Client;
+import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
@@ -58,11 +59,11 @@ public class LoginController {
         }
 
         Map<String, List<String>> headers = response.headers().map();
-        List<String> cookies = headers.get("Set-Cookie");
+        List<String> authHeader = headers.get("Authorization");
 
-        String sessionCookie = cookies.get(0);
-        PrefsHelper.setPref("sessionCookie", sessionCookie);
-        Client.sessionCookie = sessionCookie;
+        String sessionToken = authHeader.get(0);
+        PrefsHelper.setPref("sessionToken", sessionToken);
+        Client.sessionToken = sessionToken;
 
         return true;
 
@@ -110,8 +111,13 @@ public class LoginController {
                 return;
             }
 
+            String view = new LandingGuard().getView();
+            if (view.equals("/login-view.fxml")) {
+                throw new IOException("Failed to fetch view");
+            }
+
             Stage stage = (Stage) submitButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
             stage.setScene(scene);
         } catch (IOException | InterruptedException e) {

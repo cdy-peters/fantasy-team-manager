@@ -7,6 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import com.example.client.Client;
+import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
@@ -19,6 +20,12 @@ import javafx.stage.Stage;
 public class Navbar extends HBox {
     @FXML
     private Button signOutButton;
+
+    @FXML
+    private Button rosterButton;
+
+    @FXML
+    private Button leaderBoardButton;
 
     public Navbar() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/navbar.fxml"));
@@ -35,12 +42,12 @@ public class Navbar extends HBox {
 
     @FXML
     protected void onSignOutButtonClick() throws IOException {
-        String sessionCookie = PrefsHelper.getPref("sessionCookie");
+        String sessionToken = PrefsHelper.getPref("sessionToken");
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(Client.SERVER_URL + "logout"))
-                .header("Cookie", sessionCookie)
+                .header("Authorization", sessionToken)
                 .POST(HttpRequest.BodyPublishers.noBody())
                 .build();
 
@@ -53,7 +60,8 @@ public class Navbar extends HBox {
                 return;
             }
 
-            PrefsHelper.removePref("sessionCookie");
+            PrefsHelper.removePref("sessionToken");
+            Client.userRoster = null;
 
             Stage stage = (Stage) signOutButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/login-view.fxml"));
@@ -63,22 +71,27 @@ public class Navbar extends HBox {
             System.out.println(e.getMessage());
             return;
         }
+
     }
 
     @FXML
-    protected void onStatisticsButtonClick() throws IOException {
-        Stage stage = (Stage) signOutButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/statistics-view.fxml"));
+    protected void onRosterButtonClick() throws IOException {
+        String view = new LandingGuard().getView();
+        if (view.equals("/login-view.fxml") || view.equals("/register-view.fxml")) {
+            throw new IOException("Error fetching view");
+        }
+
+        Stage stage = (Stage) rosterButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(view));
         Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
         stage.setScene(scene);
     }
 
     @FXML
-    protected void onHomeButtonClick() throws IOException {
-        Stage stage = (Stage) signOutButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+    protected void onLeaderBoardButtonClick() throws IOException {
+        Stage stage = (Stage) leaderBoardButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/leaderboard-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
         stage.setScene(scene);
     }
-
 }

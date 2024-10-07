@@ -65,7 +65,7 @@ public class RegisterController {
                 submitError.setText("Account already exists");
                 break;
             default:
-                submitError.setText("An error occurred");
+                submitError.setText("An error occurred: " + response.body());
                 break;
         }
 
@@ -82,11 +82,12 @@ public class RegisterController {
         }
 
         Map<String, List<String>> headers = response.headers().map();
-        List<String> cookies = headers.get("Set-Cookie");
+        List<String> authHeader = headers.get("Authorization");
 
-        String sessionCookie = cookies.get(0);
-        PrefsHelper.setPref("sessionCookie", sessionCookie);
-        Client.sessionCookie = sessionCookie;
+        String sessionToken = authHeader.get(0);
+        PrefsHelper.setPref("sessionToken", sessionToken);
+        Client.sessionToken = sessionToken;
+
         return true;
     }
 
@@ -120,7 +121,7 @@ public class RegisterController {
             }
 
             Stage stage = (Stage) submitButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home-view.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/create-roster-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), Client.WIDTH, Client.HEIGHT);
             stage.setScene(scene);
         } catch (IOException | InterruptedException e) {

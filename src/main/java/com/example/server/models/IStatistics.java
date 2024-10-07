@@ -36,7 +36,7 @@ public class IStatistics {
     private double npxGPer90;
     private double npxGPlusXAPer90;
     private String team;
-    private int score;
+    private double playerScore;
 
     public IStatistics(Long id, String playerName, int gamesPlayed, int starts, String nation, String position, int age, int minutes,
                        int ninetyMinutes, int goals, int assists, int goalsAssists, int goalsPenaltyKicks, int penaltyKicks, 
@@ -44,7 +44,7 @@ public class IStatistics {
                        double expectedAssists, double npXgPlusXA, int progressiveCarries, int progressivePasses, int progressiveRuns, 
                        double goalsPer90, double assistsPer90, double goalsAssistsPer90, double goalsPenaltyKicksPer90, 
                        double goalsAssistsPenaltyKicksPer90, double xGPer90, double xAPer90, double xGPlusXAPer90, double npxGPer90, 
-                       double npxGPlusXAPer90, String team, int score) {
+                       double npxGPlusXAPer90, String team, double playerScore) {
         this.id = id;
         this.playerName = playerName;
         this.gamesPlayed = gamesPlayed;
@@ -80,7 +80,7 @@ public class IStatistics {
         this.npxGPer90 = npxGPer90;
         this.npxGPlusXAPer90 = npxGPlusXAPer90;
         this.team = team;
-        this.score = score;
+        this.playerScore = playerScore;
     }
 
     // Add getter methods for all the fields
@@ -224,7 +224,7 @@ public class IStatistics {
         return team;
     }
 
-    public int getScore() {
-        return score;
+    public double getPlayerScore() {
+        return playerScore;
     }
 }

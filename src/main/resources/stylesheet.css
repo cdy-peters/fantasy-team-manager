@@ -10,6 +10,7 @@
 }
 
 .player-card-selected {
+  -fx-background-color: lightgray;
   -fx-border-color: black;
   -fx-border-width: 1;
 }

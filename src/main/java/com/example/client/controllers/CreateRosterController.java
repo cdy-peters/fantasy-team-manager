@@ -80,8 +80,16 @@ public class CreateRosterController {
 
             if (player == null || empty) {
                 setText(null);
+                setGraphic(null);
             } else {
                 setText(player.getName());
+
+                String filePath = "/images/badges/" + player.getTeam() + ".png";
+                Image image = new Image(getClass().getResourceAsStream(filePath));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitHeight(20);
+                imageView.setPreserveRatio(true);
+                setGraphic(imageView);
             }
         }
     }

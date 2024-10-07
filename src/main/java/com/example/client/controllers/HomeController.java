@@ -9,9 +9,6 @@ import com.example.server.models.PlayerStatisticsDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.geometry.Insets;
 
 public class HomeController {
     @FXML
@@ -25,22 +22,7 @@ public class HomeController {
 
     private IUserRoster roster;
 
-    private void createPlayerCard(HBox hBox, IStatistics player) {
-        VBox vBox = new VBox();
-        vBox.setSpacing(2.0);
-        vBox.setStyle("-fx-border-color: black; -fx-border-width: 0.7; -fx-border-radius: 2;");
-        vBox.setPadding(new Insets(2, 5, 2, 5));
-
-        Text name = new Text(player.getPlayerName());
-        name.setStrokeWidth(0.0);
-        vBox.getChildren().add(name);
-        
-        Text score = new Text("Score: " + (int) Math.rint(player.getPlayerScore()));
-        score.setStrokeWidth(0.0);
-        vBox.getChildren().add(score);
-
-        hBox.getChildren().add(vBox);
-    }
+    private PlayerCardController playerCardController = new PlayerCardController();
 
     private IStatistics getPlayer(Long playerId) {
         List<IStatistics> player = PlayerStatisticsDAO.findByPlayerId(String.valueOf(playerId));
@@ -50,23 +32,16 @@ public class HomeController {
     public void initialize() {
         roster = Client.userRoster;
 
-        // Forwards
-        createPlayerCard(forwards, getPlayer(roster.getPosition1()));
-        createPlayerCard(forwards, getPlayer(roster.getPosition2()));
-
-        // Midfielders
-        createPlayerCard(midfielders, getPlayer(roster.getPosition3()));
-        createPlayerCard(midfielders, getPlayer(roster.getPosition4()));
-        createPlayerCard(midfielders, getPlayer(roster.getPosition5()));
-        createPlayerCard(midfielders, getPlayer(roster.getPosition6()));
-
-        // Defenders
-        createPlayerCard(defenders, getPlayer(roster.getPosition7()));
-        createPlayerCard(defenders, getPlayer(roster.getPosition8()));
-        createPlayerCard(defenders, getPlayer(roster.getPosition9()));
-        createPlayerCard(defenders, getPlayer(roster.getPosition10()));
-
-        // Goalkeeper
-        createPlayerCard(goalkeeper, getPlayer(roster.getPosition11()));
+        playerCardController.create(forwards, getPlayer(roster.getPosition1()), 1);
+        playerCardController.create(forwards, getPlayer(roster.getPosition2()), 2);
+        playerCardController.create(midfielders, getPlayer(roster.getPosition3()), 3);
+        playerCardController.create(midfielders, getPlayer(roster.getPosition4()), 4);
+        playerCardController.create(midfielders, getPlayer(roster.getPosition5()), 5);
+        playerCardController.create(midfielders, getPlayer(roster.getPosition6()), 6);
+        playerCardController.create(defenders, getPlayer(roster.getPosition7()), 7);
+        playerCardController.create(defenders, getPlayer(roster.getPosition8()), 8);
+        playerCardController.create(defenders, getPlayer(roster.getPosition9()), 9);
+        playerCardController.create(defenders, getPlayer(roster.getPosition10()), 10);
+        playerCardController.create(goalkeeper, getPlayer(roster.getPosition11()), 11);
     }
 }

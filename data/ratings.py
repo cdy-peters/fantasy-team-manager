@@ -1,4 +1,3 @@
-import pandas as pd
 from scipy.stats import zscore
 
 POSITION_WEIGHTS = {
@@ -74,5 +73,3 @@ def calculate_ratings(df):
 
         # Update the original DataFrame with the new ratings
         df.loc[position_group.index, "player_rating"] = position_group["player_rating"]
-
-    return df

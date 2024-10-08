@@ -23,6 +23,10 @@ public class HttpHelper {
         this.httpClient = HttpClient.newHttpClient();
     }
 
+    public HttpHelper(HttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
     public HttpHelper(String requestUrl) {
         this.httpClient = HttpClient.newHttpClient();
         this.request = request(requestUrl);
@@ -34,11 +38,12 @@ public class HttpHelper {
     }
 
     public HttpRequest request(String path) {
-        return HttpRequest.newBuilder()
+        this.request = HttpRequest.newBuilder()
                 .uri(URI.create(SERVER_URL + path))
                 .header("Content-Type", "application/json")
                 .header("Authorization", Client.sessionToken)
                 .build();
+        return this.request;
     }
 
     public HttpRequest request(String path, String body) {
@@ -53,7 +58,8 @@ public class HttpHelper {
             builder.POST(HttpRequest.BodyPublishers.noBody());
         }
 
-        return builder.build();
+        this.request = builder.build();
+        return this.request;
     }
 
     public HttpResponse<String> send() throws IOException, InterruptedException {

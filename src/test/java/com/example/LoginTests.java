@@ -21,6 +21,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.example.client.controllers.LoginController;
 import com.example.client.controllers.RegisterController;
+import com.example.client.helpers.HttpHelper;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
 import com.example.utils.JavaFXInitializer;
@@ -41,6 +42,9 @@ public class LoginTests {
 
     @Mock
     private HttpClient mockHttpClient;
+
+    @Mock
+    private HttpHelper mockHttpHelper;
 
     @Mock
     private HttpResponse<String> mockResponse;
@@ -103,12 +107,13 @@ public class LoginTests {
                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponse);
 
-        // Call the createHttpRequest method using reflection
+        // Create an instance of HttpHelper
         String body = setUpMockFields("john_doe", "password");
-        HttpRequest request = ReflectionUtils.callCreateHttpRequest(loginController, body);
+        HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+        httpHelper.request("/login", body);
 
         // Send the request
-        HttpResponse<String> response = mockHttpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpHelper.send();
 
         // Handle the response
         boolean success = ReflectionUtils.callHandleResponse(loginController, response);
@@ -135,12 +140,13 @@ public class LoginTests {
                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponse);
 
-        // Call the createHttpRequest method using reflection
+        // Create an instance of HttpHelper
         String body = setUpMockFields("", "");
-        HttpRequest request = ReflectionUtils.callCreateHttpRequest(loginController, body);
+        HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+        httpHelper.request("/login", body);
 
         // Send the request
-        HttpResponse<String> response = mockHttpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpHelper.send();
 
         // Handle the response
         boolean success = ReflectionUtils.callHandleResponse(loginController, response);
@@ -167,12 +173,13 @@ public class LoginTests {
                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                 .thenReturn(mockResponse);
 
-        // Call the createHttpRequest method using reflection
+        // Create an instance of HttpHelper
         String body = setUpMockFields("", "");
-        HttpRequest request = ReflectionUtils.callCreateHttpRequest(loginController, body);
+        HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+        httpHelper.request("/login", body);
 
         // Send the request
-        HttpResponse<String> response = mockHttpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpHelper.send();
 
         // Handle the response
         boolean success = ReflectionUtils.callHandleResponse(loginController, response);

@@ -22,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.example.client.controllers.RegisterController;
+import com.example.client.helpers.HttpHelper;
 import com.example.server.models.IUser;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
@@ -111,11 +112,12 @@ public class RegisterTests {
                 // Set up the controller fields and create the HTTP body
                 String body = setUpMockFields("John Doe", "john@example.com", "john_doe", "");
 
-                // Call the createHttpRequest method using reflection
-                HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
+                // Create an instance of HttpHelper
+                HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+                httpHelper.request("/register", body);
 
                 // Send the request
-                HttpResponse<String> response = mockHttpClient.send(request, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = httpHelper.send();
 
                 // Handle the response
                 ReflectionUtils.callHandleResponse(registerController, response);
@@ -143,11 +145,12 @@ public class RegisterTests {
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                                 .thenReturn(mockResponse);
 
-                // Call createHttpRequest method using reflection
-                HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
+                // Create an instance of HttpHelper
+                HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+                httpHelper.request("/register", body);
 
-                // Call sendRequest method using reflection
-                HttpResponse<String> response = ReflectionUtils.callSendRequest(registerController, request);
+                // Send the request
+                HttpResponse<String> response = httpHelper.send();
 
                 // Call handleResponse method using reflection
                 boolean result = ReflectionUtils.callHandleResponse(registerController, response);
@@ -178,14 +181,20 @@ public class RegisterTests {
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                                 .thenReturn(mockResponse);
 
-                HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
+                // Create an instance of HttpHelper
+                HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+                httpHelper.request("/register", body);
 
-                HttpResponse<String> response = ReflectionUtils.callSendRequest(registerController, request);
+                // Send the request
+                HttpResponse<String> response = httpHelper.send();
 
+                // Call handleResponse method using reflection
                 boolean result = ReflectionUtils.callHandleResponse(registerController, response);
 
+                // Verify that the method returned false
                 assertFalse(result);
 
+                // Verify HttpClient interaction
                 verify(mockHttpClient).send(ArgumentMatchers.any(HttpRequest.class),
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class));
         }
@@ -208,14 +217,20 @@ public class RegisterTests {
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                                 .thenReturn(mockResponse);
 
-                HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
+                // Create an instance of HttpHelper
+                HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+                httpHelper.request("/register", body);
 
-                HttpResponse<String> response = ReflectionUtils.callSendRequest(registerController, request);
+                // Send the request
+                HttpResponse<String> response = httpHelper.send();
 
+                // Call handleResponse method using reflection
                 boolean result = ReflectionUtils.callHandleResponse(registerController, response);
 
+                // Verify that the method returned false
                 assertFalse(result);
 
+                // Verify HttpClient interaction
                 verify(mockHttpClient).send(ArgumentMatchers.any(HttpRequest.class),
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class));
 
@@ -244,14 +259,20 @@ public class RegisterTests {
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class)))
                                 .thenReturn(mockResponse);
 
-                HttpRequest request = ReflectionUtils.callCreateHttpRequest(registerController, body);
+                // Create an instance of HttpHelper
+                HttpHelper httpHelper = new HttpHelper(mockHttpClient);
+                httpHelper.request("/register", body);
 
-                HttpResponse<String> response = ReflectionUtils.callSendRequest(registerController, request);
+                // Send the request
+                HttpResponse<String> response = httpHelper.send();
 
+                // Call handleResponse method using reflection
                 boolean result = ReflectionUtils.callHandleResponse(registerController, response);
 
+                // Verify that the method returned false
                 assertFalse(result);
 
+                // Verify HttpClient interaction
                 verify(mockHttpClient).send(ArgumentMatchers.any(HttpRequest.class),
                                 ArgumentMatchers.any(HttpResponse.BodyHandler.class));
         }

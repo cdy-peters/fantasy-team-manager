@@ -1,10 +1,8 @@
 package com.example.client.controllers;
 
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-import com.example.client.Client;
+import com.example.client.helpers.HttpHelper;
 import com.example.server.models.ILeaderboardElement;
 import com.google.gson.Gson;
 
@@ -16,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.net.URI;
 
 public class LeaderBoardController {
     @FXML
@@ -32,11 +29,9 @@ public class LeaderBoardController {
     private TableColumn<ILeaderboardElement, Integer> scoreColumn;
 
     private ObservableList<ILeaderboardElement> data;
-    private HttpClient httpClient;
     private Gson gson;
 
     public LeaderBoardController() {
-        this.httpClient = HttpClient.newHttpClient();
         this.gson = new Gson();
     }
 
@@ -54,9 +49,10 @@ public class LeaderBoardController {
     }
 
     private ObservableList<ILeaderboardElement> fetchPlayers() {
+        HttpHelper request = new HttpHelper("rosters");
+
         try {
-            HttpRequest request = createHttpRequest();
-            HttpResponse<String> response = sendRequest(request);
+            HttpResponse<String> response = request.send();
 
             ILeaderboardElement[] players = gson.fromJson(response.body(), ILeaderboardElement[].class);
 
@@ -72,16 +68,5 @@ public class LeaderBoardController {
             e.printStackTrace();
             return FXCollections.observableArrayList();
         }
-    }
-
-    private HttpRequest createHttpRequest() {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "rosters"))
-                .header("Content-Type", "application/json")
-                .build();
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }

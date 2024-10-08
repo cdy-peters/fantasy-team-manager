@@ -1,14 +1,12 @@
 package com.example.client.controllers;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
 import com.example.client.Client;
+import com.example.client.helpers.HttpHelper;
 import com.example.client.helpers.PrefsHelper;
 
 import javafx.fxml.FXML;
@@ -34,20 +32,6 @@ public class RegisterController {
     @FXML
     private Button submitButton;
 
-    private HttpClient httpClient = HttpClient.newHttpClient();
-
-    public void setHttpClient(HttpClient httpClient) {
-        this.httpClient = httpClient;
-    }
-
-    private HttpRequest createHttpRequest(String body) {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "register"))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(body))
-                .build();
-    }
-
     private void handleError(HttpResponse<String> response) {
         int code = response.statusCode();
 
@@ -66,10 +50,6 @@ public class RegisterController {
                 break;
         }
 
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     private boolean handleResponse(HttpResponse<String> response) throws IOException {
@@ -103,11 +83,10 @@ public class RegisterController {
         String body = String.format(
                 "{\"name\": \"%s\", \"email\": \"%s\", \"username\": \"%s\", \"password\": \"%s\"}",
                 name, email, username, password);
-
-        HttpRequest request = createHttpRequest(body);
+        HttpHelper request = new HttpHelper("register", body);
 
         try {
-            HttpResponse<String> response = sendRequest(request);
+            HttpResponse<String> response = request.send();
             boolean isSuccessful = handleResponse(response);
 
             if (!isSuccessful) {

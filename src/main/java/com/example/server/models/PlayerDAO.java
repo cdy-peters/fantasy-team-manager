@@ -24,8 +24,9 @@ public class PlayerDAO {
                 String position = rs.getString("position");
                 String team = rs.getString("team");
                 int score = rs.getInt("player_score");
+                double price = rs.getDouble("player_price");
 
-                IPlayer player = new IPlayer(id, player_name, nation, position, team, score);
+                IPlayer player = new IPlayer(id, player_name, nation, position, team, score, price);
                 playersList.add(player);
             }
         } catch (SQLException e) {
@@ -36,7 +37,7 @@ public class PlayerDAO {
     }
 
     public static List<IPlayer> findPlayersByPosition(String position) {
-        String query = String.format("SELECT * FROM player_statistics WHERE position = '%s'", position);
+        String query = String.format("SELECT * FROM player_statistics WHERE position LIKE '%%%s%%'", position);
         List<IPlayer> playersList = new ArrayList<>();
 
         try {
@@ -50,8 +51,9 @@ public class PlayerDAO {
                 String player_position = rs.getString("position");
                 String team = rs.getString("team");
                 int score = rs.getInt("player_score");
+                double price = rs.getDouble("player_price");
 
-                IPlayer player = new IPlayer(id, player_name, nation, player_position, team, score);
+                IPlayer player = new IPlayer(id, player_name, nation, player_position, team, score, price);
                 playersList.add(player);
             }
         } catch (SQLException e) {

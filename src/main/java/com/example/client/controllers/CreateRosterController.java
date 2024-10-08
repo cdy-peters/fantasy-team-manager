@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.DecimalFormat;
 
 import com.example.client.Client;
 import com.example.server.models.IPlayer;
@@ -24,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 public class CreateRosterController {
     @FXML
@@ -38,6 +40,8 @@ public class CreateRosterController {
     private TextField searchPlayersField;
     @FXML
     private ListView<IPlayer> playersList;
+    @FXML
+    private Text budgetSum;
     @FXML
     private Button createTeamButton;
 
@@ -56,6 +60,8 @@ public class CreateRosterController {
     private HttpClient httpClient = HttpClient.newHttpClient();
     private PlayerCardController playerCardController = new PlayerCardController();
 
+    public DecimalFormat df = new DecimalFormat("###.#");
+
     private class PlayerListCell extends ListCell<IPlayer> {
         @Override
         protected void updateItem(IPlayer player, boolean empty) {
@@ -65,7 +71,7 @@ public class CreateRosterController {
                 setText(null);
                 setGraphic(null);
             } else {
-                setText(player.getName());
+                setText(player.getName() + " - $" + player.getPrice());
 
                 String filePath = "/images/badges/" + player.getTeam() + ".png";
                 Image image = new Image(getClass().getResourceAsStream(filePath));
@@ -177,6 +183,101 @@ public class CreateRosterController {
         if (selectedPlayer != null) {
             playerCardController.update(selectedPlayerCard, selectedPlayer);
 
+            // ! Temporary solution to decrement a previously selected player
+            IPlayer selectedCardPlayer = null;
+            switch (selectedPlayerCard.getId()) {
+                case "playerCard1":
+                    for (IPlayer player : forwards) {
+                        if (player.getId() == roster.getPosition1()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard2":
+                    for (IPlayer player : forwards) {
+                        if (player.getId() == roster.getPosition2()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard3":
+                    for (IPlayer player : midfielders) {
+                        if (player.getId() == roster.getPosition3()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard4":
+                    for (IPlayer player : midfielders) {
+                        if (player.getId() == roster.getPosition4()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard5":
+                    for (IPlayer player : midfielders) {
+                        if (player.getId() == roster.getPosition5()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard6":
+                    for (IPlayer player : midfielders) {
+                        if (player.getId() == roster.getPosition6()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard7":
+                    for (IPlayer player : defenders) {
+                        if (player.getId() == roster.getPosition7()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard8":
+                    for (IPlayer player : defenders) {
+                        if (player.getId() == roster.getPosition8()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard9":
+                    for (IPlayer player : defenders) {
+                        if (player.getId() == roster.getPosition9()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard10":
+                    for (IPlayer player : defenders) {
+                        if (player.getId() == roster.getPosition10()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                case "playerCard11":
+                    for (IPlayer player : defenders) {
+                        if (player.getId() == roster.getPosition11()) {
+                            selectedCardPlayer = player;
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
             switch (selectedPlayerCard.getId()) {
                 case "playerCard1":
                     roster.setPosition1(selectedPlayer.getId());
@@ -214,7 +315,25 @@ public class CreateRosterController {
                 default:
                     break;
             }
+
+            if (selectedCardPlayer != null) {
+                roster.decPrice(selectedCardPlayer.getPrice());
+                roster.decScore(selectedCardPlayer.getScore());
+            }
+
+            Double price = roster.incPrice(selectedPlayer.getPrice());
             roster.incScore(selectedPlayer.getScore());
+
+            budgetSum.setText(df.format(price));
+            if (price > 100) {
+                if (!budgetSum.getStyleClass().contains("text-danger")) {
+                    budgetSum.getStyleClass().add("text-danger");
+                }
+                createTeamButton.setDisable(true);
+            } else {
+                budgetSum.getStyleClass().remove("text-danger");
+                createTeamButton.setDisable(false);
+            }
         }
     }
 

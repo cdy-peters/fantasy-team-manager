@@ -3,36 +3,29 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<BorderPane prefHeight="726.0" prefWidth="1080.0" stylesheets="./stylesheet.css"
-   xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.example.client.controllers.CreateRosterController">
+<BorderPane prefHeight="726.0" prefWidth="1080.0" stylesheets="./stylesheet.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controllers.CreateRosterController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="686.0" spacing="40.0"
-               BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="686.0" spacing="40.0" BorderPane.alignment="CENTER">
                <children>
                   <VBox spacing="20.0">
                      <children>
-                        <HBox fx:id="forwardsHBox" alignment="CENTER" prefHeight="100.0"
-                           prefWidth="200.0" spacing="30.0">
+                        <HBox fx:id="forwardsHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                         </HBox>
-                        <HBox fx:id="midfieldersHBox" alignment="CENTER" prefHeight="100.0"
-                           prefWidth="200.0" spacing="30.0">
+                        <HBox fx:id="midfieldersHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                         </HBox>
-                        <HBox fx:id="defendersHBox" alignment="CENTER" prefHeight="100.0"
-                           prefWidth="200.0" spacing="30.0">
+                        <HBox fx:id="defendersHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                         </HBox>
-                        <HBox fx:id="goalkeeperHBox" alignment="CENTER" prefHeight="100.0"
-                           prefWidth="200.0" spacing="30.0">
+                        <HBox fx:id="goalkeeperHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                         </HBox>
                      </children>
                   </VBox>
@@ -42,26 +35,62 @@
                </BorderPane.margin>
             </VBox>
          </center>
-         <bottom>
-            <Button fx:id="createTeamButton" mnemonicParsing="false" text="Create Team"
-               BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </BorderPane.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-         </bottom>
          <BorderPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
+         <bottom>
+            <BorderPane prefHeight="50.0" prefWidth="764.0" BorderPane.alignment="CENTER">
+               <right>
+                  <Button fx:id="createTeamButton" mnemonicParsing="false" text="Create Team" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </BorderPane.margin>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </right>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <left>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER_LEFT">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Budget">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                              <TextFlow prefWidth="200.0">
+                                 <children>
+                                    <Text fx:id="budgetSum" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/100">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </TextFlow>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </left>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </BorderPane>
+         </bottom>
       </BorderPane>
    </center>
    <right>
-      <VBox alignment="TOP_CENTER" prefHeight="669.0" prefWidth="236.0" spacing="15.0"
-         style="-fx-background-color: rgb(225,225,225); -fx-background-radius: 5;"
-         BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="669.0" prefWidth="236.0" spacing="15.0" style="-fx-background-color: rgb(225,225,225); -fx-background-radius: 5;" BorderPane.alignment="CENTER">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Select Player">
                <font>

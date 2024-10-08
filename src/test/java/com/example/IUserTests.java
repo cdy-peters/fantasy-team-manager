@@ -48,18 +48,18 @@ public class IUserTests {
 
     @BeforeEach
     public void setUp() {
-        JavaFXInitializer.initialize(); // Initialize JavaFX toolkit
+        // JavaFXInitializer.initialize(); // Initialize JavaFX toolkit
         MockitoAnnotations.openMocks(this);
     }
 
     private String setUpMockFields(String name, String email, String username, String password) throws Exception {
-        // Use reflection to access and set private fields
-        setPrivateField("nameField", new TextField(name));
-        setPrivateField("emailField", new TextField(email));
-        setPrivateField("usernameField", new TextField(username));
-        PasswordField passwordField = new PasswordField();
-        passwordField.setText(password);
-        setPrivateField("passwordField", passwordField);
+        // // Use reflection to access and set private fields
+        // setPrivateField("nameField", new TextField(name));
+        // setPrivateField("emailField", new TextField(email));
+        // setPrivateField("usernameField", new TextField(username));
+        // PasswordField passwordField = new PasswordField();
+        // passwordField.setText(password);
+        // setPrivateField("passwordField", passwordField);
 
         // Create HTTP body
         return String.format(

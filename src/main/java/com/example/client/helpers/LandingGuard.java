@@ -2,9 +2,6 @@ package com.example.client.helpers;
 
 import java.io.IOException;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Optional;
 
@@ -14,24 +11,10 @@ import com.example.client.helpers.LandingGuard;
 import com.example.server.models.IUserRoster;
 
 public class LandingGuard {
-    private final HttpClient httpClient;
     private final Gson gson;
 
     public LandingGuard() {
-        this.httpClient = HttpClient.newHttpClient();
         this.gson = new Gson();
-    }
-
-    private HttpRequest createHttpRequest() {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "roster"))
-                .header("Content-Type", "application/json")
-                .header("Authorization", Client.sessionToken)
-                .build();
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
     private Optional<IUserRoster> fetchRoster() {
@@ -39,9 +22,9 @@ public class LandingGuard {
             return Optional.of(Client.userRoster);
         }
 
+        HttpHelper request = new HttpHelper("roster");
         try {
-            HttpRequest request = createHttpRequest();
-            HttpResponse<String> response = sendRequest(request);
+            HttpResponse<String> response = request.send();
 
             if (response.statusCode() == 200) {
                 return Optional.ofNullable(gson.fromJson(response.body(), IUserRoster.class));

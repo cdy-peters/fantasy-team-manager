@@ -1,11 +1,14 @@
 package com.example.client.controllers;
 
-import java.util.List;
+import java.io.IOException;
+import java.net.http.HttpResponse;
+
+import com.google.gson.Gson;
 
 import com.example.client.Client;
+import com.example.client.helpers.HttpHelper;
 import com.example.server.models.IStatistics;
 import com.example.server.models.IUserRoster;
-import com.example.server.models.PlayerStatisticsDAO;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
@@ -24,9 +27,20 @@ public class HomeController {
 
     private PlayerCardController playerCardController = new PlayerCardController();
 
+    private Gson gson = new Gson();
+
     private IStatistics getPlayer(Long playerId) {
-        List<IStatistics> player = PlayerStatisticsDAO.findByPlayerId(String.valueOf(playerId));
-        return player.get(0);
+        String requestUrl = "player_statistics?playerId=" + playerId;
+        HttpHelper request = new HttpHelper(requestUrl);
+
+        try {
+            HttpResponse<String> response = request.send();
+            IStatistics[] player = gson.fromJson(response.body(), IStatistics[].class);
+            return player[0];
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void initialize() {

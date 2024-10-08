@@ -2,12 +2,10 @@ package com.example.client.controllers;
 
 import java.io.IOException;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import com.example.client.Client;
+import com.example.client.helpers.HttpHelper;
 import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
 
@@ -22,17 +20,11 @@ public class NavbarController {
 
     @FXML
     protected void onSignOutButtonClick() {
-        String sessionToken = PrefsHelper.getPref("sessionToken");
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "logout"))
-                .header("Authorization", sessionToken)
-                .POST(HttpRequest.BodyPublishers.noBody())
-                .build();
+        HttpHelper request = new HttpHelper("logout", "");
 
         try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = request.send();
 
             int statusCode = response.statusCode();
             if (statusCode != 200 && statusCode != 205) {

@@ -1,13 +1,11 @@
 package com.example.client.controllers;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
 
 import com.example.client.Client;
+import com.example.client.helpers.HttpHelper;
 import com.example.server.models.IPlayer;
 import com.example.server.models.IUserRoster;
 import com.google.gson.Gson;
@@ -57,7 +55,6 @@ public class CreateRosterController {
     private FilteredList<IPlayer> filteredPlayers;
 
     Gson g = new Gson();
-    private HttpClient httpClient = HttpClient.newHttpClient();
     private PlayerCardController playerCardController = new PlayerCardController();
 
     public DecimalFormat df = new DecimalFormat("###.#");
@@ -83,21 +80,10 @@ public class CreateRosterController {
         }
     }
 
-    private HttpRequest createHttpRequest(String position) {
-        return HttpRequest.newBuilder()
-                .uri(URI.create(Client.SERVER_URL + "players?position=" + position))
-                .header("Content-Type", "application/json")
-                .build();
-    }
-
-    private HttpResponse<String> sendRequest(HttpRequest request) throws IOException, InterruptedException {
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
     private ObservableList<IPlayer> fetchPlayers(String position) {
+        HttpHelper request = new HttpHelper("players?position=" + position);
         try {
-            HttpRequest request = createHttpRequest(position);
-            HttpResponse<String> response = sendRequest(request);
+            HttpResponse<String> response = request.send();
 
             IPlayer[] players = g.fromJson(response.body(), IPlayer[].class);
             return FXCollections.observableArrayList(players);
@@ -338,15 +324,11 @@ public class CreateRosterController {
     }
 
     private void handleCreateTeam(ActionEvent event) {
-        try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(Client.SERVER_URL + "roster"))
-                    .header("Authorization", Client.sessionToken)
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(g.toJson(roster)))
-                    .build();
+        HttpHelper request = new HttpHelper("roster", g.toJson(roster));
 
-            HttpResponse<String> response = sendRequest(request);
+        try {
+            HttpResponse<String> response = request.send();
+
             System.out.println(response.body());
 
             Client.userRoster = roster;

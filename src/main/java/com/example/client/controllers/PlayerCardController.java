@@ -108,7 +108,7 @@ public class PlayerCardController {
         info.getChildren().add(name);
 
         Label score = new Label("Score: " + (int) Math.rint(player.getPlayerScore()));
-        name.setMaxWidth(Region.USE_PREF_SIZE);
+        score.setMaxWidth(Region.USE_PREF_SIZE);
         info.getChildren().add(score);
 
         vBox.getChildren().add(info);
@@ -139,6 +139,10 @@ public class PlayerCardController {
         Label name = new Label(player.getName());
         name.setMaxWidth(Region.USE_PREF_SIZE);
         info.getChildren().add(name);
+
+        Label price = new Label("Price: $" + player.getPrice());
+        price.setMaxWidth(Region.USE_PREF_SIZE);
+        info.getChildren().add(price);
 
         vBox.getChildren().add(info);
 

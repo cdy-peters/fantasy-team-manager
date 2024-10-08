@@ -12,23 +12,23 @@ import java.util.List;
 public class UserRosterDAO {
 
     public static void createRoster(Long userId, IUserRoster roster) {
-        String query = "INSERT INTO user_roster (user_id, roster_score, position1_player_id, position2_player_id, position3_player_id, position4_player_id, position5_player_id, position6_player_id, position7_player_id, position8_player_id, position9_player_id, position10_player_id, position11_player_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        String query = "INSERT INTO user_roster (user_id, roster_price, roster_score, position1_player_id, position2_player_id, position3_player_id, position4_player_id, position5_player_id, position6_player_id, position7_player_id, position8_player_id, position9_player_id, position10_player_id, position11_player_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = Server.conn.prepareStatement(query);
             stmt.setLong(1, userId);
-            stmt.setDouble(2, roster.getScore());
-            stmt.setLong(3, roster.getPosition1());
-            stmt.setLong(4, roster.getPosition2());
-            stmt.setLong(5, roster.getPosition3());
-            stmt.setLong(6, roster.getPosition4());
-            stmt.setLong(7, roster.getPosition5());
-            stmt.setLong(8, roster.getPosition6());
-            stmt.setLong(9, roster.getPosition7());
-            stmt.setLong(10, roster.getPosition8());
-            stmt.setLong(11, roster.getPosition9());
-            stmt.setLong(12, roster.getPosition10());
-            stmt.setLong(13, roster.getPosition11());
+            stmt.setDouble(2, roster.getPrice());
+            stmt.setDouble(3, roster.getScore());
+            stmt.setLong(4, roster.getPosition1());
+            stmt.setLong(5, roster.getPosition2());
+            stmt.setLong(6, roster.getPosition3());
+            stmt.setLong(7, roster.getPosition4());
+            stmt.setLong(8, roster.getPosition5());
+            stmt.setLong(9, roster.getPosition6());
+            stmt.setLong(10, roster.getPosition7());
+            stmt.setLong(11, roster.getPosition8());
+            stmt.setLong(12, roster.getPosition9());
+            stmt.setLong(13, roster.getPosition10());
+            stmt.setLong(14, roster.getPosition11());
 
             stmt.executeUpdate();
             System.out.println("Roster created successfully for user ID: " + userId);

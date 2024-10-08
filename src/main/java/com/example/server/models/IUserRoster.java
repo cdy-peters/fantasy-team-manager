@@ -2,6 +2,7 @@ package com.example.server.models;
 
 public class IUserRoster {
     private Long id;
+    private double price;
     private double score;
     private Long position1;
     private Long position2;
@@ -20,6 +21,7 @@ public class IUserRoster {
     private Long sub4;
 
     public IUserRoster() {
+        this.price = 0.0;
         this.score = 0.0;
     }
 
@@ -65,13 +67,35 @@ public class IUserRoster {
     }
 
     // Methods
-    public void incScore(double score) {
+    public double incPrice(double price) {
+        double _price = this.price + price;
+        this.price = Math.round(_price * 10.0) / 10.0;
+        return this.price;
+    }
+
+    public double decPrice(double price) {
+        double _price = this.price - price;
+        this.price = Math.round(_price * 10.0) / 10.0;
+        return this.price;
+    }
+
+    public double incScore(double score) {
         this.score += score;
+        return this.score;
+    }
+
+    public double decScore(double score) {
+        this.score -= score;
+        return this.score;
     }
 
     // Getters
     public Long getId() {
         return id;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public double getScore() {
@@ -141,6 +165,10 @@ public class IUserRoster {
     // Setters
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public void setScore(double score) {

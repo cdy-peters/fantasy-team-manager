@@ -10,14 +10,16 @@ public class IPlayer {
     private String position;
     private String team;
     private int score;
+    private double price;
 
-    public IPlayer(Long id, String name, String nation, String position, String team, int score) {
+    public IPlayer(Long id, String name, String nation, String position, String team, int score, double price) {
         this.id = id;
         this.name = name;
         this.nation = nation;
         this.position = position;
         this.team = team;
         this.score = score;
+        this.price = price;
     }
 
     // Getters
@@ -45,10 +47,7 @@ public class IPlayer {
         return score;
     }
 
-    public Map<String, Integer> getRosterValue() {
-        Map<String, Integer> rosterValue = new HashMap<>();
-        rosterValue.put("id", id.intValue());
-        rosterValue.put("score", score);
-        return rosterValue;
+    public double getPrice() {
+        return price;
     }
 }

@@ -1,7 +1,5 @@
 package com.example.client.controllers;
 
-import java.util.List;
-
 import java.io.IOException;
 import java.net.http.HttpResponse;
 
@@ -37,12 +35,8 @@ public class HomeController {
 
         try {
             HttpResponse<String> response = request.send();
-
-            List<IStatistics> player = gson.fromJson(response.body(),
-                    new com.google.gson.reflect.TypeToken<List<IStatistics>>() {
-                    }.getType());
-
-            return player.get(0);
+            IStatistics[] player = gson.fromJson(response.body(), IStatistics[].class);
+            return player[0];
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return null;

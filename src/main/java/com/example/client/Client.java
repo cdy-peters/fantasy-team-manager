@@ -12,12 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import io.github.cdimascio.dotenv.Dotenv;
-
 public class Client extends Application {
-    public static Dotenv dotenv = Dotenv.load();
-    public static final String SERVER_URL = dotenv.get("SERVER_URL");
-
     public static final String TITLE = "Fantasy Team Manager";
     public static final int WIDTH = 900;
     public static final int HEIGHT = 650;

@@ -13,8 +13,8 @@ import java.io.IOException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class HttpHelper {
-    private static Dotenv dotenv = Dotenv.load();
-    private static final String SERVER_URL = dotenv.get("SERVER_URL");
+    private static Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+    private static final String SERVER_URL = dotenv == null ? System.getenv("SERVER_URL") : dotenv.get("SERVER_URL");
 
     private HttpClient httpClient;
     private HttpRequest request;

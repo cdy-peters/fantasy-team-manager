@@ -10,8 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.server.models.IPlayer;
 import com.example.server.models.PlayerDAO;
 
+/**
+ * Controller for the player endpoints.
+ */
 @RestController
 public class PlayerController {
+
+    /**
+     * Default constructor
+     */
+    public PlayerController() {
+    }
+
+    /**
+     * Get players by position if a position is provided, otherwise get all players.
+     * 
+     * @param position The player's position
+     * @return A list of players
+     */
     @GetMapping("/players")
     public ResponseEntity<?> getPlayers(@RequestParam(required = false) String position) {
         List<IPlayer> playerList;

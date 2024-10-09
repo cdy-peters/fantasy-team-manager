@@ -10,9 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.server.models.IStatistics;
 import com.example.server.models.PlayerStatisticsDAO;
 
+/**
+ * Controller for the player statistics endpoints.
+ */
 @RestController
 public class StatisticsController {
 
+    /**
+     * Default constructor
+     */
+    public StatisticsController() {
+    }
+
+    /**
+     * Get player statistics by playerId if a playerId is provided, otherwise get
+     * all statistics.
+     * 
+     * @param playerId The player's ID
+     * @return A list of player statistics
+     */
     @GetMapping("/player_statistics")
     public ResponseEntity<?> getPlayerStatistics(@RequestParam(required = false) String playerId) {
         List<IStatistics> statisticsList;

@@ -16,11 +16,20 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for player cards.
+ */
 public class PlayerCardController {
+    /**
+     * Default constructor
+     */
+    public PlayerCardController() {
+    }
+
     /**
      * Clip children of a region
      * 
-     * @param region
+     * @param region The region to clip
      * 
      * @see <a href=
      *      "https://stackoverflow.com/a/61121454/18405522">StackOverflow</a>
@@ -32,6 +41,12 @@ public class PlayerCardController {
         region.setClip(clip);
     }
 
+    /**
+     * Add an image to a VBox
+     * 
+     * @param vBox     The VBox to add the image to
+     * @param filePath The file path of the image
+     */
     private void addImage(VBox vBox, String filePath) {
         Pane pane = new Pane();
         pane.setMaxWidth(Region.USE_PREF_SIZE);
@@ -49,10 +64,10 @@ public class PlayerCardController {
     /**
      * Create a placeholder card with a handler for player selection
      * 
-     * @param hBox
-     * @param playerPosition
-     * @param positionId
-     * @param handlePlayerCard
+     * @param hBox             The HBox to add the player card to
+     * @param playerPosition   The player's position
+     * @param positionId       The player's position ID
+     * @param handlePlayerCard The handler for player selection
      */
     public void create(HBox hBox, String playerPosition, Integer positionId,
             EventHandler<ActionEvent> handlePlayerCard) {
@@ -81,9 +96,9 @@ public class PlayerCardController {
     /**
      * Create a player card with player info
      * 
-     * @param hBox
-     * @param player
-     * @param positionId
+     * @param hBox       The HBox to add the player card to
+     * @param player     The player
+     * @param positionId The player's position ID
      */
     public void create(HBox hBox, IStatistics player, Integer positionId) {
         Button playerCard = new Button();
@@ -121,8 +136,8 @@ public class PlayerCardController {
     /**
      * Update a player card with player info
      * 
-     * @param playerCard
-     * @param player
+     * @param playerCard The player card to update
+     * @param player     The player
      */
     public void update(Button playerCard, IPlayer player) {
         VBox vBox = new VBox();

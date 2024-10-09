@@ -8,8 +8,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
+/**
+ * Data Access Object for the user.
+ */
 public class UserDAO {
 
+    /**
+     * Default constructor.
+     */
+    public UserDAO() {
+    }
+
+    /**
+     * Find a user by username.
+     * 
+     * @param username The username
+     * @return An IUser object
+     */
     public IUser findByUsername(String username) {
         String query = String.format("SELECT * FROM user WHERE username = '%s' LIMIT 1", username);
         try {
@@ -31,6 +46,16 @@ public class UserDAO {
         }
     }
 
+    /**
+     * Create a new user.
+     * 
+     * @param user The IUser object
+     * @return The user ID
+     * @throws SQLIntegrityConstraintViolationException If the username or email is
+     *                                                  already taken
+     * @throws Exception                                If the user cannot be
+     *                                                  created
+     */
     public Long create(IUser user) throws SQLIntegrityConstraintViolationException, Exception {
         String name = user.getName();
         String email = user.getEmail();

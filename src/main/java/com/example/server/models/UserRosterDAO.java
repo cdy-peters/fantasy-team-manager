@@ -9,8 +9,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Access Object for the user roster.
+ */
 public class UserRosterDAO {
 
+    /**
+     * Default constructor.
+     */
+    public UserRosterDAO() {
+    }
+
+    /**
+     * Create a new roster.
+     * 
+     * @param userId The user ID
+     * @param roster The IUserRoster object
+     */
     public static void createRoster(Long userId, IUserRoster roster) {
         String query = "INSERT INTO user_roster (user_id, roster_price, roster_score, position1_player_id, position2_player_id, position3_player_id, position4_player_id, position5_player_id, position6_player_id, position7_player_id, position8_player_id, position9_player_id, position10_player_id, position11_player_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -37,7 +52,12 @@ public class UserRosterDAO {
         }
     }
 
-    // Method to find a roster by user ID
+    /**
+     * Find a roster by user ID.
+     * 
+     * @param userId The user ID
+     * @return An IUserRoster object
+     */
     public static IUserRoster findRosterByUser(Long userId) {
         String query = String.format("SELECT * FROM user_roster WHERE user_id = '%s'", userId);
 
@@ -74,6 +94,11 @@ public class UserRosterDAO {
         return null;
     }
 
+    /**
+     * Get all rosters.
+     * 
+     * @return A list of ILeaderboardElement objects
+     */
     public static List<ILeaderboardElement> getRosters() {
         String query = String.format(
                 "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id");

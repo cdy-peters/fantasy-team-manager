@@ -17,6 +17,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the login page.
+ */
 public class LoginController {
     @FXML
     private Hyperlink createAccountLink;
@@ -29,6 +32,19 @@ public class LoginController {
     @FXML
     private Button submitButton;
 
+    /**
+     * Default constructor
+     */
+    public LoginController() {
+    }
+
+    /**
+     * Handle the response from the server.
+     * 
+     * @param response
+     * @return True if the response was successful, false otherwise.
+     * @throws IOException If an error occurs while handling the response.
+     */
     private boolean handleResponse(HttpResponse<String> response) throws IOException {
         if (response.statusCode() != 201) {
             handleError(response);
@@ -46,6 +62,11 @@ public class LoginController {
 
     }
 
+    /**
+     * Handle an error response from the server.
+     * 
+     * @param response
+     */
     private void handleError(HttpResponse<String> response) {
         Integer code = response.statusCode();
         switch (code) {
@@ -62,11 +83,21 @@ public class LoginController {
         }
     }
 
+    /**
+     * Redirect the user to the registration page.
+     * 
+     * @throws IOException If an error occurs while redirecting the user.
+     */
     @FXML
     protected void onCreateAccountLinkClick() throws IOException {
         Client.updateRoot("/register-view.fxml");
     }
 
+    /**
+     * Submit the login form.
+     * Send a request to the server to authenticate the user.
+     * If successful, redirect the user to the landing page.
+     */
     @FXML
     protected void onSubmitButtonClick() {
         String username = usernameField.getText();

@@ -20,6 +20,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the statistics page.
+ */
 public class StatisticsController implements Initializable {
     @FXML
     private TableView<IStatistics> tableView;
@@ -36,6 +39,16 @@ public class StatisticsController implements Initializable {
     private Gson gson = new Gson();
     private ObservableList<IStatistics> statistics;
 
+    /**
+     * Default constructor
+     */
+    public StatisticsController() {
+    }
+
+    /**
+     * Initialize the statistics page.
+     * Initializing the columns and populating the tables with player statistics.
+     */
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
         initColumn(nameColumn, "playerName");
@@ -58,10 +71,22 @@ public class StatisticsController implements Initializable {
         populateTables(statistics);
     }
 
+    /**
+     * Helper method to initialize a column.
+     * 
+     * @param <T>
+     * @param column
+     * @param property
+     */
     private <T> void initColumn(TableColumn<IStatistics, T> column, String property) {
         column.setCellValueFactory(new PropertyValueFactory<>(property));
     }
 
+    /**
+     * Populate the tables with player statistics.
+     * 
+     * @param statisticsList
+     */
     private void populateTables(List<IStatistics> statisticsList) {
         ObservableList<IStatistics> stats = FXCollections.observableArrayList(statisticsList);
         tableView.setItems(stats);
@@ -71,6 +96,11 @@ public class StatisticsController implements Initializable {
         pointsView.sort();
     }
 
+    /**
+     * Fetch player statistics from the server.
+     * 
+     * @return An observable list of player statistics.
+     */
     @FXML
     private ObservableList<IStatistics> fetchStatistics() {
         HttpHelper request = new HttpHelper("player_statistics");
@@ -84,6 +114,12 @@ public class StatisticsController implements Initializable {
         return FXCollections.observableArrayList();
     }
 
+    /**
+     * Handle the statistics response.
+     * 
+     * @param response
+     * @return An observable list of player statistics.
+     */
     private ObservableList<IStatistics> handleStatisticsResponse(HttpResponse<String> response) {
         if (response.statusCode() == 200) {
             IStatistics[] statsArray = gson.fromJson(response.body(), IStatistics[].class);

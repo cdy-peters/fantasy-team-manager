@@ -8,7 +8,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Access Object for the player.
+ */
 public class PlayerDAO {
+
+    /**
+     * Default constructor.
+     */
+    public PlayerDAO() {
+    }
+
+    /**
+     * Find all players.
+     * 
+     * @return A list of all players
+     */
     public static List<IPlayer> findAllPlayers() {
         String query = "SELECT * FROM player_statistics";
         List<IPlayer> playersList = new ArrayList<>();
@@ -36,6 +51,12 @@ public class PlayerDAO {
         return playersList;
     }
 
+    /**
+     * Find players by position.
+     * 
+     * @param position The player's position
+     * @return A list of IPlayer objects
+     */
     public static List<IPlayer> findPlayersByPosition(String position) {
         String query = String.format("SELECT * FROM player_statistics WHERE position LIKE '%%%s%%'", position);
         List<IPlayer> playersList = new ArrayList<>();

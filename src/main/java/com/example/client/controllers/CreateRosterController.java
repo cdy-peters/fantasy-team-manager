@@ -25,6 +25,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
+/**
+ * Controller class for the create-roster-view.fxml file.
+ * Handles the retrieval and selection of players, and the creation of a user
+ * roster.
+ */
 public class CreateRosterController {
     @FXML
     private HBox forwardsHBox;
@@ -57,8 +62,20 @@ public class CreateRosterController {
     Gson g = new Gson();
     private PlayerCardController playerCardController = new PlayerCardController();
 
+    /** Format the budget sum to one decimal place or a whole number */
     public DecimalFormat df = new DecimalFormat("###.#");
 
+    /**
+     * Default constructor
+     */
+    public CreateRosterController() {
+    }
+
+    /**
+     * Custom ListCell class to display player information in the ListView.
+     * Displays the player's name and price, and the team's badge.
+     * If the player is null or empty, the cell is cleared.
+     */
     private class PlayerListCell extends ListCell<IPlayer> {
         @Override
         protected void updateItem(IPlayer player, boolean empty) {
@@ -80,6 +97,12 @@ public class CreateRosterController {
         }
     }
 
+    /**
+     * Fetches players from the server based on the given position.
+     * 
+     * @param position The position of the players to fetch.
+     * @return An ObservableList of IPlayer objects.
+     */
     private ObservableList<IPlayer> fetchPlayers(String position) {
         HttpHelper request = new HttpHelper("players?position=" + position);
         try {
@@ -93,6 +116,11 @@ public class CreateRosterController {
         }
     }
 
+    /**
+     * Initializes the controller.
+     * Fetches players from the server and initializes the player cards.
+     * Sets up the player list and the event handlers.
+     */
     public void initialize() {
         forwards = fetchPlayers("FW");
         midfielders = fetchPlayers("MF");
@@ -115,6 +143,12 @@ public class CreateRosterController {
         createTeamButton.setOnAction(this::handleCreateTeam);
     }
 
+    /**
+     * Handles the selection of a player card.
+     * Updates the player list based on the selected card.
+     * 
+     * @param event The ActionEvent object.
+     */
     private void handlePlayerCard(ActionEvent event) {
         Button button = (Button) event.getSource();
 
@@ -149,6 +183,12 @@ public class CreateRosterController {
         }
     }
 
+    /**
+     * Updates the player list based on the selected player card.
+     * Filters the player list based on the search field.
+     * 
+     * @param players The ObservableList of IPlayer objects.
+     */
     private void updatePlayerList(ObservableList<IPlayer> players) {
         filteredPlayers = new FilteredList<>(players, p -> true);
         playersList.setItems(filteredPlayers);
@@ -164,6 +204,12 @@ public class CreateRosterController {
         });
     }
 
+    /**
+     * Handles the selection of a player from the player list.
+     * Updates the selected player card and the roster.
+     * 
+     * @param event The MouseEvent object.
+     */
     private void handlePlayerSelection(MouseEvent event) {
         IPlayer selectedPlayer = playersList.getSelectionModel().getSelectedItem();
         if (selectedPlayer != null) {
@@ -323,6 +369,14 @@ public class CreateRosterController {
         }
     }
 
+    /**
+     * Handles the creation of a user roster.
+     * Sends a POST request to the server to create the roster.
+     * Updates the user roster in the Client class.
+     * Redirects the user to the home view.
+     * 
+     * @param event The ActionEvent object.
+     */
     private void handleCreateTeam(ActionEvent event) {
         HttpHelper request = new HttpHelper("roster", g.toJson(roster));
 

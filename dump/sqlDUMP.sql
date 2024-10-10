@@ -158,6 +158,7 @@ CREATE TABLE `user_roster` (
   `sub3_player_id` int DEFAULT NULL,
   `sub4_player_id` int DEFAULT NULL,
   `roster_score` int DEFAULT NULL,
+  `roster_price` DECIMAL(5, 1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_user_id` (`user_id`),
   KEY `fk_position1_player_id` (`position1_player_id`),

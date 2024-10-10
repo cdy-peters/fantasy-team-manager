@@ -8,8 +8,23 @@ import java.sql.Statement;
 
 import com.example.server.Server;
 
+/**
+ * Data Access Object for the session.
+ */
 public class SessionDAO {
 
+    /**
+     * Default constructor.
+     */
+    public SessionDAO() {
+    }
+
+    /**
+     * Get the user ID from the session ID.
+     * 
+     * @param sessionId The session ID
+     * @return The user ID
+     */
     public static Long getUserId(String sessionId) {
         String query = String.format("SELECT user_id FROM session WHERE session_id = '%s'", sessionId);
         try {
@@ -26,6 +41,12 @@ public class SessionDAO {
         }
     }
 
+    /**
+     * Find a session by session ID.
+     * 
+     * @param sessionId The session ID
+     * @return An ISession object
+     */
     public ISession find(String sessionId) {
         String query = String.format("SELECT * FROM session WHERE session_id = '%s'", sessionId);
         try {
@@ -45,6 +66,13 @@ public class SessionDAO {
         }
     }
 
+    /**
+     * Create a new session.
+     * 
+     * @param userId The user ID
+     * @return An ISession object
+     * @throws Exception If the session cannot be created
+     */
     public ISession create(Long userId) throws Exception {
         ISession session = new ISession(userId);
 
@@ -64,6 +92,11 @@ public class SessionDAO {
         throw new Exception("Error creating session");
     }
 
+    /**
+     * Delete a session by session ID.
+     * 
+     * @param sessionId The session ID
+     */
     public void delete(String sessionId) {
         String query = "DELETE FROM session WHERE session_id = ?";
         try {

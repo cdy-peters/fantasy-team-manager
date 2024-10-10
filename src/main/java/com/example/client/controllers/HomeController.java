@@ -13,6 +13,9 @@ import com.example.server.models.IUserRoster;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 
+/**
+ * Controller for the home page.
+ */
 public class HomeController {
     @FXML
     private HBox forwards;
@@ -29,6 +32,18 @@ public class HomeController {
 
     private Gson gson = new Gson();
 
+    /**
+     * Default constructor
+     */
+    public HomeController() {
+    }
+
+    /**
+     * Get player statistics from the server and handle the response
+     * 
+     * @param playerId The player's ID
+     * @return The player's statistics
+     */
     private IStatistics getPlayer(Long playerId) {
         String requestUrl = "player_statistics?playerId=" + playerId;
         HttpHelper request = new HttpHelper(requestUrl);
@@ -43,6 +58,10 @@ public class HomeController {
         }
     }
 
+    /**
+     * Initialize the home page.
+     * Create player cards for each player in the user's roster.
+     */
     public void initialize() {
         roster = Client.userRoster;
 

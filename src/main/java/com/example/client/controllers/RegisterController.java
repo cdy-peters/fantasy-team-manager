@@ -16,6 +16,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * Controller for the register page.
+ */
 public class RegisterController {
     @FXML
     private Hyperlink signInLink;
@@ -32,6 +35,17 @@ public class RegisterController {
     @FXML
     private Button submitButton;
 
+    /**
+     * Default constructor
+     */
+    public RegisterController() {
+    }
+
+    /**
+     * Handle an error response from the server.
+     * 
+     * @param response
+     */
     private void handleError(HttpResponse<String> response) {
         int code = response.statusCode();
 
@@ -52,6 +66,13 @@ public class RegisterController {
 
     }
 
+    /**
+     * Handle the response from the server.
+     * 
+     * @param response
+     * @return True if the response was successful, false otherwise.
+     * @throws IOException If an error occurs while handling the response.
+     */
     private boolean handleResponse(HttpResponse<String> response) throws IOException {
         if (response.statusCode() != 201) {
             handleError(response);
@@ -68,11 +89,22 @@ public class RegisterController {
         return true;
     }
 
+    /**
+     * Handle the sign in link click event.
+     * Redirect the user to the login page.
+     * 
+     * @throws IOException If an error occurs while fetching the view.
+     */
     @FXML
     protected void onSignInLinkClick() throws IOException {
         Client.updateRoot("/login-view.fxml");
     }
 
+    /**
+     * Handle the submit button click event.
+     * Send a request to the server to register the user.
+     * If the request is successful, redirect the user to the create roster page.
+     */
     @FXML
     protected void onSubmitButtonClick() {
         String name = nameField.getText();

@@ -15,6 +15,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 
+/**
+ * Controller for the leaderboard page.
+ */
 public class LeaderBoardController {
     @FXML
     private TableView<ILeaderboardElement> leaderboardTable;
@@ -31,10 +34,16 @@ public class LeaderBoardController {
     private ObservableList<ILeaderboardElement> data;
     private Gson gson;
 
+    /**
+     * Constructor for the LeaderBoardController class.
+     */
     public LeaderBoardController() {
         this.gson = new Gson();
     }
 
+    /**
+     * Initialize the leaderboard page, populating the table with player data.
+     */
     @FXML
     public void initialize() {
         leaderboardTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -48,6 +57,11 @@ public class LeaderBoardController {
         leaderboardTable.setItems(data);
     }
 
+    /**
+     * Fetch player data from the server.
+     * 
+     * @return An observable list of player data.
+     */
     private ObservableList<ILeaderboardElement> fetchPlayers() {
         HttpHelper request = new HttpHelper("rosters");
 

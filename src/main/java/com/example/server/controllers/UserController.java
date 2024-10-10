@@ -14,12 +14,27 @@ import com.example.server.models.IUser;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
 
+/**
+ * Controller for the user endpoints.
+ */
 @RestController
 public class UserController {
     private UserDAO userDAO = new UserDAO();
     private SessionDAO sessionDAO = new SessionDAO();
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    /**
+     * Default constructor
+     */
+    public UserController() {
+    }
+
+    /**
+     * Create a session for the user
+     * 
+     * @param userId The user's ID
+     * @return The response entity
+     */
     private ResponseEntity<?> createSession(Long userId) {
         try {
             ISession session = sessionDAO.create(userId);
@@ -30,6 +45,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Authenticate the user
+     * 
+     * @param user The user object
+     * @return The response entity
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody IUser user) {
         String username = user.getUsername();
@@ -59,6 +80,12 @@ public class UserController {
         return createSession(existingUser.getId());
     }
 
+    /**
+     * Register a new user
+     * 
+     * @param user The user object
+     * @return The response entity
+     */
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody IUser user) {
         String name = user.getName();
@@ -111,6 +138,12 @@ public class UserController {
 
     }
 
+    /**
+     * Logout the user
+     * 
+     * @param token The session token
+     * @return The response entity
+     */
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader(name = "Authorization", required = true) String token) {
         ISession session = sessionDAO.find(token);

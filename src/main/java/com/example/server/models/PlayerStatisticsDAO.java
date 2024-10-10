@@ -8,9 +8,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Access Object for the player statistics.
+ */
 public class PlayerStatisticsDAO {
 
-    // Method to find player statistics by player ID
+    /**
+     * Default constructor.
+     */
+    public PlayerStatisticsDAO() {
+    }
+
+    /**
+     * Find player statistics by player ID.
+     * 
+     * @param playerId The ID of the player
+     * @return A list of IStatistics objects
+     */
     public static List<IStatistics> findByPlayerId(String playerId) {
         String query = String.format("SELECT * FROM player_statistics WHERE id = '%s'", playerId);
         List<IStatistics> statisticsList = new ArrayList<>();
@@ -57,8 +71,13 @@ public class PlayerStatisticsDAO {
                 String team = rs.getString("team");
                 double playerScore = rs.getDouble("player_score");
 
-                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
-                statisticsList.add(statistics);           
+                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age,
+                        minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks,
+                        penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals,
+                        expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90,
+                        assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90,
+                        xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
+                statisticsList.add(statistics);
             }
 
             if (statisticsList.isEmpty()) {
@@ -72,7 +91,11 @@ public class PlayerStatisticsDAO {
         return statisticsList;
     }
 
-    // Helper method to find all statistics
+    /**
+     * Find all player statistics.
+     * 
+     * @return A list of IStatistics objects
+     */
     public static List<IStatistics> findAllStatistics() {
         List<IStatistics> statisticsList = new ArrayList<>();
         String query = "SELECT * FROM player_statistics";
@@ -119,7 +142,12 @@ public class PlayerStatisticsDAO {
                 String team = rs.getString("team");
                 double playerScore = rs.getDouble("player_score");
 
-                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age, minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks, penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals, expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90, assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90, xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
+                IStatistics statistics = new IStatistics(id, player_name, games_played, starts, nation, position, age,
+                        minutes, ninetyMinutes, goals, assists, goalsAssists, goalsPenaltyKicks, penaltyKicks,
+                        penaltyKickAttempts, yellowCards, redCards, expectedGoals, nonPenaltyExpectedGoals,
+                        expectedAssists, npXgPlusXA, progressiveCarries, progressivePasses, progressiveRuns, goalsPer90,
+                        assistsPer90, goalsAssistsPer90, goalsPenaltyKicksPer90, goalsAssistsPenaltyKicksPer90, xGPer90,
+                        xAPer90, xGPlusXAPer90, npxGPer90, npxGPlusXAPer90, team, playerScore);
                 statisticsList.add(statistics);
             }
 

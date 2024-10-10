@@ -12,12 +12,27 @@ import com.example.client.helpers.PrefsHelper;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+/**
+ * Controller for the navbar.
+ */
 public class NavbarController {
     @FXML
     private Button signOutButton;
     @FXML
     private Button rosterButton;
 
+    /**
+     * Default constructor
+     */
+    public NavbarController() {
+    }
+
+    /**
+     * Handle the sign out button click event.
+     * Send a request to the server to log out the user.
+     * If the request is successful, remove the session token from the user's
+     * preferences.
+     */
     @FXML
     protected void onSignOutButtonClick() {
 
@@ -42,6 +57,12 @@ public class NavbarController {
         }
     }
 
+    /**
+     * Handle the roster button click event.
+     * Redirect the user to the roster page.
+     * 
+     * @throws IOException If an error occurs while fetching the view.
+     */
     @FXML
     protected void onRosterButtonClick() throws IOException {
         String view = new LandingGuard().getView();
@@ -52,11 +73,19 @@ public class NavbarController {
         Client.updateRoot(view);
     }
 
+    /**
+     * Handle the home button click event.
+     * Redirect the user to the home page.
+     */
     @FXML
     protected void onLeaderBoardButtonClick() {
         Client.updateRoot("/leaderboard-view.fxml");
     }
 
+    /**
+     * Handle the statistics button click event.
+     * Redirect the user to the statistics page.
+     */
     @FXML
     protected void onStatisticsButtonClick() {
         Client.updateRoot("/statistics-view.fxml");

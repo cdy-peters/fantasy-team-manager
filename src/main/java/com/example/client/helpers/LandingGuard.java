@@ -10,13 +10,25 @@ import com.example.client.Client;
 import com.example.client.helpers.LandingGuard;
 import com.example.server.models.IUserRoster;
 
+/**
+ * Guard for the landing page.
+ * Handles the logic for determining which view to display.
+ */
 public class LandingGuard {
     private final Gson gson;
 
+    /**
+     * Create a new LandingGuard instance.
+     */
     public LandingGuard() {
         this.gson = new Gson();
     }
 
+    /**
+     * Fetch the user's roster from the server.
+     * 
+     * @return An optional IUserRoster object.
+     */
     private Optional<IUserRoster> fetchRoster() {
         if (Client.userRoster != null) {
             return Optional.of(Client.userRoster);
@@ -36,6 +48,12 @@ public class LandingGuard {
         return Optional.empty();
     }
 
+    /**
+     * Determine which view to display based on the existence of the user's session
+     * token and roster.
+     * 
+     * @return The path to the view.
+     */
     public String getView() {
         if (Client.sessionToken.isEmpty()) {
             return "/login-view.fxml";

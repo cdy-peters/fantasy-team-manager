@@ -299,7 +299,7 @@ public class CreateRosterController {
                     }
                     break;
                 case "playerCard11":
-                    for (IPlayer player : defenders) {
+                    for (IPlayer player : goalkeepers) {
                         if (player.getId() == roster.getPosition11()) {
                             selectedCardPlayer = player;
                             break;

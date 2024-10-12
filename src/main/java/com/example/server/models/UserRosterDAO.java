@@ -160,47 +160,23 @@ public class UserRosterDAO {
     }
 
     public static List<IPlayer> findRosterPlayers(long id) {
-        String query = String.format("
-                SELECT
-                    ps.position,
-                    ps.player_price,
-                    ps.player_name,
-                    ps.player_score,
-                    ps.nation,
-                    ur.roster_price,
-                    ur.roster_score
-                FROM
-                    user_roster ur
-                JOIN
-                    player_statistics ps ON ps.id IN (
-                        ur.position1_player_id,
-                        ur.position2_player_id,
-                        ur.position3_player_id,
-                        ur.position4_player_id,
-                        ur.position5_player_id,
-                        ur.position6_player_id,
-                        ur.position7_player_id,
-                        ur.position8_player_id,
-                        ur.position9_player_id,
-                        ur.position10_player_id,
-                        ur.position11_player_id,
-                    )
-                WHERE
-                    ur.user_id = %d", id);
+        String query = String.format(
+                "SELECT ps.id, ps.player_name, ps.nation, ps.position, ps.team, ps.player_score, ps.player_price FROM user_roster ur JOIN player_statistics ps ON ps.id IN (ur.position1_player_id, ur.position2_player_id, ur.position3_player_id, ur.position4_player_id, ur.position5_player_id, ur.position6_player_id, ur.position7_player_id, ur.position8_player_id, ur.position9_player_id, ur.position10_player_id, ur.position11_player_id) WHERE ur.user_id = "
+                        + id);
         List<IPlayer> players = new ArrayList<>();
         try {
             Statement stmt = Server.conn.createStatement();
-            System.out.println("Executing query: " + query);
+
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
                 Long playerId = rs.getLong("id");
-                String name = rs.getString("name");
+                String name = rs.getString("player_name");
                 String nation = rs.getString("nation");
                 String position = rs.getString("position");
                 String team = rs.getString("team");
-                int score = rs.getInt("score");
-                double price = rs.getDouble("price");
+                int score = rs.getInt("player_score");
+                double price = rs.getDouble("player_price");
                 players.add(new IPlayer(playerId, name, nation, position, team, score, price));
             }
 

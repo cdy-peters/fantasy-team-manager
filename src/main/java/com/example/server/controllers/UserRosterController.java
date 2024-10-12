@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.server.models.ILeaderboardElement;
 import com.example.server.models.ISession;
+import com.example.server.models.IPlayer;
 import com.example.server.models.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
@@ -94,6 +95,29 @@ public class UserRosterController {
 
         Long userId = session.getUserId();
         ILeaderboardElement roster = UserRosterDAO.getUserRoster(userId);
+        if (roster == null) {
+            return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
+        }
+
+        return ResponseEntity.ok(roster);
+    }
+
+    /**
+     * Get the roster of the user making the request.
+     * User must be authenticated.
+     * 
+     * @param token The user's session token
+     * @return The response entity
+     */
+    @GetMapping("/rosterPlayers")
+    public ResponseEntity<?> getRosterPlayers(@RequestHeader(name = "Authorization", required = false) String token) {
+        ISession session = sessionDAO.find(token);
+        if (session == null) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+
+        Long userId = session.getUserId();
+        List<IPlayer> roster = UserRosterDAO.findRosterPlayers(userId);
         if (roster == null) {
             return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
         }

@@ -4,6 +4,8 @@ import java.net.http.HttpResponse;
 
 import com.example.client.helpers.HttpHelper;
 import com.example.server.models.ILeaderboardElement;
+import com.example.server.models.IPlayer;
+import com.example.server.models.IStatistics;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
@@ -52,7 +54,21 @@ public class LeaderBoardController {
 
     @FXML
     private TableView<ILeaderboardElement> currentRosterTable;
-    private ObservableList<ILeaderboardElement> currentRosterData;
+
+    @FXML
+    private TableColumn<IPlayer, String> Position;
+
+    @FXML
+    private TableColumn<IPlayer, String> Player;
+
+    @FXML
+    private TableColumn<IPlayer, Double> PlayerCost;
+
+    @FXML
+    private TableColumn<IPlayer, Integer> PlayerRating;
+
+    private ObservableList<IPlayer> currentRosterData;
+
     private Gson gson;
 
     /**
@@ -74,7 +90,7 @@ public class LeaderBoardController {
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-        leaderboardData.addAll(fetchPlayers());
+        leaderboardData.addAll(fetchLeaderboardElements());
         leaderboardTable.setItems(leaderboardData);
 
         currentUserData = FXCollections.observableArrayList();
@@ -94,7 +110,7 @@ public class LeaderBoardController {
      * 
      * @return An observable list of player data.
      */
-    private ObservableList<ILeaderboardElement> fetchPlayers() {
+    private ObservableList<ILeaderboardElement> fetchLeaderboardElements() {
         HttpHelper request = new HttpHelper("rosters");
 
         try {
@@ -126,13 +142,34 @@ public class LeaderBoardController {
 
         try {
             HttpResponse<String> response = request.send();
-
+            if (response.statusCode() == 404) {
+                return FXCollections.observableArrayList();
+            }
             ILeaderboardElement stats = gson.fromJson(response.body(), ILeaderboardElement.class);
-
             return FXCollections.observableArrayList(stats);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return FXCollections.observableArrayList();
+        }
+    }
+
+    /**
+     * Get player statistics from the server and handle the response
+     * 
+     * @param playerId The player's ID
+     * @return The player's statistics
+     */
+    private IStatistics getPlayer(Long playerId) {
+        String requestUrl = "player_statistics?playerId=" + playerId;
+        HttpHelper request = new HttpHelper(requestUrl);
+
+        try {
+            HttpResponse<String> response = request.send();
+            IStatistics[] player = gson.fromJson(response.body(), IStatistics[].class);
+            return player[0];
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

@@ -4,6 +4,9 @@ import java.net.http.HttpResponse;
 
 import com.example.client.helpers.HttpHelper;
 import com.example.server.models.ILeaderboardElement;
+import com.example.server.models.IPlayer;
+import com.example.server.models.IStatistics;
+import com.example.server.models.IUserRoster;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
@@ -26,12 +29,47 @@ public class LeaderBoardController {
     private TableColumn<ILeaderboardElement, Integer> rankColumn;
 
     @FXML
-    private TableColumn<ILeaderboardElement, String> playerColumn;
+    private TableColumn<ILeaderboardElement, String> userColumn;
 
     @FXML
     private TableColumn<ILeaderboardElement, Integer> scoreColumn;
 
-    private ObservableList<ILeaderboardElement> data;
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> costColumn;
+
+    private ObservableList<ILeaderboardElement> leaderboardData;
+
+    @FXML
+    private TableView<ILeaderboardElement> currentUserTable;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterRank;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterScore;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterBudget;
+
+    private ObservableList<ILeaderboardElement> currentUserData;
+
+    @FXML
+    private TableView<IPlayer> currentRosterTable;
+
+    @FXML
+    private TableColumn<IPlayer, String> Position;
+
+    @FXML
+    private TableColumn<IPlayer, String> Player;
+
+    @FXML
+    private TableColumn<IPlayer, Double> PlayerCost;
+
+    @FXML
+    private TableColumn<IPlayer, Integer> PlayerRating;
+
+    private ObservableList<IPlayer> currentRosterData;
+
     private Gson gson;
 
     /**
@@ -46,15 +84,35 @@ public class LeaderBoardController {
      */
     @FXML
     public void initialize() {
-        leaderboardTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        data = FXCollections.observableArrayList();
+        leaderboardData = FXCollections.observableArrayList();
 
         rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
-        playerColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-        data.addAll(fetchPlayers());
-        leaderboardTable.setItems(data);
+        leaderboardData.addAll(fetchLeaderboardElements());
+        leaderboardTable.setItems(leaderboardData);
+
+        currentUserData = FXCollections.observableArrayList();
+
+        userRosterRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        userRosterScore.setCellValueFactory(new PropertyValueFactory<>("score"));
+        userRosterBudget.setCellValueFactory(new PropertyValueFactory<>("cost"));
+
+        currentUserData.addAll(fetchRoster());
+        currentUserTable.setItems(currentUserData);
+
+        currentRosterData = FXCollections.observableArrayList();
+
+        Position.setCellValueFactory(new PropertyValueFactory<>("position"));
+        Player.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PlayerCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        PlayerRating.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        currentRosterData.addAll(fetchRosterPlayers());
+        currentRosterTable.setItems(currentRosterData);
+
     }
 
     /**
@@ -62,7 +120,7 @@ public class LeaderBoardController {
      * 
      * @return An observable list of player data.
      */
-    private ObservableList<ILeaderboardElement> fetchPlayers() {
+    private ObservableList<ILeaderboardElement> fetchLeaderboardElements() {
         HttpHelper request = new HttpHelper("rosters");
 
         try {
@@ -83,4 +141,43 @@ public class LeaderBoardController {
             return FXCollections.observableArrayList();
         }
     }
+
+    /**
+     * Fetch player data from the server.
+     * 
+     * @return An observable list of player data.
+     */
+    private ObservableList<ILeaderboardElement> fetchRoster() {
+        HttpHelper request = new HttpHelper("rosterStats");
+
+        try {
+            HttpResponse<String> response = request.send();
+            if (response.statusCode() == 404) {
+                return FXCollections.observableArrayList();
+            }
+            ILeaderboardElement stats = gson.fromJson(response.body(), ILeaderboardElement.class);
+            return FXCollections.observableArrayList(stats);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+    }
+
+    private ObservableList<IPlayer> fetchRosterPlayers() {
+        HttpHelper request = new HttpHelper("rosterPlayers");
+        try {
+            HttpResponse<String> response = request.send();
+            System.out.println(response.body());
+            if (response.statusCode() == 404) {
+                return FXCollections.observableArrayList();
+            }
+            IPlayer[] roster = gson.fromJson(response.body(), IPlayer[].class);
+
+            return FXCollections.observableArrayList(roster);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+    }
+
 }

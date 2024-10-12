@@ -9,6 +9,7 @@ public class ILeaderboardElement {
     private Long userId;
     private String username;
     private int score;
+    private float cost;
 
     /**
      * Create a new ILeaderboardElement instance.
@@ -18,13 +19,15 @@ public class ILeaderboardElement {
      * @param userId   The user ID
      * @param username The username
      * @param score    The score
+     * @param cost     The cost
      */
-    public ILeaderboardElement(Long id, int rank, Long userId, String username, int score) {
+    public ILeaderboardElement(Long id, int rank, Long userId, String username, int score, float cost) {
         this.id = id;
         this.rank = rank;
         this.userId = userId;
         this.username = username;
         this.score = score;
+        this.cost = cost;
     }
 
     /**
@@ -70,6 +73,15 @@ public class ILeaderboardElement {
      */
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Get the cost of the leaderboard element.
+     * 
+     * @return The cost
+     */
+    public float getCost() {
+        return cost;
     }
 
 }

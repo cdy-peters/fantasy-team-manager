@@ -46,7 +46,6 @@ public class LeaderBoardController {
      */
     @FXML
     public void initialize() {
-        leaderboardTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         data = FXCollections.observableArrayList();
 
         rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));

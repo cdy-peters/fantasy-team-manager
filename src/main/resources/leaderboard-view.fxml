@@ -2,67 +2,83 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxWidth="494.0" prefHeight="400.0" prefWidth="494.0"
+<VBox alignment="CENTER" maxWidth="823.0" prefHeight="430.0" prefWidth="717.0"
    xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
    fx:controller="com.example.client.controllers.LeaderBoardController">
    <children>
-      <HBox spacing="10.0">
+      <HBox alignment="CENTER" prefHeight="400.0" prefWidth="670.0" spacing="10.0">
          <children>
-            <VBox spacing="1.0">
+            <VBox prefHeight="400.0" prefWidth="360.0" spacing="1.0">
                <children>
                   <Label text="Global Leaderboard">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="leaderboardTable">
-                     <columns>
-                        <TableColumn fx:id="rankColumn" prefWidth="80.0" text="Rank #" />
-                        <TableColumn fx:id="userColumn" prefWidth="80.0" text="Player" />
-                        <TableColumn fx:id="scoreColumn" prefWidth="80.0" text="Score" />
-                     </columns>
-                  </TableView>
+                  <ScrollPane hbarPolicy="NEVER" prefHeight="370.0" prefWidth="400.0"
+                     vbarPolicy="ALWAYS">
+                     <content>
+                        <TableView fx:id="leaderboardTable" prefHeight="370.0" prefWidth="350.0">
+                           <columns>
+                              <TableColumn fx:id="rankColumn" prefWidth="54.0" text="Rank #" />
+                              <TableColumn fx:id="userColumn" prefWidth="110.0" text="Username" />
+                              <TableColumn fx:id="scoreColumn" prefWidth="90.0" text="Score" />
+                              <TableColumn fx:id="costColumn" prefWidth="90.0" text="Cost" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
                </children>
             </VBox>
-            <VBox prefHeight="400.0" prefWidth="248.0" spacing="10.0">
+            <VBox prefHeight="400.0" prefWidth="330.0" spacing="10.0">
                <children>
-                  <VBox prefHeight="150.0" prefWidth="242.0" spacing="1.0">
+                  <VBox prefHeight="150.0" prefWidth="240.0" spacing="1.0">
                      <children>
                         <Label text="Current Position">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="currentRankTable" prefHeight="68.0" prefWidth="242.0">
+                        <TableView fx:id="currentRankTable" prefHeight="70.0" prefWidth="260.0">
                            <columns>
-                              <TableColumn fx:id="userRosterRank" prefWidth="80.0" text="Rank #" />
-                              <TableColumn fx:id="userRosterScore" prefWidth="80.0" text="Score" />
-                              <TableColumn fx:id="userRosterBudget" prefWidth="80.0" text="Budget" />
+                              <TableColumn fx:id="userRosterRank" prefWidth="110.0" text="Rank #" />
+                              <TableColumn fx:id="userRosterScore" prefWidth="110.0" text="Score" />
+                              <TableColumn fx:id="userRosterBudget" prefWidth="110.0" text="Budget" />
                            </columns>
                         </TableView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="364.0" prefWidth="242.0" spacing="1.0">
+                  <VBox prefHeight="300.0" prefWidth="310.0" spacing="1.0">
                      <children>
                         <Label text="Roster Stats">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="currentRosterStats" prefHeight="370.0" prefWidth="189.0">
-                           <columns>
-                              <TableColumn fx:id="rankColumn11" prefWidth="80.0" text="Position" />
-                              <TableColumn fx:id="scoreColumn11" prefWidth="80.0" text="Player" />
-                              <TableColumn fx:id="scoreColumn111" prefWidth="80.0" text="Cost" />
-                              <TableColumn fx:id="scoreColumn111" prefWidth="80.0" text="Score" />
-                           </columns>
-                        </TableView>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="250.0" prefWidth="320.0"
+                           vbarPolicy="ALWAYS">
+                           <content>
+                              <TableView fx:id="currentRosterStats" prefHeight="240.0"
+                                 prefWidth="320.0">
+                                 <columns>
+                                    <TableColumn fx:id="rankColumn11" prefWidth="60.0"
+                                       text="Position" />
+                                    <TableColumn fx:id="scoreColumn11" prefWidth="120.0"
+                                       text="Player" />
+                                    <TableColumn fx:id="scoreColumn111" prefWidth="60.0" text="Cost" />
+                                    <TableColumn fx:id="scoreColumn111" prefWidth="75.0"
+                                       text="Rating" />
+                                 </columns>
+                              </TableView>
+                           </content>
+                        </ScrollPane>
                      </children>
                   </VBox>
                </children>

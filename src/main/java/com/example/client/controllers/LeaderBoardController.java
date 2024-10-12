@@ -6,6 +6,7 @@ import com.example.client.helpers.HttpHelper;
 import com.example.server.models.ILeaderboardElement;
 import com.example.server.models.IPlayer;
 import com.example.server.models.IStatistics;
+import com.example.server.models.IUserRoster;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;
@@ -53,7 +54,7 @@ public class LeaderBoardController {
     private ObservableList<ILeaderboardElement> currentUserData;
 
     @FXML
-    private TableView<ILeaderboardElement> currentRosterTable;
+    private TableView<IPlayer> currentRosterTable;
 
     @FXML
     private TableColumn<IPlayer, String> Position;
@@ -103,6 +104,15 @@ public class LeaderBoardController {
         currentUserTable.setItems(currentUserData);
 
         currentRosterData = FXCollections.observableArrayList();
+
+        Position.setCellValueFactory(new PropertyValueFactory<>("position"));
+        Player.setCellValueFactory(new PropertyValueFactory<>("name"));
+        PlayerCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        PlayerRating.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        currentRosterData.addAll(fetchRosterPlayers());
+        currentRosterTable.setItems(currentRosterData);
+
     }
 
     /**
@@ -147,6 +157,23 @@ public class LeaderBoardController {
             }
             ILeaderboardElement stats = gson.fromJson(response.body(), ILeaderboardElement.class);
             return FXCollections.observableArrayList(stats);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+    }
+
+    private ObservableList<IPlayer> fetchRosterPlayers() {
+        HttpHelper request = new HttpHelper("rosterPlayers");
+        try {
+            HttpResponse<String> response = request.send();
+            System.out.println(response.body());
+            if (response.statusCode() == 404) {
+                return FXCollections.observableArrayList();
+            }
+            IPlayer[] roster = gson.fromJson(response.body(), IPlayer[].class);
+
+            return FXCollections.observableArrayList(roster);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return FXCollections.observableArrayList();

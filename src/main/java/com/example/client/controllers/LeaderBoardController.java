@@ -102,6 +102,7 @@ public class LeaderBoardController {
 
         currentUserData.addAll(fetchRoster());
         currentUserTable.setItems(currentUserData);
+        System.out.println(currentUserData);
 
         currentRosterData = FXCollections.observableArrayList();
 
@@ -111,6 +112,7 @@ public class LeaderBoardController {
         PlayerRating.setCellValueFactory(new PropertyValueFactory<>("score"));
 
         currentRosterData.addAll(fetchRosterPlayers());
+        System.out.println(currentRosterData);
         currentRosterTable.setItems(currentRosterData);
 
     }
@@ -180,23 +182,4 @@ public class LeaderBoardController {
         }
     }
 
-    /**
-     * Get player statistics from the server and handle the response
-     * 
-     * @param playerId The player's ID
-     * @return The player's statistics
-     */
-    private IStatistics getPlayer(Long playerId) {
-        String requestUrl = "player_statistics?playerId=" + playerId;
-        HttpHelper request = new HttpHelper(requestUrl);
-
-        try {
-            HttpResponse<String> response = request.send();
-            IStatistics[] player = gson.fromJson(response.body(), IStatistics[].class);
-            return player[0];
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

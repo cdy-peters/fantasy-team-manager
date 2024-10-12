@@ -2,16 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxWidth="823.0" prefHeight="430.0" prefWidth="717.0"
-   xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.example.client.controllers.LeaderBoardController">
+<VBox alignment="CENTER" maxWidth="823.0" prefHeight="430.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controllers.LeaderBoardController">
    <children>
       <HBox alignment="CENTER" prefHeight="400.0" prefWidth="670.0" spacing="10.0">
          <children>
@@ -22,19 +19,14 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ScrollPane hbarPolicy="NEVER" prefHeight="370.0" prefWidth="400.0"
-                     vbarPolicy="ALWAYS">
-                     <content>
-                        <TableView fx:id="leaderboardTable" prefHeight="370.0" prefWidth="350.0">
-                           <columns>
-                              <TableColumn fx:id="rankColumn" prefWidth="54.0" text="Rank #" />
-                              <TableColumn fx:id="userColumn" prefWidth="110.0" text="Username" />
-                              <TableColumn fx:id="scoreColumn" prefWidth="90.0" text="Score" />
-                              <TableColumn fx:id="costColumn" prefWidth="90.0" text="Cost" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
+                  <TableView fx:id="leaderboardTable" prefHeight="370.0" prefWidth="350.0">
+                     <columns>
+                        <TableColumn fx:id="rankColumn" prefWidth="54.0" text="Rank #" />
+                        <TableColumn fx:id="userColumn" prefWidth="110.0" text="Username" />
+                        <TableColumn fx:id="scoreColumn" prefWidth="90.0" text="Score" />
+                        <TableColumn fx:id="costColumn" prefWidth="90.0" text="Cost" />
+                     </columns>
+                  </TableView>
                </children>
             </VBox>
             <VBox prefHeight="400.0" prefWidth="330.0" spacing="10.0">
@@ -46,7 +38,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="currentUserTable" prefHeight="70.0" prefWidth="260.0">
+                        <TableView fx:id="currentUserTable" prefHeight="90.0" prefWidth="240.0">
                            <columns>
                               <TableColumn fx:id="userRosterRank" prefWidth="110.0" text="Rank #" />
                               <TableColumn fx:id="userRosterScore" prefWidth="110.0" text="Score" />
@@ -62,23 +54,14 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="250.0" prefWidth="320.0"
-                           vbarPolicy="ALWAYS">
-                           <content>
-                              <TableView fx:id="currentRosterTable" prefHeight="240.0"
-                                 prefWidth="320.0">
-                                 <columns>
-                                    <TableColumn fx:id="Position" prefWidth="60.0"
-                                       text="Position" />
-                                    <TableColumn fx:id="Player" prefWidth="120.0"
-                                       text="Player" />
-                                    <TableColumn fx:id="PlayerCost" prefWidth="60.0" text="Cost" />
-                                    <TableColumn fx:id="PlayerRating" prefWidth="75.0"
-                                       text="Rating" />
-                                 </columns>
-                              </TableView>
-                           </content>
-                        </ScrollPane>
+                        <TableView fx:id="currentRosterTable" prefHeight="240.0" prefWidth="320.0">
+                           <columns>
+                              <TableColumn fx:id="Position" prefWidth="60.0" text="Position" />
+                              <TableColumn fx:id="Player" prefWidth="120.0" text="Player" />
+                              <TableColumn fx:id="PlayerCost" prefWidth="60.0" text="Cost" />
+                              <TableColumn fx:id="PlayerRating" prefWidth="89.0" text="Rating" />
+                           </columns>
+                        </TableView>
                      </children>
                   </VBox>
                </children>

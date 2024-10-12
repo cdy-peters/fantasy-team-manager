@@ -114,7 +114,9 @@ public class UserRosterDAO {
                 Long userId = rs.getLong("user_id");
                 String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");
-                ILeaderboardElement roster = new ILeaderboardElement(id, rank, userId, username, rosterScore);
+                float cost = rs.getFloat("roster_price");
+
+                ILeaderboardElement roster = new ILeaderboardElement(id, rank, userId, username, rosterScore, cost);
                 rosterList.add(roster);
             }
 
@@ -127,5 +129,33 @@ public class UserRosterDAO {
         }
 
         return rosterList;
+    }
+
+    // TODO write comment
+    public static ILeaderboardElement getUserRoster(long Id) {
+        String query = String.format(
+                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
+                        + Id);
+        ILeaderboardElement roster = null;
+        try {
+            Statement stmt = Server.conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Long id = rs.getLong("id");
+                int rank = rs.getInt("rank");
+                Long userId = rs.getLong("user_id");
+                String username = rs.getString("username");
+                int rosterScore = rs.getInt("roster_score");
+                float cost = rs.getFloat("roster_price");
+
+                roster = new ILeaderboardElement(id, rank, userId, username, rosterScore, cost);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return roster;
     }
 }

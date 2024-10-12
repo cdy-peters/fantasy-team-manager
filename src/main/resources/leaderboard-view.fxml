@@ -46,7 +46,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="currentRankTable" prefHeight="70.0" prefWidth="260.0">
+                        <TableView fx:id="currentUserTable" prefHeight="70.0" prefWidth="260.0">
                            <columns>
                               <TableColumn fx:id="userRosterRank" prefWidth="110.0" text="Rank #" />
                               <TableColumn fx:id="userRosterScore" prefWidth="110.0" text="Score" />
@@ -68,12 +68,12 @@
                               <TableView fx:id="currentRosterStats" prefHeight="240.0"
                                  prefWidth="320.0">
                                  <columns>
-                                    <TableColumn fx:id="rankColumn11" prefWidth="60.0"
+                                    <TableColumn fx:id="Position" prefWidth="60.0"
                                        text="Position" />
-                                    <TableColumn fx:id="scoreColumn11" prefWidth="120.0"
+                                    <TableColumn fx:id="Player" prefWidth="120.0"
                                        text="Player" />
-                                    <TableColumn fx:id="scoreColumn111" prefWidth="60.0" text="Cost" />
-                                    <TableColumn fx:id="scoreColumn111" prefWidth="75.0"
+                                    <TableColumn fx:id="PlayerCost" prefWidth="60.0" text="Cost" />
+                                    <TableColumn fx:id="PlayerRating" prefWidth="75.0"
                                        text="Rating" />
                                  </columns>
                               </TableView>

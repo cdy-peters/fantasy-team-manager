@@ -31,7 +31,28 @@ public class LeaderBoardController {
     @FXML
     private TableColumn<ILeaderboardElement, Integer> scoreColumn;
 
-    private ObservableList<ILeaderboardElement> data;
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> costColumn;
+
+    private ObservableList<ILeaderboardElement> leaderboardData;
+
+    @FXML
+    private TableView<ILeaderboardElement> currentUserTable;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterRank;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterScore;
+
+    @FXML
+    private TableColumn<ILeaderboardElement, Integer> userRosterBudget;
+
+    private ObservableList<ILeaderboardElement> currentUserData;
+
+    @FXML
+    private TableView<ILeaderboardElement> currentRosterTable;
+    private ObservableList<ILeaderboardElement> currentRosterData;
     private Gson gson;
 
     /**
@@ -46,14 +67,25 @@ public class LeaderBoardController {
      */
     @FXML
     public void initialize() {
-        data = FXCollections.observableArrayList();
+        leaderboardData = FXCollections.observableArrayList();
 
         rankColumn.setCellValueFactory(new PropertyValueFactory<>("rank"));
         userColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-        data.addAll(fetchPlayers());
-        leaderboardTable.setItems(data);
+        leaderboardData.addAll(fetchPlayers());
+        leaderboardTable.setItems(leaderboardData);
+
+        currentUserData = FXCollections.observableArrayList();
+
+        userRosterRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
+        userRosterScore.setCellValueFactory(new PropertyValueFactory<>("score"));
+        userRosterRank.setCellValueFactory(new PropertyValueFactory<>("cost"));
+
+        currentUserData.addAll(fetchRoster());
+        currentUserTable.setItems(currentUserData);
+        currentRosterData = FXCollections.observableArrayList();
     }
 
     /**
@@ -77,6 +109,26 @@ public class LeaderBoardController {
             // debug
 
             return FXCollections.observableArrayList(players);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return FXCollections.observableArrayList();
+        }
+    }
+
+    /**
+     * Fetch player data from the server.
+     * 
+     * @return An observable list of player data.
+     */
+    private ObservableList<ILeaderboardElement> fetchRoster() {
+        HttpHelper request = new HttpHelper("rosterStats");
+
+        try {
+            HttpResponse<String> response = request.send();
+
+            ILeaderboardElement stats = gson.fromJson(response.body(), ILeaderboardElement.class);
+
+            return FXCollections.observableArrayList(stats);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return FXCollections.observableArrayList();

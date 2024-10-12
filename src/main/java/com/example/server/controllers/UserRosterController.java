@@ -79,6 +79,29 @@ public class UserRosterController {
     }
 
     /**
+     * Get the roster of the user making the request.
+     * User must be authenticated.
+     * 
+     * @param token The user's session token
+     * @return The response entity
+     */
+    @GetMapping("/rosterStats")
+    public ResponseEntity<?> getUserRosterStats(@RequestHeader(name = "Authorization", required = false) String token) {
+        ISession session = sessionDAO.find(token);
+        if (session == null) {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+
+        Long userId = session.getUserId();
+        ILeaderboardElement roster = UserRosterDAO.getUserRoster(userId);
+        if (roster == null) {
+            return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
+        }
+
+        return ResponseEntity.ok(roster);
+    }
+
+    /**
      * Get all rosters
      * 
      * @return The response entity

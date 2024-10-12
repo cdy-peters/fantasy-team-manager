@@ -81,10 +81,11 @@ public class LeaderBoardController {
 
         userRosterRank.setCellValueFactory(new PropertyValueFactory<>("rank"));
         userRosterScore.setCellValueFactory(new PropertyValueFactory<>("score"));
-        userRosterRank.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        userRosterBudget.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
         currentUserData.addAll(fetchRoster());
         currentUserTable.setItems(currentUserData);
+
         currentRosterData = FXCollections.observableArrayList();
     }
 

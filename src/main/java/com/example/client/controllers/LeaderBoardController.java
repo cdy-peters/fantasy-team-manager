@@ -102,7 +102,6 @@ public class LeaderBoardController {
 
         currentUserData.addAll(fetchRoster());
         currentUserTable.setItems(currentUserData);
-        System.out.println(currentUserData);
 
         currentRosterData = FXCollections.observableArrayList();
 
@@ -112,7 +111,6 @@ public class LeaderBoardController {
         PlayerRating.setCellValueFactory(new PropertyValueFactory<>("score"));
 
         currentRosterData.addAll(fetchRosterPlayers());
-        System.out.println(currentRosterData);
         currentRosterTable.setItems(currentRosterData);
 
     }

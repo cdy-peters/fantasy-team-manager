@@ -65,7 +65,7 @@
                         <ScrollPane hbarPolicy="NEVER" prefHeight="250.0" prefWidth="320.0"
                            vbarPolicy="ALWAYS">
                            <content>
-                              <TableView fx:id="currentRosterStats" prefHeight="240.0"
+                              <TableView fx:id="currentRosterTable" prefHeight="240.0"
                                  prefWidth="320.0">
                                  <columns>
                                     <TableColumn fx:id="Position" prefWidth="60.0"

@@ -8,7 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxWidth="823.0" prefHeight="430.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controllers.LeaderBoardController">
+<VBox alignment="CENTER" maxWidth="823.0" prefHeight="430.0" prefWidth="717.0"
+   xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.example.client.controllers.LeaderBoardController">
    <children>
       <HBox alignment="CENTER" prefHeight="400.0" prefWidth="670.0" spacing="10.0">
          <children>
@@ -38,10 +40,10 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="currentUserTable" prefHeight="90.0" prefWidth="240.0">
+                        <TableView fx:id="currentUserTable" prefHeight="60.0" prefWidth="240.0">
                            <columns>
-                              <TableColumn fx:id="userRosterRank" prefWidth="110.0" text="Rank #" />
-                              <TableColumn fx:id="userRosterScore" prefWidth="110.0" text="Score" />
+                              <TableColumn fx:id="userRosterRank" prefWidth="109.0" text="Rank #" />
+                              <TableColumn fx:id="userRosterScore" prefWidth="109.0" text="Score" />
                               <TableColumn fx:id="userRosterBudget" prefWidth="110.0" text="Budget" />
                            </columns>
                         </TableView>
@@ -59,7 +61,7 @@
                               <TableColumn fx:id="Position" prefWidth="60.0" text="Position" />
                               <TableColumn fx:id="Player" prefWidth="120.0" text="Player" />
                               <TableColumn fx:id="PlayerCost" prefWidth="60.0" text="Cost" />
-                              <TableColumn fx:id="PlayerRating" prefWidth="89.0" text="Rating" />
+                              <TableColumn fx:id="PlayerRating" prefWidth="88.0" text="Rating" />
                            </columns>
                         </TableView>
                      </children>

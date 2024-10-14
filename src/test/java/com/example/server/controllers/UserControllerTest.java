@@ -1,6 +1,7 @@
 package com.example.server.controllers;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -16,13 +17,18 @@ import org.mockito.Spy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.server.models.ISession;
 import com.example.server.models.IUser;
+import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
 
 public class UserControllerTest {
 
         @Mock
         private UserDAO userDAO;
+
+        @Mock
+        private SessionDAO sessionDAO;
 
         @Spy
         @InjectMocks
@@ -555,7 +561,7 @@ public class UserControllerTest {
                 when(user.getEmail()).thenReturn(email);
                 when(user.getUsername()).thenReturn(username);
                 when(user.getPassword()).thenReturn(password);
-                
+
                 // Throw SQLIntegrityConstraintViolationException
                 doThrow(SQLIntegrityConstraintViolationException.class).when(userDAO).create(user);
 
@@ -580,7 +586,7 @@ public class UserControllerTest {
                 when(user.getEmail()).thenReturn(email);
                 when(user.getUsername()).thenReturn(username);
                 when(user.getPassword()).thenReturn(password);
-                
+
                 // Throw SQLIntegrityConstraintViolationException
                 doThrow(Exception.class).when(userDAO).create(user);
 
@@ -621,5 +627,51 @@ public class UserControllerTest {
                 assertEquals(201, response.getStatusCode().value());
                 assertEquals("Session created", response.getBody());
                 assertEquals("token", response.getHeaders().get("Authorization").get(0));
+        }
+
+        @Test
+        public void testLogout_SessionNotFound() throws Exception {
+                // Arrange
+                when(sessionDAO.find(anyString())).thenReturn(null);
+
+                // Act
+                ResponseEntity<?> response = userController.logout("token");
+
+                // Assert
+                assertEquals(205, response.getStatusCode().value());
+                assertEquals("Session not found", response.getBody());
+        }
+
+        @Test
+        public void testLogout_FailedToLogout() throws Exception {
+                // Arrange
+                ISession session = mock(ISession.class);
+                when(session.getSessionId()).thenReturn("token");
+
+                when(sessionDAO.find(anyString())).thenReturn(session);
+                doThrow(SQLException.class).when(sessionDAO).delete(anyString());
+
+                // Act
+                ResponseEntity<?> response = userController.logout("token");
+
+                // Assert
+                assertEquals(500, response.getStatusCode().value());
+                assertEquals("Failed to logout", response.getBody());
+        }
+
+        @Test
+        public void testLogout_Success() throws Exception {
+                // Arrange
+                ISession session = mock(ISession.class);
+                when(session.getSessionId()).thenReturn("token");
+
+                when(sessionDAO.find(anyString())).thenReturn(session);
+
+                // Act
+                ResponseEntity<?> response = userController.logout("token");
+
+                // Assert
+                assertEquals(200, response.getStatusCode().value());
+                assertEquals("Logged out", response.getBody());
         }
 }

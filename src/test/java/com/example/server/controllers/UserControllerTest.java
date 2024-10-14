@@ -40,6 +40,41 @@ public class UserControllerTest {
         }
 
         @Test
+        public void testCreateSession_Failure() throws Exception {
+                Long userId = 1L;
+
+                // Arrange
+                when(sessionDAO.create(anyLong())).thenThrow(new Exception());
+
+                // Act
+                ResponseEntity<?> response = userController.createSession(userId);
+
+                // Assert
+                assertEquals(500, response.getStatusCode().value());
+                assertEquals("Failed to create session", response.getBody());
+        }
+
+        @Test
+        public void testCreateSession_Success() throws Exception {
+                Long userId = 1L;
+                String token = "token";
+
+                // Arrange
+                ISession session = mock(ISession.class);
+                when(session.getSessionId()).thenReturn(token);
+
+                when(sessionDAO.create(anyLong())).thenReturn(session);
+
+                // Act
+                ResponseEntity<?> response = userController.createSession(userId);
+
+                // Assert
+                assertEquals(201, response.getStatusCode().value());
+                assertEquals("Session created", response.getBody());
+                assertEquals("token", response.getHeaders().get("Authorization").get(0));
+        }
+
+        @Test
         public void testLogin_UsernameEmpty() throws Exception {
                 String username = "";
                 String password = "password";

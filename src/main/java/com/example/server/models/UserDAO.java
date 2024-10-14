@@ -38,11 +38,11 @@ public class UserDAO {
                 return new IUser(id, name, email, username, password);
             } else {
                 System.out.println("No user found");
-                return new IUser();
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return new IUser();
+            return null;
         }
     }
 

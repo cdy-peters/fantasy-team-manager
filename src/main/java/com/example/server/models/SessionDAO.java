@@ -97,7 +97,7 @@ public class SessionDAO {
      * 
      * @param sessionId The session ID
      */
-    public void delete(String sessionId) {
+    public void delete(String sessionId) throws SQLException {
         String query = "DELETE FROM session WHERE session_id = ?";
         try {
             PreparedStatement stmt = Server.conn.prepareStatement(query);
@@ -105,6 +105,7 @@ public class SessionDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
     }
 

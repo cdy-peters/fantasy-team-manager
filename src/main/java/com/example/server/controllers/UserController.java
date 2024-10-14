@@ -35,7 +35,7 @@ public class UserController {
      * @param userId The user's ID
      * @return The response entity
      */
-    private ResponseEntity<?> createSession(Long userId) {
+    protected ResponseEntity<?> createSession(Long userId) {
         try {
             ISession session = sessionDAO.create(userId);
             String token = session.getSessionId();

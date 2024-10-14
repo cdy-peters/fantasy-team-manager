@@ -67,7 +67,6 @@ public class UserController {
 
         // Check if user exists
         IUser existingUser = userDAO.findByUsername(username);
-        System.out.println("Existing user: " + existingUser);
         if (existingUser == null) {
             return ResponseEntity.status(401).body("Incorrect credentials");
         }

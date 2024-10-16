@@ -4,4 +4,5 @@ com.example.client.helpers
 com.example.server
 com.example.server.controllers
 com.example.server.models
+com.example.server.util
 com.example.utils

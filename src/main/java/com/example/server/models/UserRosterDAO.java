@@ -104,7 +104,7 @@ public class UserRosterDAO {
      */
     public List<ILeaderboardElement> getRosters() {
         String query = String.format(
-                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id");
+                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id");
         List<ILeaderboardElement> rosterList = new ArrayList<>();
 
         try {
@@ -113,7 +113,7 @@ public class UserRosterDAO {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                int rank = rs.getInt("rank");
+                int rank = rs.getInt("roster_rank");
                 Long userId = rs.getLong("user_id");
                 String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");
@@ -137,7 +137,7 @@ public class UserRosterDAO {
     // TODO write comment
     public ILeaderboardElement getUserRoster(long Id) {
         String query = String.format(
-                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
+                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
                         + Id);
         ILeaderboardElement roster = null;
         try {
@@ -146,7 +146,7 @@ public class UserRosterDAO {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                int rank = rs.getInt("rank");
+                int rank = rs.getInt("roster_rank");
                 Long userId = rs.getLong("user_id");
                 String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");

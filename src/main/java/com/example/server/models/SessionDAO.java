@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Statement;
 
+import com.example.interfaces.ISession;
 import com.example.server.Server;
 
 /**

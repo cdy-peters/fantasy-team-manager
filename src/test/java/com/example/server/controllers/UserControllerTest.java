@@ -17,8 +17,8 @@ import org.mockito.Spy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.example.server.models.ISession;
-import com.example.server.models.IUser;
+import com.example.interfaces.ISession;
+import com.example.interfaces.IUser;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
 

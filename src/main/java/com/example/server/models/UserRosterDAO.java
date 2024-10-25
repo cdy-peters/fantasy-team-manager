@@ -1,5 +1,8 @@
 package com.example.server.models;
 
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IUserRoster;
 import com.example.server.Server;
 
 import java.sql.PreparedStatement;

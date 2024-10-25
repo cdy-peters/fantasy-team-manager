@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.server.models.ILeaderboardElement;
-import com.example.server.models.ISession;
-import com.example.server.models.IPlayer;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.ISession;
+import com.example.interfaces.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
 

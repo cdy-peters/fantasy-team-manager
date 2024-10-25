@@ -12,10 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import com.example.server.models.ILeaderboardElement;
-import com.example.server.models.ISession;
-import com.example.server.models.IPlayer;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.ISession;
+import com.example.interfaces.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
 

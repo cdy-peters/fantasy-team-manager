@@ -1,7 +1,7 @@
 package com.example.client.controllers;
 
-import com.example.server.models.IPlayer;
-import com.example.server.models.IStatistics;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IStatistics;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

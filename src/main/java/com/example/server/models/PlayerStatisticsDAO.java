@@ -1,5 +1,6 @@
 package com.example.server.models;
 
+import com.example.interfaces.IStatistics;
 import com.example.server.Server;
 
 import java.sql.ResultSet;

@@ -5,8 +5,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 import com.example.client.helpers.HttpHelper;
-import com.example.server.models.IStatistics;
-
+import com.example.interfaces.IStatistics;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;

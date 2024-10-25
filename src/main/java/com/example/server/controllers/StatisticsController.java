@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.server.models.IStatistics;
+import com.example.interfaces.IStatistics;
 import com.example.server.models.PlayerStatisticsDAO;
 
 /**

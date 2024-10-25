@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import com.example.server.models.IStatistics;
+import com.example.interfaces.IStatistics;
 import com.example.server.models.PlayerStatisticsDAO;
 
 import java.util.Arrays;

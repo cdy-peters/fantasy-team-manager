@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import com.example.server.models.IPlayer;
+import com.example.interfaces.IPlayer;
 import com.example.server.models.PlayerDAO;
 
 import java.util.Arrays;

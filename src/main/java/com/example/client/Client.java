@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.example.client.helpers.LandingGuard;
 import com.example.client.helpers.PrefsHelper;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.IUserRoster;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -3,10 +3,10 @@ package com.example.client.controllers;
 import java.net.http.HttpResponse;
 
 import com.example.client.helpers.HttpHelper;
-import com.example.server.models.ILeaderboardElement;
-import com.example.server.models.IPlayer;
-import com.example.server.models.IStatistics;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IStatistics;
+import com.example.interfaces.IUserRoster;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;

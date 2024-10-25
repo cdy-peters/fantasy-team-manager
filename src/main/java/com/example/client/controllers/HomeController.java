@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 
 import com.example.client.Client;
 import com.example.client.helpers.HttpHelper;
-import com.example.server.models.IStatistics;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.IStatistics;
+import com.example.interfaces.IUserRoster;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;

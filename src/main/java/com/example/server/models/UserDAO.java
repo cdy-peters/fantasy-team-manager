@@ -2,6 +2,7 @@ package com.example.server.models;
 
 import java.sql.Statement;
 
+import com.example.interfaces.IUser;
 import com.example.server.Server;
 
 import java.sql.ResultSet;

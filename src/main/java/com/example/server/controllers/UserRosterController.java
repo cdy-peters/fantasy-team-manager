@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.server.models.ILeaderboardElement;
-import com.example.server.models.ISession;
-import com.example.server.models.IPlayer;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.ISession;
+import com.example.interfaces.IUserRoster;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserRosterDAO;
 
@@ -22,6 +22,7 @@ import com.example.server.models.UserRosterDAO;
 @RestController
 public class UserRosterController {
     SessionDAO sessionDAO = new SessionDAO();
+    UserRosterDAO userRosterDAO = new UserRosterDAO();
 
     /**
      * Default constructor
@@ -48,7 +49,7 @@ public class UserRosterController {
 
         Long userId = session.getUserId();
         try {
-            UserRosterDAO.createRoster(userId, roster);
+            userRosterDAO.createRoster(userId, roster);
             return ResponseEntity.ok("Roster created successfully for user ID: " + userId);
         } catch (Exception e) {
             return ResponseEntity.status(404).body("Failed to create roster for user ID: " + userId);
@@ -71,7 +72,7 @@ public class UserRosterController {
         }
 
         Long userId = session.getUserId();
-        IUserRoster roster = UserRosterDAO.findRosterByUser(userId);
+        IUserRoster roster = userRosterDAO.findRosterByUser(userId);
         if (roster == null) {
             return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
         }
@@ -94,7 +95,7 @@ public class UserRosterController {
         }
 
         Long userId = session.getUserId();
-        ILeaderboardElement roster = UserRosterDAO.getUserRoster(userId);
+        ILeaderboardElement roster = userRosterDAO.getUserRoster(userId);
         if (roster == null) {
             return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
         }
@@ -117,7 +118,7 @@ public class UserRosterController {
         }
 
         Long userId = session.getUserId();
-        List<IPlayer> roster = UserRosterDAO.findRosterPlayers(userId);
+        List<IPlayer> roster = userRosterDAO.findRosterPlayers(userId);
         if (roster == null) {
             return ResponseEntity.status(404).body("Roster not found for user ID: " + userId);
         }
@@ -134,7 +135,7 @@ public class UserRosterController {
     public ResponseEntity<?> getRosters() {
 
         List<ILeaderboardElement> rosterList;
-        rosterList = UserRosterDAO.getRosters();
+        rosterList = userRosterDAO.getRosters();
 
         return ResponseEntity.ok(rosterList);
     }

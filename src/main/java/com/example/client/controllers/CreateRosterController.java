@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 
 import com.example.client.Client;
 import com.example.client.helpers.HttpHelper;
-import com.example.server.models.IPlayer;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IUserRoster;
 import com.google.gson.Gson;
 
 import javafx.collections.FXCollections;

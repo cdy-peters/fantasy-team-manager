@@ -1,5 +1,8 @@
 package com.example.server.models;
 
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IUserRoster;
 import com.example.server.Server;
 
 import java.sql.PreparedStatement;
@@ -26,7 +29,7 @@ public class UserRosterDAO {
      * @param userId The user ID
      * @param roster The IUserRoster object
      */
-    public static void createRoster(Long userId, IUserRoster roster) {
+    public void createRoster(Long userId, IUserRoster roster) {
         String query = "INSERT INTO user_roster (user_id, roster_price, roster_score, position1_player_id, position2_player_id, position3_player_id, position4_player_id, position5_player_id, position6_player_id, position7_player_id, position8_player_id, position9_player_id, position10_player_id, position11_player_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement stmt = Server.conn.prepareStatement(query);
@@ -58,7 +61,7 @@ public class UserRosterDAO {
      * @param userId The user ID
      * @return An IUserRoster object
      */
-    public static IUserRoster findRosterByUser(Long userId) {
+    public IUserRoster findRosterByUser(Long userId) {
         String query = String.format("SELECT * FROM user_roster WHERE user_id = '%s'", userId);
 
         try {
@@ -99,9 +102,9 @@ public class UserRosterDAO {
      * 
      * @return A list of ILeaderboardElement objects
      */
-    public static List<ILeaderboardElement> getRosters() {
+    public List<ILeaderboardElement> getRosters() {
         String query = String.format(
-                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id");
+                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id");
         List<ILeaderboardElement> rosterList = new ArrayList<>();
 
         try {
@@ -110,7 +113,7 @@ public class UserRosterDAO {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                int rank = rs.getInt("rank");
+                int rank = rs.getInt("roster_rank");
                 Long userId = rs.getLong("user_id");
                 String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");
@@ -132,9 +135,9 @@ public class UserRosterDAO {
     }
 
     // TODO write comment
-    public static ILeaderboardElement getUserRoster(long Id) {
+    public ILeaderboardElement getUserRoster(long Id) {
         String query = String.format(
-                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
+                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
                         + Id);
         ILeaderboardElement roster = null;
         try {
@@ -143,7 +146,7 @@ public class UserRosterDAO {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                int rank = rs.getInt("rank");
+                int rank = rs.getInt("roster_rank");
                 Long userId = rs.getLong("user_id");
                 String username = rs.getString("username");
                 int rosterScore = rs.getInt("roster_score");
@@ -159,7 +162,7 @@ public class UserRosterDAO {
         return roster;
     }
 
-    public static List<IPlayer> findRosterPlayers(long id) {
+    public List<IPlayer> findRosterPlayers(long id) {
         String query = String.format(
                 "SELECT ps.id, ps.player_name, ps.nation, ps.position, ps.team, ps.player_score, ps.player_price FROM user_roster ur JOIN player_statistics ps ON ps.id IN (ur.position1_player_id, ur.position2_player_id, ur.position3_player_id, ur.position4_player_id, ur.position5_player_id, ur.position6_player_id, ur.position7_player_id, ur.position8_player_id, ur.position9_player_id, ur.position10_player_id, ur.position11_player_id) WHERE ur.user_id = "
                         + id);

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.server.models.IPlayer;
+import com.example.interfaces.IPlayer;
 import com.example.server.models.PlayerDAO;
 
 /**
@@ -15,6 +15,7 @@ import com.example.server.models.PlayerDAO;
  */
 @RestController
 public class PlayerController {
+    private PlayerDAO playerDAO = new PlayerDAO();
 
     /**
      * Default constructor
@@ -33,9 +34,9 @@ public class PlayerController {
         List<IPlayer> playerList;
 
         if (position != null && !position.isEmpty()) {
-            playerList = PlayerDAO.findPlayersByPosition(position);
+            playerList = playerDAO.findPlayersByPosition(position);
         } else {
-            playerList = PlayerDAO.findAllPlayers();
+            playerList = playerDAO.findAllPlayers();
         }
 
         if (playerList == null || playerList.isEmpty()) {

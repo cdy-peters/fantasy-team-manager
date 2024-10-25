@@ -8,7 +8,7 @@ import java.util.Optional;
 import com.google.gson.Gson;
 import com.example.client.Client;
 import com.example.client.helpers.LandingGuard;
-import com.example.server.models.IUserRoster;
+import com.example.interfaces.IUserRoster;
 
 /**
  * Guard for the landing page.

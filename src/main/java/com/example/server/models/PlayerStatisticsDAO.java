@@ -1,5 +1,6 @@
 package com.example.server.models;
 
+import com.example.interfaces.IStatistics;
 import com.example.server.Server;
 
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class PlayerStatisticsDAO {
      * @param playerId The ID of the player
      * @return A list of IStatistics objects
      */
-    public static List<IStatistics> findByPlayerId(String playerId) {
+    public List<IStatistics> findByPlayerId(String playerId) {
         String query = String.format("SELECT * FROM player_statistics WHERE id = '%s'", playerId);
         List<IStatistics> statisticsList = new ArrayList<>();
 
@@ -96,7 +97,7 @@ public class PlayerStatisticsDAO {
      * 
      * @return A list of IStatistics objects
      */
-    public static List<IStatistics> findAllStatistics() {
+    public List<IStatistics> findAllStatistics() {
         List<IStatistics> statisticsList = new ArrayList<>();
         String query = "SELECT * FROM player_statistics";
 

@@ -1,5 +1,6 @@
 package com.example.server.models;
 
+import com.example.interfaces.IPlayer;
 import com.example.server.Server;
 
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ public class PlayerDAO {
      * 
      * @return A list of all players
      */
-    public static List<IPlayer> findAllPlayers() {
+    public List<IPlayer> findAllPlayers() {
         String query = "SELECT * FROM player_statistics";
         List<IPlayer> playersList = new ArrayList<>();
 
@@ -57,7 +58,7 @@ public class PlayerDAO {
      * @param position The player's position
      * @return A list of IPlayer objects
      */
-    public static List<IPlayer> findPlayersByPosition(String position) {
+    public List<IPlayer> findPlayersByPosition(String position) {
         String query = String.format("SELECT * FROM player_statistics WHERE position LIKE '%%%s%%'", position);
         List<IPlayer> playersList = new ArrayList<>();
 

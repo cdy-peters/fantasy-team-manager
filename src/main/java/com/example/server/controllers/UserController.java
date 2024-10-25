@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.server.models.ISession;
-import com.example.server.models.IUser;
+import com.example.interfaces.ISession;
+import com.example.interfaces.IUser;
 import com.example.server.models.SessionDAO;
 import com.example.server.models.UserDAO;
 

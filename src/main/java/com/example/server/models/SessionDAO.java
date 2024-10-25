@@ -97,6 +97,8 @@ public class SessionDAO {
      * Delete a session by session ID.
      * 
      * @param sessionId The session ID
+     * 
+     * @throws SQLException If the session cannot be deleted
      */
     public void delete(String sessionId) throws SQLException {
         String query = "DELETE FROM session WHERE session_id = ?";

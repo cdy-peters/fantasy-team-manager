@@ -134,7 +134,12 @@ public class UserRosterDAO {
         return rosterList;
     }
 
-    // TODO write comment
+    /**
+     * Get a user's roster.
+     * 
+     * @param Id The user ID
+     * @return An ILeaderboardElement object
+     */
     public ILeaderboardElement getUserRoster(long Id) {
         String query = String.format(
                 "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
@@ -162,6 +167,12 @@ public class UserRosterDAO {
         return roster;
     }
 
+    /**
+     * Find the players in a roster.
+     * 
+     * @param id The user ID
+     * @return A list of IPlayer objects
+     */
     public List<IPlayer> findRosterPlayers(long id) {
         String query = String.format(
                 "SELECT ps.id, ps.player_name, ps.nation, ps.position, ps.team, ps.player_score, ps.player_price FROM user_roster ur JOIN player_statistics ps ON ps.id IN (ur.position1_player_id, ur.position2_player_id, ur.position3_player_id, ur.position4_player_id, ur.position5_player_id, ur.position6_player_id, ur.position7_player_id, ur.position8_player_id, ur.position9_player_id, ur.position10_player_id, ur.position11_player_id) WHERE ur.user_id = "

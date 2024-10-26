@@ -1,16 +1,16 @@
 package com.example.server.models;
 
-import com.example.interfaces.ILeaderboardElement;
-import com.example.interfaces.IPlayer;
-import com.example.interfaces.IUserRoster;
-import com.example.server.Server;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.interfaces.ILeaderboardElement;
+import com.example.interfaces.IPlayer;
+import com.example.interfaces.IUserRoster;
+import com.example.server.Server;
 
 /**
  * Data Access Object for the user roster.
@@ -142,14 +142,21 @@ public class UserRosterDAO {
      */
     public ILeaderboardElement getUserRoster(long Id) {
         String query = String.format(
-                "SELECT ur.*, u.username, ROW_NUMBER() OVER (ORDER BY ur.roster_score DESC) AS roster_rank FROM user_roster ur JOIN user u ON ur.user_id = u.id WHERE u.id = "
-                        + Id);
+            "SELECT ur.*, u.username, ranked.roster_rank " +
+            "FROM user_roster ur " +
+            "JOIN user u ON ur.user_id = u.id " +
+            "JOIN ( " +
+            "    SELECT ur.user_id, RANK() OVER (ORDER BY ur.roster_score DESC) AS roster_rank " +
+            "    FROM user_roster ur " +
+            ") AS ranked ON ur.user_id = ranked.user_id " +
+            "WHERE ur.user_id = %d", Id);
+
         ILeaderboardElement roster = null;
         try {
             Statement stmt = Server.conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 
-            while (rs.next()) {
+            if (rs.next()) {
                 Long id = rs.getLong("id");
                 int rank = rs.getInt("roster_rank");
                 Long userId = rs.getLong("user_id");
@@ -158,6 +165,8 @@ public class UserRosterDAO {
                 float cost = rs.getFloat("roster_price");
 
                 roster = new ILeaderboardElement(id, rank, userId, username, rosterScore, cost);
+            } else {
+                System.out.println("No roster found for user ID: " + Id);
             }
 
         } catch (SQLException e) {
